@@ -241,7 +241,18 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                     <td colspan="3">
                         <div class="avatarbox">
                             <div class="avatar">
-                                <img src="images/<?php echo $row_RCcapnhat_nhanvien['hinh_anh']; ?>" />
+                                <a data-target="#myModal" data-toggle="modal" href="" title="Click here to Change Image.">
+                                
+                                <?php
+                                    if ($row_RCcapnhat_nhanvien['hinh_anh'] == 0){
+                                        echo '<img src="./uploads/p.jpg" class="img-thumbnail" width="200px" height="100px" />';    
+                                    
+                                    } 
+                                    else
+                                       
+                                        echo '<img src="./uploads/'. $row_RCcapnhat_nhanvien['hinh_anh']. '" class="img-thumbnail" width="200px" height="100px" />';
+                                          
+                                ?> 
                             </div>
                             <div class="avar_button">
                                 <a target="_blank" href="#" onclick="" class="bt_blue"><span class="bt_blue_lft"></span><strong>Duyệt Ảnh</strong><span class="bt_blue_r"></span></a>
