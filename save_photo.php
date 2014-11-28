@@ -27,7 +27,7 @@ if (isset($_POST['savephoto'])){
 
 	if (move_uploaded_file($tmp_file,$upload_dir."/".$target_file)){
 			global $mydb;
-			$mydb->setQuery("INSERT INTO `tlb`(`filename`, `type`, `size`, `member_id`) 
+			$mydb->setQuery("INSERT INTO `tlb_nhanvien`(`filename`, `type`, `size`, `member_id`) 
 				VALUES ('{$target_file}', '{$imgtype}', '{$imgsize}', '{$member_id}')");
 			$mydb->executeQuery();
 			if ($mydb->affected_rows() == 1) {
