@@ -465,6 +465,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     
     </div>
 
-</div>		
+</div>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/tooltip.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>		
 </body>
 </html>

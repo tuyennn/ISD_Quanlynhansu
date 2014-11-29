@@ -89,6 +89,7 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
     <script type="text/javascript" src="js/jquery.datepick.js"></script>
@@ -253,31 +254,26 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                                         echo '<img src="./uploads/'. $row_RCcapnhat_nhanvien['hinh_anh']. '" class="img-thumbnail" width="200px" height="100px" />';
                                           
                                 ?>
+                                </a>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="myModal" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button class="close" data-dismiss="modal" type=
-                                                "button">×</button>
+                                                <button class="close" data-dismiss="modal" type="button">×</button>
 
-                                                <h4 class="modal-title" id="myModalLabel">Choose Your best
-                                                    picture for your Profile.</h4>
-                                                </div>
-
-                                                <form action="save_photo.php" enctype="multipart/form-data" method=
-                                                "post">
+                                                <h4 class="modal-title" id="myModalLabel">Choose a picture for Profile.</h4>
+                                            </div>
+                                            <form action="save_photo.php" enctype="multipart/form-data" method="post">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <div class="rows">
                                                             <div class="col-md-12">
                                                                 <div class="rows">
                                                                     <div class="col-md-8">
-                                                                        <input name="MAX_FILE_SIZE" type=
-                                                                        "hidden" value="1000000"> <input id=
-                                                                        "upload_file" name="upload_file" type=
-                                                                        "file">
+                                                                        <input name="MAX_FILE_SIZE" type="hidden" value="1000000"> 
+                                                                        <input id="upload_file" name="upload_file" type="file">
                                                                     </div>
 
                                                                     <div class="col-md-4"></div>
@@ -288,9 +284,8 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button class="btn btn-default" data-dismiss="modal" type=
-                                                    "button">Close</button> <button class="btn btn-primary"
-                                                    name="savephoto" type="submit">Save Photo</button>
+                                                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button> 
+                                                    <button class="btn btn-primary"name="savephoto" type="submit">Save Photo</button>
                                                 </div>
                                             </form>
                                         </div><!-- /.modal-content -->
@@ -298,11 +293,10 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                                 </div><!-- /.modal -->
                             </div>
 
-                 
-                            </div>
                             <div class="avar_button">
                                 <a target="_blank" href="#" onclick="" class="bt_blue"><span class="bt_blue_lft"></span><strong>Duyệt Ảnh</strong><span class="bt_blue_r"></span></a>
                             </div>
+
                         </div>
                         
                     </td>

@@ -1,5 +1,5 @@
 <?php
-require_once("includes/initialize.php");	
+require_once("include/initialize.php");	
 
 $upload_errors = array(
 UPLOAD_ERR_OK	      => "No errors.",
