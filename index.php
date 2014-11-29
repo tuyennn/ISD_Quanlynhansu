@@ -15,6 +15,7 @@ if ($title == "") $title = 'Danh sách nhân viên';
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link href="css/bootstrap.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
