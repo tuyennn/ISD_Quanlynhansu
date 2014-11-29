@@ -1,4 +1,4 @@
-<?php require_once('Connections/dbconnection.php'); ?>
+<?php require_once('includes/initialize.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 

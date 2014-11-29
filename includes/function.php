@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	//session_start();
 	function get_param($param_name){
 		$param_value = "";
 		if(isset($_POST[$param_name]))

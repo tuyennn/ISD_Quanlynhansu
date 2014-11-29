@@ -1,4 +1,4 @@
-<?php require_once('Connections/dbconnection.php'); ?>
+<?php require_once('includes/initialize.php'); ?>
 <?php
 $ma_nv = get_param('catID');
 if (!function_exists("GetSQLValueString")) {

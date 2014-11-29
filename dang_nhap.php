@@ -1,7 +1,6 @@
 <?php
-require_once('include/function.php');
-require_once('connections/dbconnection.php');
-include "ham.php";
+require_once("includes/initialize.php");
+require_once('includes/functions.php');
 $submit = get_param('submit');
 if($submit<>""){
 	$ten_dang_nhap=get_param('ten_dang_nhap');

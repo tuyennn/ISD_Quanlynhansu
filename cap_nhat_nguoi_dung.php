@@ -1,4 +1,4 @@
-<?php require_once('Connections/dbconnection.php'); ?>
+<?php require_once('includes/initialize.php'); ?>
 <?php
 $table = get_param('table');
 $title = get_param('title');

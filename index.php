@@ -1,6 +1,6 @@
 <?php 
-require_once('include/function.php');
-require_once('connections/dbconnection.php');
+require_once('includes/functions.php');
+require_once("includes/initialize.php");
 if ( !isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
 	header('Location: dang_nhap.php');
 	exit;
