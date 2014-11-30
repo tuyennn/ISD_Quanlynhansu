@@ -469,6 +469,7 @@ border:1px #eac7c7 solid;background-position:15px 10px;padding:20px 20px 15px 60
 	width: 130px;
 	height: 176px;
 	float: left;
+	margin: 10px;
 }
 .avar_button {
 	width: 110px;
@@ -630,4 +631,3 @@ label.check_label{
 select, input, textarea, button {outline:none; resize:none;}
 
 /*---- End of Login Form --- */
-

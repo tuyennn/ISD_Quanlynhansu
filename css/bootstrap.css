@@ -143,7 +143,6 @@ legend {
 }
 
 button,
-input,
 select,
 textarea {
   margin: 0;
@@ -151,8 +150,7 @@ textarea {
   font-size: 100%;
 }
 
-button,
-input {
+button{
   line-height: normal;
 }
 
@@ -192,8 +190,7 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-button::-moz-focus-inner,
-input::-moz-focus-inner {
+button::-moz-focus-inner{
   padding: 0;
   border: 0;
 }

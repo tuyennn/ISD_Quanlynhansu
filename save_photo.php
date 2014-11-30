@@ -1,5 +1,6 @@
 <?php
-require_once("includes/initialize.php");	
+require_once("includes/initialize.php");
+$ma_nv = $_GET['catID'];	
 
 $upload_errors = array(
 UPLOAD_ERR_OK	      => "No errors.",
@@ -23,12 +24,11 @@ if (isset($_POST['savephoto'])){
 	 $upload_dir = "uploads";
 	 $imgsize = $_FILES['upload_file']['size'];	
 	 $imgtype = $_FILES['upload_file']['type'];
-	 $member_id = $_SESSION['member_id'];	
+	 $ma_nv = $_SESSION['ma_nv'];	
 
 	if (move_uploaded_file($tmp_file,$upload_dir."/".$target_file)){
 			global $mydb;
-			$mydb->setQuery("INSERT INTO `tlb_nhanvien`(`filename`, `type`, `size`, `member_id`) 
-				VALUES ('{$target_file}', '{$imgtype}', '{$imgsize}', '{$member_id}')");
+			$mydb->setQuery("INSERT INTO `tlb_hinhanh`(`filename`, `type`, `size`, `ma_nhan_vien`) VALUES ('{$target_file}', '{$imgtype}', '{$imgsize}', '{$ma_nv}')");
 			$mydb->executeQuery();
 			if ($mydb->affected_rows() == 1) {
 				
