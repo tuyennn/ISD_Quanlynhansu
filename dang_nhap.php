@@ -1,6 +1,6 @@
 <?php
-require_once("includes/initialize.php");
 require_once('includes/functions.php');
+require_once("includes/initialize.php");
 $submit = get_param('submit');
 if($submit<>""){
 	$ten_dang_nhap=get_param('ten_dang_nhap');

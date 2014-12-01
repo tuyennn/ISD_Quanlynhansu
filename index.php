@@ -15,13 +15,10 @@ if ($title == "") $title = 'Danh sách nhân viên';
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<link href="css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>    
-<script type="text/javascript" src="js/jquery.plugin.js"></script> 
-<script type="text/javascript" src="js/jquery.datepick.js"></script>
-<script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 ddaccordion.init({
 	headerclass: "submenuheader", //Shared CSS class name of headers group
@@ -260,33 +257,34 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
             if($require ==""){$require = "danh_sach_nhan_vien.php";}
             require_once $require; 
     ?> 
+
      
-    <div class="pagination">
-    <span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>…<a href="">10</a><a href="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
-    </div> 
+        <div class="pagination">
+        <span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>…<a href="">10</a><a href="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
+        </div> 
      
-    <h2>Warning Box examples</h2>
+     <h2>Warning Box examples</h2>
       
-    <div class="warning_box">
+     <div class="warning_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>
-    <div class="valid_box">
+     </div>
+     <div class="valid_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>
-    <div class="error_box">
+     </div>
+     <div class="error_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>  
+     </div>  
            
-    <h2>Nice Form example</h2>
+     <h2>Nice Form example</h2>
      
-        <div class="form">
-        <form action="" method="post" class="niceform">
+         <div class="form">
+         <form action="" method="post" class="niceform">
          
-            <fieldset>
-                <dl>
-                    <dt><label for="email">Email Address:</label></dt>
-                    <dd><input type="text" name="" id="" size="54" /></dd>
-                </dl>
+                <fieldset>
+                    <dl>
+                        <dt><label for="email">Email Address:</label></dt>
+                        <dd><input type="text" name="" id="" size="54" /></dd>
+                    </dl>
                     <dl>
                         <dt><label for="password">Password:</label></dt>
                         <dd><input type="text" name="" id="" size="54" /></dd>
@@ -351,14 +349,14 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                     
                 </fieldset>
                 
-        </form>
-        </div>  
+         </form>
+         </div>  
       
      
-    </div><!-- end of right content-->
+     </div><!-- end of right content-->
             
                     
-</div>   <!--end of center content -->               
+  </div>   <!--end of center content -->               
                     
                     
     
@@ -374,12 +372,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     
     </div>
 
-</div>
+</div>		
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/tooltip.js"></script>
-    <script src="assets/js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>		
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
