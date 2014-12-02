@@ -5275,6 +5275,7 @@ body.modal-open,
 }
 
 .modal-body {
+  height: 180px;
   position: relative;
   padding: 20px;
 }

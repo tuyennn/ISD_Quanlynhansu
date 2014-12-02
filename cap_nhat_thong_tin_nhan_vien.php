@@ -1,84 +1,108 @@
 <?php
-$ma_nv = $_GET['catID'];
-if (!function_exists("GetSQLValueString")) {
-  function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-  {
-    if (PHP_VERSION < 6) {
-      $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+    $ma_nv = $_GET['catID'];
+    if (!function_exists("GetSQLValueString")) {
+        function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+        {
+            if (PHP_VERSION < 6) {
+                $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+            }
+
+            $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+            switch ($theType) {
+                case "text":
+                    $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+                    break;    
+                case "long":
+                case "int":
+                    $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+                    break;
+                case "double":
+                    $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+                    break;
+                case "date":
+                    $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+                    break;
+                case "defined":
+                    $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+                    break;
+            }
+            return $theValue;
+        }
     }
 
-    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-    switch ($theType) {
-      case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-      case "long":
-      case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-      case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-      case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-      case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
+    $editFormAction = $_SERVER['PHP_SELF'];
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
-    return $theValue;
-  }
-}
 
-$editFormAction = $_SERVER['PHP_SELF'];
-if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff")) {
-   $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh=%s, noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap=%s, noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien=%s",
-     GetSQLValueString($_POST['ho_ten'], "text"),
-     GetSQLValueString($_POST['gioi_tinh'], "int"),
-     GetSQLValueString($_POST['gia_dinh'], "int"),
-     GetSQLValueString($_POST['dt_di_dong'], "text"),
-     GetSQLValueString($_POST['dt_nha'], "text"),
-     GetSQLValueString($_POST['email'], "text"),
-     GetSQLValueString($_POST['ngay_sinh'], "date"),
-     GetSQLValueString($_POST['noi_sinh'], "text"),
-     GetSQLValueString($_POST['tinh_thanh'], "text"),
-     GetSQLValueString($_POST['cmnd'], "text"),
-     GetSQLValueString($_POST['ngay_cap'], "date"),
-     GetSQLValueString($_POST['noi_cap'], "text"),
-     GetSQLValueString($_POST['que_quan'], "text"),
-     GetSQLValueString($_POST['dia_chi'], "text"),
-     GetSQLValueString($_POST['tam_tru'], "text"),
-     GetSQLValueString($_POST['nghi_viec'], "int"),
-     GetSQLValueString($_POST['ma_nhan_vien'], "text"));
-
-mysql_select_db($database_Myconnection, $Myconnection);
-$Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+    if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff")) {
+       $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh=%s, noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap=%s, noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien=%s",
+        GetSQLValueString($_POST['ho_ten'], "text"),
+        GetSQLValueString($_POST['gioi_tinh'], "int"),
+        GetSQLValueString($_POST['gia_dinh'], "int"),
+        GetSQLValueString($_POST['dt_di_dong'], "text"),
+        GetSQLValueString($_POST['dt_nha'], "text"),
+        GetSQLValueString($_POST['email'], "text"),
+        GetSQLValueString($_POST['ngay_sinh'], "date"),
+        GetSQLValueString($_POST['noi_sinh'], "text"),
+        GetSQLValueString($_POST['tinh_thanh'], "text"),
+        GetSQLValueString($_POST['cmnd'], "text"),
+        GetSQLValueString($_POST['ngay_cap'], "date"),
+        GetSQLValueString($_POST['noi_cap'], "text"),
+        GetSQLValueString($_POST['que_quan'], "text"),
+        GetSQLValueString($_POST['dia_chi'], "text"),
+        GetSQLValueString($_POST['tam_tru'], "text"),
+        GetSQLValueString($_POST['nghi_viec'], "int"),
+        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
 
 
-$updateGoTo = "danh_sach_nhan_vien.php";
-if (isset($_SERVER['QUERY_STRING'])) {
-  $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
-  $updateGoTo .= $_SERVER['QUERY_STRING'];
-}
-location($$updateGoTo);
-}
+    
+        $tmp_file = $_FILES['upload_file']['tmp_name'];
+        @$target_file = basename($_FILES['upload_file']['name']);
+        $upload_dir = "uploads";
+        $imgsize = $_FILES['upload_file']['size']; 
+        $imgtype = $_FILES['upload_file']['type'];
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_nhanvien = mysql_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysql_error());
-$row_RCcapnhat_nhanvien = mysql_fetch_assoc($RCcapnhat_nhanvien);
-$totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
+        if(move_uploaded_file($tmp_file,$upload_dir."/".$target_file)) {
+            $result = mysql_query("SELECT * FROM tlb_hinhanh WHERE ma_nhan_vien = '$ma_nv'");
+            if(mysql_num_rows($result) == 1) {
+                echo "User's already exist, run an update query....";
+                $command=mysql_query("UPDATE `tlb_hinhanh` SET `filename`= {$target_file}, `type`={$imgtype}, `size`= {$imgsize} WHERE `ma_nhan_vien` = '$ma_nv'");
+                echo "The file ". basename($_FILES['upload_file']['name']) . " has been uploaded";
+            }
+            else{
+                $command=mysql_query("INSERT INTO `tlb_hinhanh` (`filename`, `type`, `size`, `ma_nhan_vien`) VALUES ('{$target_file}', '{$imgtype}', '{$imgsize}', '{$ma_nv}')");
+                echo "The file ". basename($_FILES['upload_file']['name']) . " has been uploaded";
+            }  
+        }
+        else {
+            echo "There was an error uploading the file, please try again!";
+        }
+
+        mysql_select_db($database_Myconnection, $Myconnection);
+        $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+
+
+        $updateGoTo = "danh_sach_nhan_vien.php";
+        if (isset($_SERVER['QUERY_STRING'])) {
+            $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
+            $updateGoTo .= $_SERVER['QUERY_STRING'];
+        }
+        location($updateGoTo);
+    }
+
+    mysql_select_db($database_Myconnection, $Myconnection);
+    $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
+    $RCcapnhat_nhanvien = mysql_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysql_error());
+    $row_RCcapnhat_nhanvien = mysql_fetch_assoc($RCcapnhat_nhanvien);
+    $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
     <script type="text/javascript" src="js/jquery.datepick.js"></script>
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
@@ -104,12 +128,24 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
 
     <script type="text/javascript">
         $(window).load(function() {
-        $('.avatarbox').find('img').each(function() {
+        $('.avatar').find('img').each(function() {
             var imgClass = (this.width / this.height > 1) ? 'wide' : 'tall';
             $(this).addClass(imgClass);
             })
         })
     </script>
+
+    <script type="text/javascript">
+        function PreviewImage(no) {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage"+no).files[0]);
+
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview"+no).src = oFREvent.target.result;
+            };
+        }
+    </script>
+
 </head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
     <div style="display: none;">
@@ -224,6 +260,34 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
             <tr style="height: 200px" valign="middle">
                 <td nowrap="nowrap" align="right">Hình ảnh:</td>
                 <td colspan="3">
+                    <label class="filebutton">
+                        <a class="bt_blue"><span class="bt_blue_lft"></span><strong>Tìm ảnh</strong><span class="bt_blue_r"></span></a>
+                        <span>
+                            <input id="uploadImage1" type="file" name="upload_file" onchange="PreviewImage(1);" />
+                        </span>
+                    </label>
+                    <div class="avatar">
+                        <?php
+            
+                            //echo $ma_nv;
+                            $mydb->setQuery("SELECT * FROM tlb_hinhanh WHERE `ma_nhan_vien`='$ma_nv'");
+                            $cur = $mydb->loadResultList();
+                            if ($mydb->affected_rows()== 0){
+                                echo '<img id="uploadPreview1" src="./uploads/p.jpg" class="img-thumbnail" width="200px" height="100px" />';    
+                            
+                            } 
+                            foreach($cur as $object){
+                               
+                                    echo '<img id="uploadPreview1" src="./uploads/'. $object->filename.'" class="img-thumbnail" width="200px" height="100px" />';
+                                
+                                }
+ 
+                        ?>
+                    </div>
+
+
+
+                <!--
                     <div class="avatar">
                         <a data-target="#myModal" data-toggle="modal" href="" title="Click here to Change Image.">
 
@@ -244,22 +308,9 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
 
                                 $hinh_anh   
                             ?> 
-
-                            <!--
-                                <?php
-                                    if ($row_RCcapnhat_nhanvien['hinh_anh'] == 0){
-                                        echo '<img src="./uploads/p.jpg" class="img-thumbnail" width="200px" height="100px" />';    
-                                    
-                                    } 
-                                    else
-                                       
-                                        echo '<img src="./uploads/'. $row_RCcapnhat_nhanvien['hinh_anh']. '" class="img-thumbnail" width="200px" height="100px" />';
-                                          
-                                ?>
-                            -->
                         </a>
                     </div>
-                    <!-- Modal -->
+
                     <div class="modal fade" id="myModal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -268,7 +319,7 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
 
                                     <h4 class="modal-title" id="myModalLabel">Choose a picture for Profile.</h4>
                                 </div>
-                                <form action="save_photo.php" enctype="multipart/form-data" method="post">
+                                <form action="update_photo.php" enctype="multipart/form-data" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="rows">
@@ -276,7 +327,8 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                                                     <div class="rows">
                                                         <div class="col-md-8">
                                                             <input name="MAX_FILE_SIZE" type="hidden" value="1000000"> 
-                                                            <input id="upload_file" name="upload_file" type="file">
+                                                            <input id="uploadImage1" type="file" name="p1" onchange="PreviewImage(1);" />
+                                                            <img style="width:100px" id="uploadPreview1" class="img-thumbnail" src="./uploads/p.jpg" /><br />
                                                         </div>
 
                                                         <div class="col-md-4"></div>
@@ -291,9 +343,11 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
                                         <button class="btn btn-primary"name="savephoto" type="submit">Save Photo</button>
                                     </div>
                                 </form>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->                 
+                            </div>
+                        </div>
+                    </div>
+
+                    -->        
                 </td>
             </tr>
 
@@ -318,7 +372,7 @@ $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
         function fn_submit()
         {
             document.edit_staff.submit();
-            alert("I am an alert box!");
+            //alert("I am an alert box!");
         }
     </script> 
     <p>&nbsp;</p>

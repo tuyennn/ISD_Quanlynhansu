@@ -16,7 +16,7 @@ if ($title == "") $title = 'Danh sách nhân viên';
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.nav.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
