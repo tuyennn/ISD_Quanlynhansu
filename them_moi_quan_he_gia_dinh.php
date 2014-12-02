@@ -189,13 +189,11 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">&nbsp;</td>
-                    <td>
-                        <a href="#" onclick="new_relationship_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
-                    </td>
                 </tr>
             </table>
             <input type="hidden" name="MM_insert" value="form1" />
         </form>
+        <a href="#" onclick="new_relationship_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
     </div>
 </body>
 </html>

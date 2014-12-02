@@ -89,7 +89,8 @@
             $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
             $updateGoTo .= $_SERVER['QUERY_STRING'];
         }
-        location($updateGoTo);
+        $url = "index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=$ma_nv&title=Thông tin nhân viên";
+        location($url);
     }
 
     mysql_select_db($database_Myconnection, $Myconnection);
