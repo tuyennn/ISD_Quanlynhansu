@@ -60,7 +60,7 @@ if($keyword!=''){
                 ?>
                 </a>
             </td>
-            <td class="row1" width="30" align="left"><a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>"><?php echo $row_RCdanh_sach['ma_nhan_vien']; ?></a></td>
+            <td class="row1" width="30" align="left"><a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?> " target="_blank"><?php echo $row_RCdanh_sach['ma_nhan_vien']; ?></a></td>
             <td class="row1" align="left"><?php echo $row_RCdanh_sach['ho_ten']; ?></td>
             <td class="row1" align="left"><?php echo $row_RCdanh_sach['dt_di_dong']; ?></td>
             <td class="row1" align="left"><?php echo $row_RCdanh_sach['dt_nha']; ?></td>

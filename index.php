@@ -192,7 +192,7 @@ $(function($) {
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
-                <h3>User help desk</h3>
+                <h3>Trợ Giúp Nhanh</h3>
                 <img src="images/info.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -204,7 +204,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
-                <h4>Important notice</h4>
+                <h4>Ghi Chú Quan Trọng</h4>
                 <img src="images/notice.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -216,7 +216,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
-                <h5>Download photos</h5>
+                <h5>Kho tài liệu</h5>
                 <img src="images/photo.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

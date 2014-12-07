@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2014 at 12:54 PM
+-- Generation Time: Dec 07, 2014 at 10:09 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -132,14 +132,6 @@ CREATE TABLE IF NOT EXISTS `tlb_congviec` (
 --
 
 INSERT INTO `tlb_congviec` (`ma_nhan_vien`, `ngay_vao_lam`, `phong_ban_id`, `cong_viec_id`, `chuc_vu_id`, `muc_luong_cb`, `he_so`, `phu_cap`, `so_sld`, `ngay_cap`, `noi_cap`, `tknh`, `ngan_hang`, `hoc_van_id`, `bang_cap_id`, `ngoai_ngu_id`, `tin_hoc_id`, `dan_toc_id`, `quoc_tich_id`, `ton_giao_id`, `tinh_thanh_id`) VALUES
-('TCHC008', '02/02/2008', 'PTCHC', 'CNTT', 'NV001', '2000000', '2', NULL, NULL, NULL, NULL, NULL, 'Đầu Tư Đồng Tháp', 'HV005', 'TC002', 'AV000', 'TH002', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC002', '2000-02-02', 'PTCHC', 'ATLD', 'PTP001', '2000000', '1.5', NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'TC002', 'AV001', 'TH001', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC003', '2008-01-01', 'PKH', 'VT001', 'NV001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'DH001', 'AV001', 'TH001', 'DT001', 'QT001', '1', 'TT001'),
-('TCKT005', '2008-02-02', 'PKH', 'ATLD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'DH001', 'AV001', 'TH001', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC001', '2008-02-02', 'PTCHC', 'ATLD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'CD001', 'AV001', 'TH001', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC003', '20/02/2005', 'PTCHC', 'TX001', 'NV001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV001', 'CD001', 'AV000', 'TH000', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC012', '3/02/2013', 'CN001', 'BV001', 'DT001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV002', 'BTVH', 'AV000', 'TH000', 'DT001', 'QT001', '1', 'TT001'),
-('TCHC011', '3/02/2013', 'CN001', 'KTT001', 'NV001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV002', 'BTVH', 'AV000', 'TH000', 'DT001', 'QT001', '1', 'TT001'),
 ('PT08', '28/04/2014', 'PKT', 'CNTT', 'DT001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'DH003', 'AV002', 'TH000', 'DT001', 'QT001', '1', 'TT001'),
 ('PT01', '28/04/2014', 'PKT', 'CNTT', 'NV001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'HV005', 'DH003', 'AV002', 'TH000', 'DT001', 'QT001', '1', 'TT006');
 
@@ -210,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `tlb_hinhanh` (
   `size` int(11) NOT NULL,
   `caption` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ma_nhan_vien` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `tlb_hinhanh`
@@ -218,7 +210,8 @@ CREATE TABLE IF NOT EXISTS `tlb_hinhanh` (
 
 INSERT INTO `tlb_hinhanh` (`id`, `filename`, `type`, `size`, `caption`, `ma_nhan_vien`) VALUES
 (2, '1415062787.jpg', 'image/jpeg', 5567, NULL, 'PT03'),
-(5, '1415062786.jpg', 'image/jpeg', 10733, NULL, 'PT02');
+(7, '1415062787.jpg', 'image/jpeg', 5567, NULL, 'PT02'),
+(8, '1415062786.jpg', 'image/jpeg', 10733, NULL, 'PT01');
 
 -- --------------------------------------------------------
 
@@ -668,7 +661,7 @@ ALTER TABLE `tlb_tongiao`
 -- AUTO_INCREMENT for table `tlb_hinhanh`
 --
 ALTER TABLE `tlb_hinhanh`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tlb_hopdong`
 --

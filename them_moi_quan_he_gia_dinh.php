@@ -15,7 +15,7 @@ if ($action=="del")
   $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
   $deleteGoTo .= $_SERVER['QUERY_STRING'];
 }
-sprintf("Location: %s", $deleteGoTo);
+sprintf("location: %s", $deleteGoTo);
 }
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -157,7 +157,24 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
             <table width="290" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mã nhân viên:</td>
-                    <td><input type="text" name="ma_nhan_vien" value="<?php echo $ma_nv; ?>" readonly="readonly" size="29" /></td>
+                    <td><b><?php echo $ma_nv; ?></b></td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Nhân viên:</td>
+                    <td><b>
+                    <?php
+            
+                        //echo $ma_nv;
+                        $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
+                        $cur = $mydb->loadResultList();
+                        foreach($cur as $object){
+                           
+                                echo $object->ho_ten;
+                            
+                            }
+
+                    ?></b>
+                    </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Tên người thân:</td>

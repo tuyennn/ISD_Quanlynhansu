@@ -2,64 +2,64 @@
 <?php
 $ma_nv = $_GET['catID'];
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
+    function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+    {
+      if (PHP_VERSION < 6) {
+        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+    }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
+    switch ($theType) {
+        case "text":
+        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+        break;    
+        case "long":
+        case "int":
+        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+        break;
+        case "double":
+        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+        break;
+        case "date":
+        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+        break;
+        case "defined":
+        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+        break;
+    }
+    return $theValue;
 }
 }
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
+    function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+    {
+      if (PHP_VERSION < 6) {
+        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+    }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
+    switch ($theType) {
+        case "text":
+        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+        break;    
+        case "long":
+        case "int":
+        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+        break;
+        case "double":
+        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+        break;
+        case "date":
+        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+        break;
+        case "defined":
+        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+        break;
+    }
+    return $theValue;
 }
 }
 
@@ -108,238 +108,231 @@ $totalRows_RCQuatrinh_luong = mysql_num_rows($RCQuatrinh_luong);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-<style type="text/css">
-<!--
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	line-height: 1.3;
-}
--->
-</style></head>
-<link href="css/main.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hồ sơ nhân viên <?php echo $row_RCtlb_nhanvien['ma_nhan_vien']; ?>: <?php echo $row_RCtlb_nhanvien['ho_ten']; ?></title>
+    <style type="text/css">
+        td,th {
+           line-height: 1.3;
+           border: solid 1px;
+           padding-left: 10px;
+        }
+    </style>
+</head>
+
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
-<table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
-  <tr>
-    <td class="row5" align="left" height="50" colspan="4"><h3>Thông tin nhân viên</h3></td>
-  </tr>
-  <tr>
-    <td class="row5" width="214" >Mã Nhân viên: <?php echo $row_RCtlb_nhanvien['ma_nhan_vien']; ?></td>
-    <td class="row5" width="208">Họ và tên: <?php echo $row_RCtlb_nhanvien['ho_ten']; ?></td>
-    <td class="row5" width="116">Giới tính:
-	 <?php 
-	if ($row_RCtlb_nhanvien['gioi_tinh']==1) 
-	{
-		echo "Nam";	
-	}
-	Else
-	{
-		Echo "Nữ";
-	}
-	?>
-    </td>
-    <td class="row5" width="434">Gia đình:
-	 <?php 
-	if ($row_RCtlb_nhanvien['gia_dinh']==1) 
-	{
-		echo "Có gia đình";	
-	}
-	Else
-	{
-		echo "Chưa có";
-	}
-	?>
-    </td>
-  </tr>
-  <tr>
-    <td class="row5">Điện thoại DĐ: <?php echo $row_RCtlb_nhanvien['dt_di_dong']; ?></td>
-    <td class="row5">Điện thoại nhà: <?php echo $row_RCtlb_nhanvien['dt_nha']; ?></td>
-    <td class="row5" colspan="2">Email: <?php echo $row_RCtlb_nhanvien['email']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Ngày sinh: <?php echo $row_RCtlb_nhanvien['ngay_sinh']; ?></td>
-    <td class="row5">Nơi sinh: <?php echo $row_RCtlb_nhanvien['noi_sinh']; ?></td>
-    <td class="row5" colspan="2">Tỉnh thành: <?php echo $row_RCtlb_nhanvien['tinh_thanh']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">CMND: <?php echo $row_RCtlb_nhanvien['cmnd']; ?></td>
-    <td class="row5">Ngày cấp: <?php echo $row_RCtlb_nhanvien['ngay_cap']; ?></td>
-    <td class="row5" colspan="2">Nơi cấp: <?php echo $row_RCtlb_nhanvien['noi_cap']; ?></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="row5" >Quê quán: <?php echo $row_RCtlb_nhanvien['que_quan']; ?></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="row5">Thường trú: <?php echo $row_RCtlb_nhanvien['dia_chi']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5" colspan="4">Tạm trú: <?php echo $row_RCtlb_nhanvien['tam_tru']; ?></td>
-  </tr>
-</table>
-<table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
-  <tr>
-    <td class="row5" align="left"colspan="4"><h3>Thông tin công việc</h3></td>
-  </tr>
-  <tr>
-    <td class="row5" width="260">Ngày vào làm: <?php echo $row_RCTTcongviec['ngay_vao_lam']; ?></td>
-    <td colspan="2" class="row5">Phòng ban: <?php echo $row_RCTTcongviec['ten_phong_ban']; ?></td>
-    <td class="row5" width="463">Chức vụ: <?php echo $row_RCTTcongviec['ten_chuc_vu']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Công việc: <?php echo $row_RCTTcongviec['ten_cong_viec']; ?></td>
-    <td width="152" class="row5">Mức lương: <?php echo $row_RCTTcongviec['muc_luong_cb']; ?></td>
-    <td width="134" class="row5">Hệ số: <?php echo $row_RCTTcongviec['he_so']; ?></td>
-    <td class="row5">Phụ cấp: <?php echo $row_RCTTcongviec['phu_cap']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Số sổ LĐ: <?php echo $row_RCTTcongviec['so_sld']; ?></td>
-    <td colspan="2" class="row5">Ngày cấp: <?php echo $row_RCTTcongviec['ngay_cap']; ?></td>
-    <td class="row5">Nơi cấp: <?php echo $row_RCTTcongviec['noi_cap']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Tài khoản NH: <?php echo $row_RCTTcongviec['tknh']; ?></td>
-    <td class="row5"colspan="3">Ngân hàng: <?php echo $row_RCTTcongviec['ngan_hang']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Học vấn: <?php echo $row_RCTTcongviec['ten_hoc_van']; ?></td>
-    <td colspan="2" class="row5">Bằng cấp:<?php echo $row_RCTTcongviec['ten_bang_cap']; ?></td>
-    <td class="row5">Ngoại ngữ: <?php echo $row_RCTTcongviec['ten_ngoai_ngu']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Tin học: <?php echo $row_RCTTcongviec['ten_tin_hoc']; ?></td>
-    <td colspan="2" class="row5">Dân tộc: <?php echo $row_RCTTcongviec['ten_dan_toc']; ?></td>
-    <td class="row5">Quốc tịch: <?php echo $row_RCTTcongviec['ten_quoc_tich']; ?></td>
-  </tr>
-  <tr>
-    <td class="row5">Tôn giáo: <?php echo $row_RCTTcongviec['ten_ton_giao']; ?></td>
-    <td colspan="2" class="row5">Tỉnh thành: <?php echo $row_RCTTcongviec['ten_tinh_thanh']; ?></td>
-    <td class="row5">&nbsp;</td>
-  </tr>
-  <tr>
-    <td class="row5">&nbsp;</td>
-    <td colspan="2" class="row5">&nbsp;</td>
-    <td class="row5">&nbsp;</td>
-  </tr>
-</table>
-<table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
-  <tr>
-    <td class="row5" align="left"colspan="3"><h3>Quan hệ gia đình</h3></td>
-  </tr>
-  <?php do { ?>
-    <tr>
-      <td width="238" class="row5">Tên người thân: <?php echo $row_RCQuanhe_GD['ten_nguoi_than']; ?></td>
-      <td width="204" class="row5">Năm sinh: <?php echo $row_RCQuanhe_GD['nam_sinh']; ?></td>
-      <td width="536" class="row5">Quan hệ: <?php echo $row_RCQuanhe_GD['moi_quan_he']; ?></td>
-    </tr>
-    <tr>
-      <td class="row5">Địa chỉ: <?php echo $row_RCQuanhe_GD['dia_chi']; ?></td>
-      <td colspan="2" class="row5">Nghề nghiệp: <?php echo $row_RCQuanhe_GD['nghe_nghiep']; ?></td>
-    </tr>
-    <tr>
-      <td colspan="3" class="row5">Điện thoại liên lạc: <?php echo $row_RCQuanhe_GD['dtll']; ?></td>
-    </tr>
-    <tr>
-      <td colspan="3" class="row5"><strong>* Ghi chú:</strong> <?php echo $row_RCQuanhe_GD['ghi_chu']; ?></td>
-    </tr>
-    <?php } while ($row_RCQuanhe_GD = mysql_fetch_assoc($RCQuanhe_GD)); ?>
-    <?php mysql_free_result($RCQuanhe_GD); ?>
-<tr>
-      <td align="left" colspan="3" class="row5"><h3>Bảo hiểm</h3></td>
-  </tr>
-  <tr>
-    <td class="row5">- Số BHXH: <?php echo $row_RCBaohiem['so_bhxh']; ?></td>
-    <td class="row5">- Ngày cấp: <?php echo $row_RCBaohiem['ngay_cap_bhxh']; ?></td>
-    <td class="row5">- Nơi cấp: <?php echo $row_RCBaohiem['noi_cap_bhxh']; ?></td>
-  </tr>
-  <tr>
-<td class="row5">- Số BHYT: <?php echo $row_RCBaohiem['so_bhyt']; ?></td>
-    <td class="row5">- Ngày cấp: <?php echo $row_RCBaohiem['ngay_cap_bhyt']; ?></td>
-    <td class="row5">- Nơi cấp: <?php echo $row_RCBaohiem['noi_cap_bhyt']; ?></td>
-  </tr>
-  <tr>
-    <td colspan="3" class="row5"><table class="tablebg" width="899" border="0" cellspacing="1" cellpadding="1">
-      <tr>
-        <td class="row5" align="left" colspan="5"><h3>Hợp đồng lao động</h3></td>
-        </tr>
-      <tr>
-        <td width="176" class="row5">Số quyết định</td>
-        <td width="86" class="row5">Từ ngày</td>
-        <td width="86" class="row5">Đến ngày</td>
-        <td width="105" class="row5">Loại hợp đồng</td>
-        <td width="430" class="row5">Ghi chú</td>
-      </tr>
-      <?php do { ?>
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
         <tr>
-          <td class="row5" width="176"><?php echo $row_RCHopdong['so_quyet_dinh']; ?></td>
-          <td class="row5" width="86"><?php echo $row_RCHopdong['tu_ngay']; ?></td>
-          <td class="row5" width="86"><?php echo $row_RCHopdong['den_ngay']; ?></td>
-          <td class="row5" width="105"><?php echo $row_RCHopdong['loai_hop_dong']; ?></td>
-          <td class="row5"><?php echo $row_RCHopdong['ghi_chu']; ?></td>
+            <td class="row5" align="left" height="50" colspan="4"><h3>Thông tin nhân viên</h3></td>
         </tr>
-        <?php } while ($row_RCHopdong = mysql_fetch_assoc($RCHopdong)); ?>
-    </table></td>
-  </tr>
-  <tr>
-    <td colspan="3" class="row5"><table class="tablebg" width="899" border="0" cellspacing="1" cellpadding="1">
-      <tr>
-        <td class="row5" align="left" colspan="5"><h3>Quá trình công tác</h3></td>
-        </tr>
-      <tr>
-        <td class="row5">Số quyết định</td>
-        <td class="row5">Ngày hiệu lực</td>
-        <td class="row5">Ngày ký</td>
-        <td class="row5">Công việc</td>
-        <td width="391" class="row5">Ghi chú</td>
-      </tr>
-      <?php do { ?>
         <tr>
-          <td class="row5" width="156"><?php echo $row_RCQuatring_CT['so_quyet_dinh']; ?></td>
-          <td class="row5" width="96"><?php echo $row_RCQuatring_CT['ngay_hieu_luc']; ?></td>
-          <td class="row5" width="94"><?php echo $row_RCQuatring_CT['ngay_ky']; ?></td>
-          <td class="row5" width="146"><?php echo $row_RCQuatring_CT['cong_viec']; ?></td>
-          <td class="row5"><?php echo $row_RCQuatring_CT['ghi_chu']; ?></td>
+            <td class="row5" width="250" >Mã nhân viên: <b><?php echo $row_RCtlb_nhanvien['ma_nhan_vien']; ?></b></td>
+            <td class="row5" width="350">Họ và tên: <b><?php echo $row_RCtlb_nhanvien['ho_ten']; ?></b></td>
+            <td class="row5" width="150">Giới tính: <b>
+                <?php 
+                    if ($row_RCtlb_nhanvien['gioi_tinh']==1) 
+                    {
+                        echo "Nam";	
+                    }
+                    else
+                    {
+                        echo "Nữ";
+                    }
+                ?></b>
+            </td>
+            <td class="row5" width="150">Gia đình: <b>
+                <?php 
+                    if ($row_RCtlb_nhanvien['gia_dinh']==1) 
+                    {
+                        echo "Có gia đình";	
+                    }
+                    else
+                    {
+                        echo "Chưa có";
+                    }
+                ?></b>
+          </td>
+        </tr>
+        <tr>
+            <td class="row5">Điện thoại DĐ: <b><?php echo $row_RCtlb_nhanvien['dt_di_dong']; ?></b></td>
+            <td class="row5">Điện thoại nhà: <b><?php echo $row_RCtlb_nhanvien['dt_nha']; ?></b></td>
+            <td class="row5" colspan="2">Email: <b><?php echo $row_RCtlb_nhanvien['email']; ?><b></td>
+        </tr>
+        <tr>
+            <td class="row5">Ngày sinh: <b><?php echo $row_RCtlb_nhanvien['ngay_sinh']; ?></b></td>
+            <td class="row5">Nơi sinh: <b><?php echo $row_RCtlb_nhanvien['noi_sinh']; ?></b></td>
+            <td class="row5" colspan="2">Tỉnh thành: <b><?php echo $row_RCtlb_nhanvien['tinh_thanh']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Số CMND: <b><?php echo $row_RCtlb_nhanvien['cmnd']; ?></b></td>
+            <td class="row5">Ngày cấp: <b><?php echo $row_RCtlb_nhanvien['ngay_cap']; ?></b></td>
+            <td class="row5" colspan="2">Nơi cấp: <b><?php echo $row_RCtlb_nhanvien['noi_cap']; ?></b></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="row5" >Quê quán: <b><?php echo $row_RCtlb_nhanvien['que_quan']; ?></b></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="row5">Thường trú: <b><?php echo $row_RCtlb_nhanvien['dia_chi']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5" colspan="4">Tạm trú: <b><?php echo $row_RCtlb_nhanvien['tam_tru']; ?></b></td>
+        </tr>
+    </table>
+
+
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+            <td class="row5" align="left"colspan="4"><h3>Thông tin công việc</h3></td>
+        </tr>
+        <tr>
+            <td class="row5" width="250">Ngày vào làm: <b><?php echo $row_RCTTcongviec['ngay_vao_lam']; ?></b></td>
+            <td colspan="2" class="row5">Phòng ban: <b><?php echo $row_RCTTcongviec['ten_phong_ban']; ?></b></td>
+            <td class="row5" width="300">Chức vụ: <b><?php echo $row_RCTTcongviec['ten_chuc_vu']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Công việc: <b><?php echo $row_RCTTcongviec['ten_cong_viec']; ?></b></td>
+            <td width="152" class="row5">Mức lương: <b><?php echo $row_RCTTcongviec['muc_luong_cb']; ?><b></td>
+            <td width="134" class="row5">Hệ số: <b><?php echo $row_RCTTcongviec['he_so']; ?></b></td>
+            <td class="row5">Phụ cấp: <b><?php echo $row_RCTTcongviec['phu_cap']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Sổ LĐ: <b><?php echo $row_RCTTcongviec['so_sld']; ?></b></td>
+            <td colspan="2" class="row5">Ngày cấp: <b><?php echo $row_RCTTcongviec['ngay_cap']; ?></b></td>
+            <td class="row5">Nơi cấp: <b><?php echo $row_RCTTcongviec['noi_cap']; ?><b></td>
+        </tr>
+        <tr>
+            <td class="row5">Tài khoản NH: <b><?php echo $row_RCTTcongviec['tknh']; ?><b></td>
+            <td class="row5"colspan="3">Ngân hàng: <b><?php echo $row_RCTTcongviec['ngan_hang']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Học vấn: <b><?php echo $row_RCTTcongviec['ten_hoc_van']; ?></b></td>
+            <td colspan="2" class="row5">Bằng cấp:<b><?php echo $row_RCTTcongviec['ten_bang_cap']; ?></b></td>
+            <td class="row5">Ngoại ngữ: <b><?php echo $row_RCTTcongviec['ten_ngoai_ngu']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Tin học: <b><?php echo $row_RCTTcongviec['ten_tin_hoc']; ?></b></td>
+            <td colspan="2" class="row5">Dân tộc: <b><?php echo $row_RCTTcongviec['ten_dan_toc']; ?></b></td>
+            <td class="row5">Quốc tịch: <b><?php echo $row_RCTTcongviec['ten_quoc_tich']; ?></b></td>
+        </tr>
+        <tr>
+            <td class="row5">Tôn giáo: <b><?php echo $row_RCTTcongviec['ten_ton_giao']; ?></b></td>
+            <td colspan="2" class="row5">Tỉnh thành: <b><?php echo $row_RCTTcongviec['ten_tinh_thanh']; ?></b></td>
+            <td class="row5">&nbsp;</td>
+        </tr>
+    </table>
+
+
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+            <td class="row5" align="left"colspan="3"><h3>Quan hệ gia đình</h3></td>
+        </tr>
+        <?php do { ?>
+            <tr>
+                <td width="250" class="row5">Họ tên: <b><?php echo $row_RCQuanhe_GD['ten_nguoi_than']; ?></b></td>
+                <td width="350" class="row5">Năm sinh: <b><?php echo $row_RCQuanhe_GD['nam_sinh']; ?></b></td>
+                <td width="300" class="row5">Quan hệ: <b><?php echo $row_RCQuanhe_GD['moi_quan_he']; ?></b></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="row5">Địa chỉ: <b><?php echo $row_RCQuanhe_GD['dia_chi']; ?></b></td>
+                <td class="row5">Nghề nghiệp: <b><?php echo $row_RCQuanhe_GD['nghe_nghiep']; ?></b></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="row5">Điện thoại: <b><?php echo $row_RCQuanhe_GD['dtll']; ?></b></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="row5" height="100" style="vertical-align: top"><strong>(*)Ghi chú:</strong> <?php echo $row_RCQuanhe_GD['ghi_chu']; ?></td>
+            </tr>
+        <?php } while ($row_RCQuanhe_GD = mysql_fetch_assoc($RCQuanhe_GD)); ?>
+        <?php mysql_free_result($RCQuanhe_GD); ?>
+        <tr>
+            <td align="left" colspan="3" class="row5"><h3>Bảo hiểm</h3></td>
+        </tr>
+        <tr>
+            <td class="row5">- Số BHXH: <?php echo $row_RCBaohiem['so_bhxh']; ?></td>
+            <td class="row5">- Ngày cấp: <?php echo $row_RCBaohiem['ngay_cap_bhxh']; ?></td>
+            <td class="row5">- Nơi cấp: <?php echo $row_RCBaohiem['noi_cap_bhxh']; ?></td>
+        </tr>
+        <tr>
+            <td class="row5">- Số BHYT: <?php echo $row_RCBaohiem['so_bhyt']; ?></td>
+            <td class="row5">- Ngày cấp: <?php echo $row_RCBaohiem['ngay_cap_bhyt']; ?></td>
+            <td class="row5">- Nơi cấp: <?php echo $row_RCBaohiem['noi_cap_bhyt']; ?></td>
+        </tr>
+    </table>
+    
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+            <td class="row5" align="left" colspan="5"><h3>Hợp đồng lao động</h3></td>
+        </tr>
+        <tr>
+            <td width="176" class="row5">Số quyết định</td>
+            <td width="86" class="row5">Từ ngày</td>
+            <td width="86" class="row5">Đến ngày</td>
+            <td width="105" class="row5">Loại hợp đồng</td>
+            <td width="430" class="row5">Ghi chú</td>
+        </tr>
+        <?php do { ?>
+        <tr>
+            <td class="row5" width="176"><?php echo $row_RCHopdong['so_quyet_dinh']; ?></td>
+            <td class="row5" width="86"><?php echo $row_RCHopdong['tu_ngay']; ?></td>
+            <td class="row5" width="86"><?php echo $row_RCHopdong['den_ngay']; ?></td>
+            <td class="row5" width="105"><?php echo $row_RCHopdong['loai_hop_dong']; ?></td>
+            <td class="row5"><?php echo $row_RCHopdong['ghi_chu']; ?></td>
+        </tr>
+      <?php } while ($row_RCHopdong = mysql_fetch_assoc($RCHopdong)); ?>
+    </table>
+
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+            <td class="row5" align="left" colspan="5"><h3>Quá trình công tác</h3></td>
+        </tr>
+        <tr>
+            <td class="row5">Số quyết định</td>
+            <td class="row5">Ngày hiệu lực</td>
+            <td class="row5">Ngày ký</td>
+            <td class="row5">Công việc</td>
+            <td width="391" class="row5">Ghi chú</td>
+        </tr>
+        <?php do { ?>
+        <tr>
+            <td class="row5" width="156"><?php echo $row_RCQuatring_CT['so_quyet_dinh']; ?></td>
+            <td class="row5" width="96"><?php echo $row_RCQuatring_CT['ngay_hieu_luc']; ?></td>
+            <td class="row5" width="94"><?php echo $row_RCQuatring_CT['ngay_ky']; ?></td>
+            <td class="row5" width="146"><?php echo $row_RCQuatring_CT['cong_viec']; ?></td>
+            <td class="row5"><?php echo $row_RCQuatring_CT['ghi_chu']; ?></td>
         </tr>
         <?php } while ($row_RCQuatring_CT = mysql_fetch_assoc($RCQuatring_CT)); ?>
-    </table></td>
-  </tr>
-  <tr>
-    <td colspan="3" class="row5"><table class="tablebg" width="899" border="0" cellspacing="1" cellpadding="1">
-      <tr>
-        <td class="row5" align="left" colspan="4"><h3>Quá trình lương</h3></td>
-        </tr>
-      <tr>
-        <td class="row5">Số quyết định</td>
-        <td class="row5">Ngày chuyển</td>
-        <td class="row5">Mức lương</td>
-        <td class="row5">Ghi chú</td>
-        </tr>
-      <?php do { ?>
+    </table>
+    
+    <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
         <tr>
-          <td class="row5" width="200"><?php echo $row_RCQuatrinh_luong['so_quyet_dinh']; ?></td>
-          <td class="row5" width="100"><?php echo $row_RCQuatrinh_luong['ngay_chuyen']; ?></td>
-          <td class="row5" width="100"><?php echo $row_RCQuatrinh_luong['muc_luong']; ?></td>
-          <td class="row5"><?php echo $row_RCQuatrinh_luong['ghi_chu']; ?></td>
-          </tr>
+            <td class="row5" align="left" colspan="4"><h3>Quá trình lương</h3></td>
+        </tr>
+        <tr>
+            <td class="row5">Số quyết định</td>
+            <td class="row5">Ngày chuyển</td>
+            <td class="row5">Mức lương</td>
+            <td class="row5">Ghi chú</td>
+        </tr>
+        <?php do { ?>
+        <tr>
+            <td class="row5" width="200"><?php echo $row_RCQuatrinh_luong['so_quyet_dinh']; ?></td>
+            <td class="row5" width="100"><?php echo $row_RCQuatrinh_luong['ngay_chuyen']; ?></td>
+            <td class="row5" width="100"><?php echo $row_RCQuatrinh_luong['muc_luong']; ?></td>
+            <td class="row5"><?php echo $row_RCQuatrinh_luong['ghi_chu']; ?></td>
+        </tr>
         <?php } while ($row_RCHopdong = mysql_fetch_assoc($RCHopdong)); ?>
-    </table></td>
-  </tr>
-</table>
-<p>&nbsp;</p>
+    </table>
 </body>
 </html>
 <?php
-mysql_free_result($RCtlb_nhanvien);
+    mysql_free_result($RCtlb_nhanvien);
 
-mysql_free_result($RCTTcongviec);
+    mysql_free_result($RCTTcongviec);
 
-mysql_free_result($RCBaohiem);
+    mysql_free_result($RCBaohiem);
 
-mysql_free_result($RCHopdong);
+    mysql_free_result($RCHopdong);
 
-mysql_free_result($RCQuatring_CT);
+    mysql_free_result($RCQuatring_CT);
 
-mysql_free_result($RCQuatrinh_luong);
-
+    mysql_free_result($RCQuatrinh_luong);
 ?>

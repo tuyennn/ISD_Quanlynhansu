@@ -126,7 +126,24 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
             <table width="290" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mã nhân viên:</td>
-                    <td><input type="text" name="ma_nhan_vien" value="<?php echo htmlentities($row_RCQuanhe_CN['ma_nhan_vien'], ENT_COMPAT, 'utf-8'); ?>" readonly="readonly" size="29" /></td>
+                    <td><b><?php echo htmlentities($row_RCQuanhe_CN['ma_nhan_vien'], ENT_COMPAT, 'utf-8'); ?></b></td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Nhân viên:</td>
+                    <td><b>
+                    <?php
+            
+                        //echo $ma_nv;
+                        $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
+                        $cur = $mydb->loadResultList();
+                        foreach($cur as $object){
+                           
+                                echo $object->ho_ten;
+                            
+                            }
+
+                    ?></b>
+                    </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Tên người thân:</td>

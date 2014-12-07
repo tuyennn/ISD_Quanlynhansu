@@ -99,22 +99,6 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             };
         }
     </script>
-
-    <script type="text/javascript" >
-        $(document).ready(function() { 
-            
-            $('#photoimg').live('change', function()            { 
-                $("#preview").html('');
-                $("#current").hide();
-                $("#preview").html('<img src="ajax-loader.gif" alt="Uploading...."/>');
-                $("#imageform").ajaxForm({
-                    target: '#preview'
-                }).submit();
-                
-            });
-        }); 
-    </script>
-
 </head>
 
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">

@@ -53,20 +53,43 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     if (isset($_SERVER['QUERY_STRING'])) {
         $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
         $insertGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("Location: %s", $insertGoTo);
-}
+    }
+    sprintf("location: %s", $insertGoTo);
+    }
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCQuatrinh_TM = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-$RCQuatrinh_TM = mysql_query($query_RCQuatrinh_TM, $Myconnection) or die(mysql_error());
-$row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM);
-$totalRows_RCQuatrinh_TM = mysql_num_rows($RCQuatrinh_TM);
+    mysql_select_db($database_Myconnection, $Myconnection);
+    $query_RCQuatrinh_TM = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
+    $RCQuatrinh_TM = mysql_query($query_RCQuatrinh_TM, $Myconnection) or die(mysql_error());
+    $row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM);
+    $totalRows_RCQuatrinh_TM = mysql_num_rows($RCQuatrinh_TM);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.plugin.js"></script> 
+    <script type="text/javascript" src="js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
+    <script>
+    $(function() {
+        $('#ngay_ky').datepick({showOnFocus: false, showTrigger: '#calImg'});
+        $('#ngay_hieu_luc').datepick({showOnFocus: false, showTrigger: '#calImg'});
+         
+        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
+            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
+            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
+            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
+            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
+            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
+            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+         
+    $('#dateFormat').change(function() { 
+        $('#ngay_ky').val('').datepick('option', 
+            {dateFormat: formats[$(this).val()]}); 
+    });
+    });
+    </script>
 </head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
     <table id="rounded-corner" width="750" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
@@ -118,15 +141,23 @@ if ($totalRows_RCQuatrinh_TM<>0)
         <table id="rounded-corner" width="750" align="center" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
             <tr valign="baseline">
                 <td width="137" align="right" nowrap="nowrap">Mã nhân viên:</td>
-                <td width="229"><input type="text" name="ma_nhan_vien" value="<?php echo $ma_nv; ?>" readonly="readonly" size="32" /></td>
-                <td width="130">Ngày ký:</td>
-                <td width="284"><input type="text" name="ngay_ky" value="" size="32" /></td>
+                <td width="229"><?php echo $ma_nv; ?></td>
+                <td>Ngày ký:</td>
+                <td>
+                    <input type="text" name="ngay_ky" id="ngay_ky" value="" size="25" />
+                    (dd/mm/yyyy)
+                </td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Số quyết định:</td>
-                <td><input type="text" name="so_quyet_dinh" value="" size="32" /></td>
+                <td>
+                    <input type="text" name="so_quyet_dinh" value="" size="32" />
+                </td>
                 <td>Ngày hiệu lực:</td>
-                <td><input type="text" name="ngay_hieu_luc" value="" size="32" /></td>
+                <td>
+                    <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="" size="25" />
+                    (dd/mm/yyyy)
+                </td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Công việc:</td>
