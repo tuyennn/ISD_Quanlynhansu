@@ -29,12 +29,12 @@ if($keyword!=''){
 <table id="rounded-corner" summary="Bảng Thống Kê Nhân Viên Chính" >
     <thead>
         <tr>
-            <th width="50" rowspan="2" align="center" class="rounded-company">TRẠNG THÁI</th>
+            <th width="30" rowspan="2" align="center" class="rounded-company"></th>
             <th width="30" rowspan="2" align="center">MÃ</th>
-            <th width="260" rowspan="2" align="center">HỌ VÀ TÊN</th>
+            <th width="300" rowspan="2" align="center">HỌ VÀ TÊN</th>
             <th width="90" rowspan="2" align="center">ĐT DI ĐỘNG</th>
             <th width="90" rowspan="2" align="center">ĐT NHÀ</th>
-            <th width="150" rowspan="2" align="center">EMAIL</th>
+            <th width="120" rowspan="2" align="center">EMAIL</th>
             <th colspan="2" align="center">THÔNG TIN</th>
             <th width="30" rowspan="2" align="center" class="rounded-q4">XÓA</th>
         </tr>

@@ -464,6 +464,13 @@ input.search_submit{
 	width:auto;
 	background: #60c8f2 url('../images/left.jpg') left top no-repeat;
 }
+
+#rounded-corner thead th.rounded-content
+{
+	padding-left: 20px;
+	background: #60c8f2 url('../images/left.jpg') left top no-repeat;
+}
+
 #rounded-corner thead th.rounded-q4
 {
 	background: #60c8f2 url('../images/right.jpg') right top no-repeat;
@@ -482,6 +489,12 @@ input.search_submit{
 	border-top: 1px solid #fff;
 	color: #669;
 }
+
+#rounded-corner td.tlbcontent
+{
+	padding-left: 20px;
+}
+
 #rounded-corner tfoot td.rounded-foot-left
 {
 	background: #ecf8fd url('../images/botleft.jpg') left bottom no-repeat;
@@ -594,6 +607,23 @@ border:1px #cceac4 solid;background-position:15px 10px;padding:20px 20px 15px 60
 
 .error_box{width:540px;clear:both;background:url(../images/error.png) no-repeat left #fce9e9;
 border:1px #eac7c7 solid;background-position:15px 10px;padding:20px 20px 15px 60px;margin:0 0 10px 0;}
+
+/*------LAYOUT--------*/
+.detail_up {
+	width: 756px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	float: top;
+	text-align: center;
+}
+
+.detail_bottom {
+	width: 756px;
+	float: top;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
 
 .detail_left {
 	width: 460px;
@@ -746,13 +776,13 @@ div.pagination span.disabled {
 	clear:both;
 }
 fieldset { border:none; clear:both;}
-label {font-size:13px; color:#666;}
+label {color:#666;}
 label a{font-size:13px; font-weight:bold; color:#666;}
 dl {clear:both; width:600px;}
 dl.submit {clear:both; width:500px; text-align:center; padding:0 0 0 90px;}
 
 dt {float:left; text-align:right; width:170px; line-height:34px; padding:0 10px 10px 0;}
-dd {float:left; width:400px; margin:0 0 10px 0;}
+dd {float:left; width:400px; margin:0 0 10px 0; line-height: 34px}
 
 
 label.check_label{

@@ -1,6 +1,23 @@
-<?php require_once('includes/initialize.php'); ?>
 <?php
 $ma_nv = $_GET['catID'];
+$action = get_param('action');
+//Thực hiện lệnh xoá nếu chọn xoá
+if ($action=="del")
+{
+    $tomID = $_GET['tomID'];
+    $deleteSQL = "DELETE FROM tlb_quatrinhcongtac WHERE id=$tomID";                     
+    
+    mysql_select_db($database_Myconnection, $Myconnection);
+    $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+
+    $deleteGoTo = "them_danh_muc.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
+    $deleteGoTo .= $_SERVER['QUERY_STRING'];
+}
+sprintf("location: %s", $deleteGoTo);
+}
+
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
@@ -38,8 +55,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_form")) {
-    $insertSQL = sprintf("INSERT INTO tlb_quatrinhcongtac (ma_nhan_vien, so_quyet_dinh, ngay_ky, ngay_hieu_luc, cong_viec, ghi_chu) VALUES (%s, %s, %s, %s, %s, %s)",
-    GetSQLValueString($_POST['ma_nhan_vien'], "text"),
+    $insertSQL = sprintf("INSERT INTO tlb_quatrinhcongtac (ma_nhan_vien, so_quyet_dinh, ngay_ky, ngay_hieu_luc, cong_viec, ghi_chu) VALUES ('{$ma_nv}', %s, %s, %s, %s, %s)",
     GetSQLValueString($_POST['so_quyet_dinh'], "text"),
     GetSQLValueString($_POST['ngay_ky'], "date"),
     GetSQLValueString($_POST['ngay_hieu_luc'], "date"),
@@ -92,6 +108,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     </script>
 </head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
+    <div style="display: none;">
+        <img id="calImg" src="images/calendar.gif" alt="Popup" class="trigger">
+    </div>
+
     <table id="rounded-corner" width="750" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
         <thead>
             <tr>
@@ -104,73 +124,130 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
         </thead>
     </table>
 
-<?php 
-if ($totalRows_RCQuatrinh_TM<>0)
-    {
-?>
-    <table id="rounded-corner" width="750" align="center" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
-        <tr>
-            <th width="120">Số QĐ</th>
-            <th width="80">Ngày ký</th>
-            <th width="100">Ngày hiệu lực</th>
-            <th width="150">Công việc</th>
-            <th width="200">Ghi chú</th>
-            <th colspan="3">&nbsp;</th>
-        </tr>
-        <?php 
-            do { ?>
-                <tr>
-                    <td class="row1"><?php echo $row_RCQuatrinh_TM['so_quyet_dinh']; ?></td>
-                    <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_ky']; ?></td>
-                    <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_hieu_luc']; ?></td>
-                    <td class="row1"><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
-                    <td class="row1"><?php echo $row_RCQuatrinh_TM['ghi_chu']; ?></td>
-                    <td width="50" class="row1"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác">Thêm</a></td>
-                    <td width="50" class="row1"><a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">Sửa</a></td>
-                    <td width="50" class="row1">Xoá</td>
-                </tr>
-        <?php } 
-            while ($row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM)); 
-        ?>
-    </table>
-<?php
-    }
-?>
+    <!--MAIN UP CONTENT -->
+    <div class="detail_up">
 
-    <form action="<?php echo $editFormAction; ?>" method="post" name="new_workingprocess_form" id="new_workingprocess_form">
-        <table id="rounded-corner" width="750" align="center" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
-            <tr valign="baseline">
-                <td width="137" align="right" nowrap="nowrap">Mã nhân viên:</td>
-                <td width="229"><?php echo $ma_nv; ?></td>
-                <td>Ngày ký:</td>
-                <td>
-                    <input type="text" name="ngay_ky" id="ngay_ky" value="" size="25" />
-                    (dd/mm/yyyy)
-                </td>
-            </tr>
-            <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Số quyết định:</td>
-                <td>
-                    <input type="text" name="so_quyet_dinh" value="" size="32" />
-                </td>
-                <td>Ngày hiệu lực:</td>
-                <td>
-                    <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="" size="25" />
-                    (dd/mm/yyyy)
-                </td>
-            </tr>
-            <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Công việc:</td>
-                <td colspan="3"><input type="text" name="cong_viec" value="" size="80" /></td>
-            </tr>
-            <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Ghi chú:</td>
-                <td colspan="3"><input type="text" name="ghi_chu" value="" size="80" /></td>
-            </tr>
-        </table>
-        <input type="hidden" name="MM_insert" value="new_workingprocess_form" />
-    </form>
-    <a href="#" onclick="new_workingprocess_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quá trình công tác</strong><span class="bt_green_r"></span></a>
+        <?php 
+        if ($totalRows_RCQuatrinh_TM<>0)
+            {
+        ?>
+            <table id="rounded-corner" align="center" cellpadding="1" cellspacing="1">
+
+                <tr>
+                    <th width="100">Số QĐ</th>
+                    <th width="80">Ngày ký</th>
+                    <th width="100">Ngày hiệu lực</th>
+                    <th width="300">Công việc</th>
+                    <th colspan="2">Thao tác</th>
+                </tr>
+                <?php 
+                    do { ?>
+                        <tr>
+                            <td class="row1"><?php echo $row_RCQuatrinh_TM['so_quyet_dinh']; ?></td>
+                            <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_ky']; ?></td>
+                            <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_hieu_luc']; ?></td>
+                            <td class="row1"><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
+                            <!--<td width="50" class="row1"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác">Thêm</a></td>-->
+                            <td width="50" class="row1" align="center">
+                                <a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">
+                                    <?php
+                                        echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
+                                    ?>
+                                </a>
+                            </td>
+
+                            <td class="row1" align="center">
+                            <a href="#" onclick="ConfirmDelete()" value="Xóa quá trình công tác">
+                                <?php
+                                    echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
+                                ?>
+                            </a>
+                            <script type="text/javascript">
+                                function ConfirmDelete()
+                                {
+                                    if (confirm("Bạn có chắc chắn thao tác xóa!"))
+                                        location.href='index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác&action=del';
+                                }
+                            </script>
+                <?php } 
+                    while ($row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM)); 
+                ?>
+            </table>
+        <?php
+            }
+            else {
+            ?>
+                <table id="rounded-corner" border="0" width="460" align="center" cellpadding="1" cellspacing="1">
+                <span><h4>Chưa có quá trình công tác, mời thêm mới</h4></span>
+                </table>
+        <?php
+            }
+        ?>
+    </div>
+
+    <!--MAIN BOTTOM CONTENT -->
+    <div class="detail_bottom">
+
+        <form action="<?php echo $editFormAction; ?>" method="post" name="new_workingprocess_form" id="new_workingprocess_form">
+            <table id="rounded-corner" width="750" align="center">
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
+                    <td><b><?php echo $ma_nv; ?></b></td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Nhân viên:</td>
+                    <td><b>
+                    <?php
+            
+                        //echo $ma_nv;
+                        $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
+                        $cur = $mydb->loadResultList();
+                        foreach($cur as $object){
+                           
+                                echo $object->ho_ten;
+                            
+                            }
+
+                    ?></b>
+                    </td>
+                </tr>
+
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Ngày ký:</td>
+                    <td>
+                        <input type="text" name="ngay_ky" id="ngay_ky" value="" size="27" />
+                        (dd/mm/yyyy)
+                    </td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Số quyết định:</td>
+                    <td>
+                        <input type="text" name="so_quyet_dinh" value="" size="54" />
+                    </td>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Ngày hiệu lực:</td>
+                    <td>
+                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="" size="27" />
+                        (dd/mm/yyyy)
+                    </td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Công việc:</td>
+                    <td colspan="3"><input type="text" name="cong_viec" value="" size="54" /></td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Ghi chú:</td>
+                    <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <a href="#" onclick="new_workingprocess_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="MM_insert" value="new_workingprocess_form" />
+        </form>
+        </div>
 </body>
 </html>
 <?php

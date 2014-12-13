@@ -149,79 +149,73 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
             </table>
         <?php
             }
-            else {
-            ?>
-                <table id="rounded-corner" border="0" width="460" align="center" cellpadding="1" cellspacing="1">
-                <span><h4>Chưa có mối quan hệ gia định, mời thêm mới...</h4></span>
-                </table>
-        <?php
-            }
         ?>
     </div>
 
     <!--MAIN BOTTOM CONTENT -->
-
-    <div class="detail_bottom">
-        <form action="<?php echo $editFormAction; ?>" method="post" name="new_relationship_form" id="new_relationship_form">
-            <table id="rounded-corner" width="750" align="center">
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
-                    <td><b><?php echo $ma_nv; ?></b></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Nhân viên:</td>
-                    <td><b>
-                    <?php
+    <div class="form">
+        <form action="<?php echo $editFormAction; ?>" method="post" name="new_relationship_form" class="niceform">
+         
+            <fieldset>
+                <dl>
+                    <dt><label>Mã nhân viên:</label></dt>
+                    <dd><label style="color:red"><?php echo $ma_nv; ?></label></dd>
+                </dl>
+                <dl>
+                    <dt><label>Nhân viên:</label></dt>
+                    <dd><label style="color:red">
+                        <?php
             
-                        //echo $ma_nv;
-                        $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
-                        $cur = $mydb->loadResultList();
-                        foreach($cur as $object){
-                           
-                                echo $object->ho_ten;
-                            
-                            }
+                            //echo $ma_nv;
+                            $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
+                            $cur = $mydb->loadResultList();
+                            foreach($cur as $object){
+                               
+                                    echo $object->ho_ten;
+                                
+                                }
 
-                    ?></b>
-                    </td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Tên người thân:</td>
-                    <td><input type="text" name="ten_nguoi_than" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Năm sinh:</td>
-                    <td><input type="text" name="nam_sinh" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Mối quan hệ:</td>
-                    <td><input type="text" name="moi_quan_he" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Nghề nghiệp:</td>
-                    <td><input type="text" name="nghe_nghiep" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Địa chỉ:</td>
-                    <td><input type="text" name="dia_chi" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">ĐT liên lạc:</td>
-                    <td><input type="text" name="dtll" value="" size="54" /></td>
-                </tr>
-                <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Ghi chú:</td>
-                    <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <a href="#" onclick="new_relationship_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
-                    </td>
-                </tr>
-            </table>
-            <input type="hidden" name="MM_insert" value="new_relationship_form" />
+                        ?>
+                        </label>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt><label>Tên người thân:</label></dt>
+                    <dd><input type="text" name="ten_nguoi_than" value="" size="54" /></dd>
+                </dl>
+                <dl>
+                    <dt><label>Năm sinh:</label></dt>
+                    <dd><input type="text" name="nam_sinh" value="" size="54" /></dd>
+                </dl>
+                <dl>
+                    <dt><label>Mối quan hệ:</label></dt>
+                    <dd><input type="text" name="moi_quan_he" value="" size="54" /></dd>
+                </dl>
+                <dl>
+                    <dt><label>Nghề nghiệp:</label></dt>
+                    <dd><input type="text" name="nghe_nghiep" value="" size="54" /></dd>
+                </dl>
+                <dl>
+                    <dt><label>Địa chỉ:</label></dt>
+                    <dd><input type="text" name="dia_chi" value="" size="54" /></dd>
+                </dl>
+                <dl>
+                    <dt><label>ĐT liên lạc:</label></dt>
+                    <dd><input type="text" name="dtll" value="" size="54" /></dd>
+                </dl>
+                
+                <dl>
+                    <dt><label for="ghi_chu">Ghi chú:</label></dt>
+                    <dd><textarea name="ghi_chu" value="" rows="5" cols="54"></textarea></dd>
+                </dl>
+                <dl class="submit">
+                    <input type="submit" name="submit" id="submit" value="Thêm mới quan hệ" />
+                </dl>
+                
+            </fieldset>
+            <input type="hidden" name="MM_insert" value="new_workingprocess_form" />
         </form>
-        
     </div>
 </body>
 </html>
