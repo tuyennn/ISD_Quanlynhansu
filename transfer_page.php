@@ -29,17 +29,17 @@ a:hover
 </style>
 </HEAD>
 <BODY>
-<br/><br/><br/>
-  <center>
-  <table border="1" width="350" cellspacing="0" bordercolor="#CBE2EB" bgcolor="#d0e2f1">
-    <tr>
-      <td width="350" align="center"><br/><FONT face="verdana" size="2" color="#122c56"><b>
-<?=$showtext?></b></font><br><br>PHU THANH VALVE ADMIN PANEL
-							<br>Powered by GhoSter..,Inc<br><br>
-<a href="<?=$page_transfer?>">Click v&#224;o &#273;&#226;y n&#7871;u b&#7841;n kh&#244;ng mu&#7889;n &#273;&#7907;i l&#226;u !</a>
-</td>
-    </tr>
-  </table>
-  </center>
+	<br/><br/><br/>
+  	<center>
+  	<table border="1" width="350" cellspacing="0" bordercolor="#CBE2EB" bgcolor="#d0e2f1">
+	    <tr>
+	      	<td width="350" align="center"><br/><FONT face="verdana" size="2" color="#122c56"><b>
+			<?=$showtext?></b></font><br><br>PHU THANH VALVE ADMIN PANEL
+										<br>Powered by GhoSter..,Inc<br><br>
+			<a href="<?=$page_transfer?>">Click v&#224;o &#273;&#226;y n&#7871;u b&#7841;n kh&#244;ng mu&#7889;n &#273;&#7907;i l&#226;u !</a>
+			</td>
+	    </tr>
+  	</table>
+  	</center>
 </BODY>
 <HTML>

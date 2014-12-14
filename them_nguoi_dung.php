@@ -86,11 +86,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		$stt =1;
 		while ($row = mysql_fetch_row($RCDanhmuc_TM)) {?>
           <tr>
-            <td class="row1"><?php echo $stt;?></td>
-            <td class="row1"><?php echo $row[0]; ?></td>
-            <td class="row1"><?php echo $row[1]; ?></td>
-            <td class="row1"><a href="index.php?require=cap_nhat_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
-            <td class="row1"><a href="index.php?require=them_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
+            <td><?php echo $stt;?></td>
+            <td><?php echo $row[0]; ?></td>
+            <td><?php echo $row[1]; ?></td>
+            <td><a href="index.php?require=cap_nhat_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
+            <td><a href="index.php?require=them_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
           </tr>
           <?php $stt = $stt + 1; ?>
           <?php }  ?>

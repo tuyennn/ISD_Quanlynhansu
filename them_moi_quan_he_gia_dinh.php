@@ -8,15 +8,22 @@ if ($action=="del")
 	$deleteSQL = "DELETE FROM tlb_quanhegiadinh WHERE id=$tomID";                     
 	
     mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $result_d = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
 
-    $deleteGoTo = "them_danh_muc.php";
-    if (isset($_SERVER['QUERY_STRING'])) {
-    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-    $deleteGoTo .= $_SERVER['QUERY_STRING'];
+    if($result_d) {
+        $message = "Thao tác xóa thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=them_moi_quan_he_gia_dinh.php&catID=$ma_nv&title=Cập nhật quan hệ gia đình";
+        location($url);
+    }
+    else {
+        $message = "Thao tác xóa thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=them_moi_quan_he_gia_dinh.php&catID=$ma_nv&title=Cập nhật quan hệ gia đình";
+        location($url);
+    }
 }
-sprintf("location: %s", $deleteGoTo);
-}
+
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
@@ -64,9 +71,17 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_relationship_fo
         GetSQLValueString($_POST['ghi_chu'], "text"));
 
     mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $result_c = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    if($result_c) {
+        $message = "Thêm quan hệ thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+    else {
+        $message = "Thêm quan hệ thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 
-    $insertGoTo = "cap_nhat_quan_he_gia_dinh.php";
+    $insertGoTo = "them_moi_quan_he_gia_dinh.php";
     if (isset($_SERVER['QUERY_STRING'])) {
         $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
         $insertGoTo .= $_SERVER['QUERY_STRING'];
@@ -111,26 +126,28 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
             <table id="rounded-corner" border="0" width="750">
             <thead>
                 <tr>
-                    <th width="280" class="rounded-content" align="center">Tên người thân</th>
+                    <th width="280" class="rounded-content">Tên người thân</th>
                     <th width="140">Quan hệ</th>
+                    <th width="120">Năm sinh</th>
                     <th width="180">Điện thoại</th>
                     <th width="120" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                 </tr>
             </thead>
                 <?php do { ?>
                     <tr>
-                        <td class="tblcontent" align="center"><?php echo $row_RCQuanHeGD['ten_nguoi_than']; ?></td>
-                        <td class="tblcontent"><?php echo $row_RCQuanHeGD['moi_quan_he']; ?></td>
-                        <td class="tblcontent"><?php echo $row_RCQuanHeGD['dtll']; ?></td>
+                        <td><?php echo $row_RCQuanHeGD['ten_nguoi_than']; ?></td>
+                        <td><?php echo $row_RCQuanHeGD['moi_quan_he']; ?></td>
+                        <td><?php echo $row_RCQuanHeGD['nam_sinh']; ?></td>
+                        <td><?php echo $row_RCQuanHeGD['dtll']; ?></td>
                         <?php $ma_id = $row_RCQuanHeGD['id']; ?>
-                        <td class="row1" align="center">
+                        <td align="center">
                             <a href="index.php?require=cap_nhat_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình">
                                 <?php
                                     echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
                                 ?>
                             </a>
                         </td>
-                        <td class="row1" align="center">
+                        <td align="center">
                             <a href="#" onclick="ConfirmDelete()" value="Xóa quan hệ gia đình">
                                 <?php
                                     echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
@@ -166,11 +183,11 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
-                    <td><b><?php echo $ma_nv; ?></b></td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nhân viên:</td>
-                    <td><b>
+                    <td style="color:red"><b>
                     <?php
             
                         //echo $ma_nv;
@@ -215,7 +232,17 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <a href="#" onclick="new_relationship_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
+                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
+                        <script type="text/javascript">
+                        function ConfirmCreate()
+                        {
+                            if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
+                            {
+                                new_relationship_form.submit();
+                                return false;
+                            }  
+                        }
+                        </script>
                     </td>
                 </tr>
             </table>

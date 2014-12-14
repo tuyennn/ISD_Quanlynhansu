@@ -91,14 +91,14 @@ $totalRows_RCBaohiem_DS = mysql_num_rows($RCBaohiem_DS);
     <th width="35">&nbsp;</th>
   </tr>
   <tr class="row">
-    <td class="row1"><?php echo $row_RCBaohiem_DS['so_bhxh']; ?></td>
-    <td class="row1"><?php echo $row_RCBaohiem_DS['ngay_cap_bhxh']; ?></td>
-    <td class="row1"><?php echo $row_RCBaohiem_DS['noi_cap_bhxh']; ?></td>
-    <td class="row1"><?php echo $row_RCBaohiem_DS['so_bhyt']; ?></td>
-    <td class="row1"><?php echo $row_RCBaohiem_DS['ngay_cap_bhyt']; ?></td>
-    <td class="row1"><?php echo $row_RCBaohiem_DS['noi_cap_bhyt']; ?></td>
-    <td class="row1">&nbsp;</td>
-    <td class="row1">Xoá</td>
+    <td><?php echo $row_RCBaohiem_DS['so_bhxh']; ?></td>
+    <td><?php echo $row_RCBaohiem_DS['ngay_cap_bhxh']; ?></td>
+    <td><?php echo $row_RCBaohiem_DS['noi_cap_bhxh']; ?></td>
+    <td><?php echo $row_RCBaohiem_DS['so_bhyt']; ?></td>
+    <td><?php echo $row_RCBaohiem_DS['ngay_cap_bhyt']; ?></td>
+    <td><?php echo $row_RCBaohiem_DS['noi_cap_bhyt']; ?></td>
+    <td>&nbsp;</td>
+    <td>Xoá</td>
   </tr>
 </table>
 <?php

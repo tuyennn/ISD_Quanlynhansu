@@ -8,42 +8,50 @@ if ($action=="del")
     $deleteSQL = "DELETE FROM tlb_quatrinhcongtac WHERE id=$tomID";                     
     
     mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $result_d = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
 
-    $deleteGoTo = "them_danh_muc.php";
-    if (isset($_SERVER['QUERY_STRING'])) {
-    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-    $deleteGoTo .= $_SERVER['QUERY_STRING'];
+    if($result_d) {
+        $message = "Thao tác xóa thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=them_moi_qua_trinh_cong_tac.php&catID=$ma_nv&title=Cập nhật quá trình công tác";
+        location($url);
+    }
+    else {
+        $message = "Thao tác xóa thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=them_moi_qua_trinh_cong_tac.php&catID=$ma_nv&title=Cập nhật quá trình công tác";
+        location($url);
+    }
+
 }
-sprintf("location: %s", $deleteGoTo);
-}
+
 
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
-      if (PHP_VERSION < 6) {
-        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+        if (PHP_VERSION < 6) {
+            $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
     }
 
     $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
     switch ($theType) {
         case "text":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;    
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;    
         case "long":
         case "int":
-        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-        break;
+            $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+            break;
         case "double":
-        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-        break;
+            $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+            break;
         case "date":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;
         case "defined":
-        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-        break;
+            $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+            break;
     }
     return $theValue;
 }
@@ -63,7 +71,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     GetSQLValueString($_POST['ghi_chu'], "text"));
 
     mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $result_c = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    if($result_c) {
+        $message = "Thêm quá trình thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+    else {
+        $message = "Thêm quá trình thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 
     $insertGoTo = "them_moi_qua_trinh_cong_tac.php";
     if (isset($_SERVER['QUERY_STRING'])) {
@@ -71,7 +87,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
         $insertGoTo .= $_SERVER['QUERY_STRING'];
     }
     sprintf("location: %s", $insertGoTo);
-    }
+}
 
     mysql_select_db($database_Myconnection, $Myconnection);
     $query_RCQuatrinh_TM = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
@@ -134,41 +150,41 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
             <table id="rounded-corner" align="center" cellpadding="1" cellspacing="1">
 
                 <tr>
-                    <th width="100">Số QĐ</th>
+                    <th width="120">Số QĐ</th>
                     <th width="80">Ngày ký</th>
                     <th width="100">Ngày hiệu lực</th>
                     <th width="300">Công việc</th>
-                    <th colspan="2">Thao tác</th>
+                    <th colspan="2" align="center">Thao tác</th>
                 </tr>
                 <?php 
                     do { ?>
-                        <tr>
-                            <td class="row1"><?php echo $row_RCQuatrinh_TM['so_quyet_dinh']; ?></td>
-                            <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_ky']; ?></td>
-                            <td class="row1"><?php echo $row_RCQuatrinh_TM['ngay_hieu_luc']; ?></td>
-                            <td class="row1"><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
-                            <!--<td width="50" class="row1"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác">Thêm</a></td>-->
-                            <td width="50" class="row1" align="center">
-                                <a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">
-                                    <?php
-                                        echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
-                                    ?>
-                                </a>
-                            </td>
+                <tr>
+                    <td><?php echo $row_RCQuatrinh_TM['so_quyet_dinh']; ?></td>
+                    <td><?php echo $row_RCQuatrinh_TM['ngay_ky']; ?></td>
+                    <td><?php echo $row_RCQuatrinh_TM['ngay_hieu_luc']; ?></td>
+                    <td><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
+                    <td width="50" align="center">
+                        <a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">
+                            <?php
+                                echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
+                            ?>
+                        </a>
+                    </td>
 
-                            <td class="row1" align="center">
-                            <a href="#" onclick="ConfirmDelete()" value="Xóa quá trình công tác">
-                                <?php
-                                    echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
-                                ?>
-                            </a>
-                            <script type="text/javascript">
-                                function ConfirmDelete()
-                                {
-                                    if (confirm("Bạn có chắc chắn thao tác xóa!"))
-                                        location.href='index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác&action=del';
-                                }
-                            </script>
+                    <td align="center">
+                        <a href="#" onclick="ConfirmDelete()" value="Xóa quá trình công tác">
+                            <?php
+                                echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
+                            ?>
+                        </a>
+                        <script type="text/javascript">
+                            function ConfirmDelete()
+                            {
+                                if (confirm("Bạn có chắc chắn thao tác xóa!"))
+                                    location.href='index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác&action=del';
+                            }
+                        </script>
+                    </td>
                 <?php } 
                     while ($row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM)); 
                 ?>
@@ -192,11 +208,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
-                    <td><b><?php echo $ma_nv; ?></b></td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nhân viên:</td>
-                    <td><b>
+                    <td style="color:red"><b>
                     <?php
             
                         //echo $ma_nv;
@@ -220,7 +236,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                     </td>
                 </tr>
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Số quyết định:</td>
+                    <td nowrap="nowrap" align="right">Số quyết định công tác:</td>
                     <td>
                         <input type="text" name="so_quyet_dinh" value="" size="54" />
                     </td>
@@ -241,13 +257,23 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <a href="#" onclick="new_workingprocess_form.submit();return true;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
+                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quá trình</strong><span class="bt_green_r"></span></a>
+                        <script type="text/javascript">
+                        function ConfirmCreate()
+                        {
+                            if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
+                            {
+                                new_workingprocess_form.submit();
+                                return false;
+                            }  
+                        }
+                        </script>
                     </td>
                 </tr>
             </table>
             <input type="hidden" name="MM_insert" value="new_workingprocess_form" />
         </form>
-        </div>
+    </div>
 </body>
 </html>
 <?php

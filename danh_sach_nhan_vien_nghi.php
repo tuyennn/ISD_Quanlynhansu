@@ -59,19 +59,19 @@ $totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
     </thead>
     <?php do { ?>
         <tr class="row">
-            <td class="row1" width="50" align="center">
+            <td width="50" align="center">
                 <a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>">
                     <img src="images/Offline.png" alt="Đã nghỉ việc" title="" border="0" />
                 </a>
             </td>
-            <td class="row1" width="30" align="left"><a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>"><?php echo $row_RCdanh_sach['ma_nhan_vien']; ?></a></td>
-            <td class="row1" align="left"><?php echo $row_RCdanh_sach['ho_ten']; ?></td>
-            <td class="row1" align="left"><?php echo $row_RCdanh_sach['dt_di_dong']; ?></td>
-            <td class="row1" align="left"><?php echo $row_RCdanh_sach['dt_nha']; ?></td>
-            <td class="row1" align="left"><?php echo $row_RCdanh_sach['email']; ?></td>
-            <td class="row1" width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin nhân viên"><img src="images/user_edit.png" alt="Xóa" title="" border="0" /></a></td>
-            <td class="row1" width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin công việc"><img src="images/user_edit.png" alt="Xóa" title="" border="0" /></a></td>
-            <td class="row1" width="50" align="center">
+            <td width="30" align="left"><a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>"><?php echo $row_RCdanh_sach['ma_nhan_vien']; ?></a></td>
+            <td align="left"><?php echo $row_RCdanh_sach['ho_ten']; ?></td>
+            <td align="left"><?php echo $row_RCdanh_sach['dt_di_dong']; ?></td>
+            <td align="left"><?php echo $row_RCdanh_sach['dt_nha']; ?></td>
+            <td align="left"><?php echo $row_RCdanh_sach['email']; ?></td>
+            <td width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin nhân viên"><img src="images/user_edit.png" alt="Xóa" title="" border="0" /></a></td>
+            <td width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin công việc"><img src="images/user_edit.png" alt="Xóa" title="" border="0" /></a></td>
+            <td width="50" align="center">
                 <a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>">
                     <img src="images/trash.png" alt="Xóa" title="" border="0" />
                 </a>

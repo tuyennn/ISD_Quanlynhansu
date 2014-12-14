@@ -11,15 +11,15 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
-   mysql_select_db($database_Myconnection, $Myconnection);
-   $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    mysql_select_db($database_Myconnection, $Myconnection);
+    $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
 
-   $deleteGoTo = "them_danh_muc.php";
-   if (isset($_SERVER['QUERY_STRING'])) {
-      $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-      $deleteGoTo .= $_SERVER['QUERY_STRING'];
-  }
-  sprintf("location: %s", $deleteGoTo);
+    $deleteGoTo = "them_danh_muc.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
+    $deleteGoTo .= $_SERVER['QUERY_STRING'];
+}
+sprintf("location: %s", $deleteGoTo);
 }
 
 if (!function_exists("GetSQLValueString")) {
@@ -59,8 +59,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   $insertSQL = sprintf("INSERT INTO $table VALUES (%s, %s)",
-   GetSQLValueString($_POST['1'], "text"),
-   GetSQLValueString($_POST['2'], "text"));
+     GetSQLValueString($_POST['1'], "text"),
+     GetSQLValueString($_POST['2'], "text"));
 
   mysql_select_db($database_Myconnection, $Myconnection);
   $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
@@ -70,7 +70,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
 }
-sprintf("Location: %s", $insertGoTo);
+sprintf("location: %s", $insertGoTo);
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -116,11 +116,11 @@ sprintf("Location: %s", $insertGoTo);
     $stt =1;
     while ($row = mysql_fetch_row($RCDanhmuc_TM)) {?>
     <tr>
-        <td class="row1"><?php echo $stt;?></td>
-        <td class="row1"><?php echo $row[0]; ?></td>
-        <td class="row1"><?php echo $row[1]; ?></td>
-        <td class="row1"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
-        <td class="row1"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
+        <td><?php echo $stt;?></td>
+        <td><?php echo $row[0]; ?></td>
+        <td><?php echo $row[1]; ?></td>
+        <td><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
+        <td><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
     </tr>
     <?php $stt = $stt + 1; ?>
     <?php }  ?>

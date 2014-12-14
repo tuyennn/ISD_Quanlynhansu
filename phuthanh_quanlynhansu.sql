@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2014 at 10:09 AM
+-- Generation Time: Dec 14, 2014 at 09:15 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -381,17 +381,15 @@ CREATE TABLE IF NOT EXISTS `tlb_quanhegiadinh` (
   `dia_chi` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `dtll` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ghi_chu` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `tlb_quanhegiadinh`
 --
 
 INSERT INTO `tlb_quanhegiadinh` (`id`, `ma_nhan_vien`, `ten_nguoi_than`, `nam_sinh`, `moi_quan_he`, `nghe_nghiep`, `dia_chi`, `dtll`, `ghi_chu`) VALUES
-(9, 'PT08', 'Vũ Thị Lý', 1961, 'Mẹ đẻ', 'Nông dân', 'Thị trấn Phú Xuyên, Phú Xuyên, Hà Nội', NULL, NULL),
-(10, 'PT08', 'Nguyễn Khánh Linh', 1995, 'Em gái', 'Sinh viên', 'Xã Nam Phong, Huyện Phú Xuyên, TP Hà Nội', NULL, NULL),
-(11, 'PT01', 'Vũ Thị Lý', 1961, 'Mẹ đẻ', 'Nông dân', 'Thị trấn Phú Xuyên, Phú Xuyên, Hà Nội', NULL, NULL),
-(12, 'PT01', 'Nguyễn Khánh Linh', 1995, 'Em gái', 'Sinh viên', 'Xã Nam Phong, Huyện Phú Xuyên, TP Hà Nội', NULL, NULL);
+(16, 'PT01', 'Nguyễn Khánh Linh', 1995, 'Em gái', 'Sinh viên', 'Thị trấn Phú Xuyên, Phú Xuyên, Hà Nội', '0973888431', NULL),
+(18, 'PT01', 'Vũ Thị Lý', 1961, 'Mẹ đẻ', 'Nông dân', 'Xã Nam Phong, Huyện Phú Xuyên, TP Hà Nội', '0973888123', NULL);
 
 -- --------------------------------------------------------
 
@@ -407,17 +405,15 @@ CREATE TABLE IF NOT EXISTS `tlb_quatrinhcongtac` (
   `ngay_hieu_luc` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cong_viec` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ghi_chu` text COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `tlb_quatrinhcongtac`
 --
 
 INSERT INTO `tlb_quatrinhcongtac` (`id`, `ma_nhan_vien`, `so_quyet_dinh`, `ngay_ky`, `ngay_hieu_luc`, `cong_viec`, `ghi_chu`) VALUES
-(1, 'TCHC008', '300/2010/QĐ-TCHC', '02/02/2008', '02/02/2008', 'CNTT', 'Testtttggg'),
-(2, 'TCHC008', '350/2010/QĐ-TCHC', '06/08/2009', '01/09/2009', 'Nhân viên lưu trữ', 'Phòng QLTC'),
-(3, 'TCHC002', '390/2010/QĐ-TCHC', '2008-09-01', '2009-09-02', 'An toàn lao động', 'Phòng TCHC'),
-(4, 'TCHC002', '305/2010/QĐ-TCHC', '2009-05-01', '2010-09-02', 'An toàn lao động 222', 'pppppppppp');
+(9, 'PT01', 'QTCP-11/2013', '09/12/2014', '10/12/2014', 'Nhân viên phụ trách vệ sinh', NULL),
+(18, 'PT01', 'QTCP-11/2013', '09/12/2014', '10/12/2014', 'Nhân viên phụ trách kỹ thuật IT', NULL);
 
 -- --------------------------------------------------------
 
@@ -429,21 +425,18 @@ CREATE TABLE IF NOT EXISTS `tlb_quatrinhluong` (
 `id` mediumint(11) NOT NULL,
   `ma_nhan_vien` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `so_quyet_dinh` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ngay_chuyen` date DEFAULT NULL,
-  `muc_luong` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ngay_chuyen` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `muc_luong` varchar(9) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ghi_chu` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `tlb_quatrinhluong`
 --
 
 INSERT INTO `tlb_quatrinhluong` (`id`, `ma_nhan_vien`, `so_quyet_dinh`, `ngay_chuyen`, `muc_luong`, `ghi_chu`) VALUES
-(1, 'TCHC008', '312/2010/QĐ-TCHC', '2010-02-02', '3', '2 năm nâng bậc'),
-(2, 'TCHC003', '312/2010/QĐ-TCHC', '2010-02-02', '3', NULL),
-(3, 'TCHC008', '315/2010/QĐ-TCHC', '2010-02-02', '1.33', 'nâng bậc 2 năm'),
-(4, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, NULL, NULL, NULL, NULL);
+(9, 'PT01', 'QTCP-12/2013', '18/12/2014', '8000000', NULL),
+(12, 'PT01', 'QTCP-11/2013', '12/12/2013', '10000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -676,17 +669,17 @@ MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `tlb_quanhegiadinh`
 --
 ALTER TABLE `tlb_quanhegiadinh`
-MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `tlb_quatrinhcongtac`
 --
 ALTER TABLE `tlb_quatrinhcongtac`
-MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tlb_quatrinhluong`
 --
 ALTER TABLE `tlb_quatrinhluong`
-MODIFY `id` mediumint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` mediumint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

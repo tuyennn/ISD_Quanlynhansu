@@ -95,14 +95,14 @@ if ($totalRows_RCBaohiem_TM <>0)
                     <th colspan="2">&nbsp;</th>
                 </tr>
                 <tr>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['so_bhxh']; ?></td>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['ngay_cap_bhxh']; ?></td>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['noi_cap_bhxh']; ?></td>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['so_bhyt']; ?></td>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['ngay_cap_bhyt']; ?></td>
-                    <td class="row1"><?php echo $row_RCBaohiem_TM['noi_cap_bhyt']; ?></td>
-                    <td width="35" class="row1"><a href="index.php?require=cap_nhat_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Cập nhật bảo hiểm">Sửa</a></td>
-                    <td width="35" class="row1">Xoá</td>
+                    <td><?php echo $row_RCBaohiem_TM['so_bhxh']; ?></td>
+                    <td><?php echo $row_RCBaohiem_TM['ngay_cap_bhxh']; ?></td>
+                    <td><?php echo $row_RCBaohiem_TM['noi_cap_bhxh']; ?></td>
+                    <td><?php echo $row_RCBaohiem_TM['so_bhyt']; ?></td>
+                    <td><?php echo $row_RCBaohiem_TM['ngay_cap_bhyt']; ?></td>
+                    <td><?php echo $row_RCBaohiem_TM['noi_cap_bhyt']; ?></td>
+                    <td width="35"><a href="index.php?require=cap_nhat_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Cập nhật bảo hiểm">Sửa</a></td>
+                    <td width="35">Xoá</td>
                 </tr>
             </table>
     <?php

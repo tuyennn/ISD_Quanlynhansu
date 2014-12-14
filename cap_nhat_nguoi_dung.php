@@ -57,12 +57,12 @@ $totalRows_RCDanhmuc_DS = mysql_num_rows($RCDanhmuc_DS);
 	  $stt = 1;
 	  do { ?>
         <tr>
-          <td class="row1"><?php echo $stt; ?></td>
-          <td class="row1"><?php echo $row_RCDanhmuc_DS[$ma_column]; ?></td>
-          <td class="row1"><?php echo $row_RCDanhmuc_DS[$ten_column]; ?></td>
-          <td class="row1"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=new">Thêm</a></td>
-          <td class="row1"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row_RCDanhmuc_DS[$ma_column]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>">Sửa</a></td>
-          <td class="row1"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row_RCDanhmuc_DS[$ma_column]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
+          <td><?php echo $stt; ?></td>
+          <td><?php echo $row_RCDanhmuc_DS[$ma_column]; ?></td>
+          <td><?php echo $row_RCDanhmuc_DS[$ten_column]; ?></td>
+          <td><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=new">Thêm</a></td>
+          <td><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row_RCDanhmuc_DS[$ma_column]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>">Sửa</a></td>
+          <td><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row_RCDanhmuc_DS[$ma_column]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
         </tr>
         <?php $stt = $stt + 1; ?>
         <?php } while ($row_RCDanhmuc_DS = mysql_fetch_assoc($RCDanhmuc_DS)); ?>

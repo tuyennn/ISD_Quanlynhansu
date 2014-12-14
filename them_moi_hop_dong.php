@@ -92,10 +92,10 @@ $totalRows_RCHopdong_TM = mysql_num_rows($RCHopdong_TM);
             </tr>
             <?php do { ?>
             <tr>
-                <td class="row1"><?php echo $row_RCHopdong_TM['so_quyet_dinh']; ?></td>
-                <td class="row1"><?php echo $row_RCHopdong_TM['tu_ngay']; ?></td>
-                <td class="row1"><?php echo $row_RCHopdong_TM['den_ngay']; ?></td>
-                <td class="row1">
+                <td><?php echo $row_RCHopdong_TM['so_quyet_dinh']; ?></td>
+                <td><?php echo $row_RCHopdong_TM['tu_ngay']; ?></td>
+                <td><?php echo $row_RCHopdong_TM['den_ngay']; ?></td>
+                <td>
                 <?php 
                     if ($row_RCHopdong_TM['loai_hop_dong']==0)
                     {
@@ -108,10 +108,10 @@ $totalRows_RCHopdong_TM = mysql_num_rows($RCHopdong_TM);
                     }
                 ?>
                 </td>
-                <td class="row1"><?php echo $row_RCHopdong_TM['ghi_chu']; ?></td>
-                <td width="50" class="row1"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Thêm mới quá trình công tác">Thêm</a></td>
-                <td width="50" class="row1"><a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_TM['id']; ?>&title=Cập nhật hợp đồng">Sửa</a></td>
-                <td width="50" class="row1">Xoá</td>
+                <td><?php echo $row_RCHopdong_TM['ghi_chu']; ?></td>
+                <td width="50"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Thêm mới quá trình công tác">Thêm</a></td>
+                <td width="50"><a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_TM['id']; ?>&title=Cập nhật hợp đồng">Sửa</a></td>
+                <td width="50">Xoá</td>
             </tr>
             <?php } while ($row_RCHopdong_TM = mysql_fetch_assoc($RCHopdong_TM)); ?>
         </table>
