@@ -46,8 +46,9 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_workingproce
     GetSQLValueString($_POST['cong_viec'], "text"),
     GetSQLValueString($_POST['ghi_chu'], "text"));
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_e = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($updateSQL);
+    $result_e = $mydb->executeQuery();
+
     if($result_e) {
         $message = "Thao tác cập nhật thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -64,12 +65,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_workingproce
     }
     sprintf("location: %s", $updateGoTo);
 }
+$mydb->setQuery("SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'");
+$RCQuatrinh_DS = $mydb->executeQuery();
+$row_RCQuatrinh_DS = $mydb->fetch_assoc($RCQuatrinh_DS);
+$totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCQuatrinh_DS = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-$RCQuatrinh_DS = mysql_query($query_RCQuatrinh_DS, $Myconnection) or die(mysql_error());
-$row_RCQuatrinh_DS = mysql_fetch_assoc($RCQuatrinh_DS);
-$totalRows_RCQuatrinh_DS = mysql_num_rows($RCQuatrinh_DS);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -131,21 +131,17 @@ $totalRows_RCQuatrinh_DS = mysql_num_rows($RCQuatrinh_DS);
                 <td><?php echo $row_RCQuatrinh_DS['ngay_hieu_luc']; ?></td>
                 <td><?php echo $row_RCQuatrinh_DS['cong_viec']; ?></td>
             </tr>
-        <?php } while ($row_RCQuatrinh_DS = mysql_fetch_assoc($RCQuatrinh_DS)); ?>
+        <?php } while ($row_RCQuatrinh_DS = $mydb->fetch_assoc($RCQuatrinh_DS)); ?>
         </table>
-        <?php
-            mysql_free_result($RCQuatrinh_DS);
-        ?>
     </div>
     <!--MAIN BOTTOM CONTENT -->
 
     <div class="detail_bottom">
         <?php
-            mysql_select_db($database_Myconnection, $Myconnection);
-            $query_RCQuatrinh_CN = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv' and id = $id";
-            $RCQuatrinh_CN = mysql_query($query_RCQuatrinh_CN, $Myconnection) or die(mysql_error());
-            $row_RCQuatrinh_CN = mysql_fetch_assoc($RCQuatrinh_CN);
-            $totalRows_RCQuatrinh_CN = mysql_num_rows($RCQuatrinh_CN);
+            $mydb->setQuery("SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv' and id = $id");
+            $RCQuatrinh_CN = $mydb->executeQuery();
+            $row_RCQuatrinh_CN = $mydb->fetch_assoc($RCQuatrinh_CN);
+            $totalRows_RCQuatrinh_CN = $mydb->num_rows($RCQuatrinh_CN);
         ?>
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_workingprocess" id="update_workingprocess">
             <table id="rounded-corner" width="750" align="right">
@@ -225,8 +221,6 @@ $totalRows_RCQuatrinh_DS = mysql_num_rows($RCQuatrinh_DS);
             <input type="hidden" name="MM_update" value="update_workingprocess" />
             <input type="hidden" name="id" value="<?php echo $row_RCQuatrinh_CN['id']; ?>" />
         </form>
-<?php
-    mysql_free_result($RCQuatrinh_CN);
-?>
+    </div>
 </body>
 </html>

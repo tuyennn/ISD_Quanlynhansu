@@ -1,25 +1,16 @@
 <?php
 $keyword = get_param('keyword');
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCdanh_sach = "SELECT * FROM tlb_nhanvien";
+$mydb->setQuery("SELECT * FROM tlb_nhanvien");
 if($keyword!=''){
-	$query_RCdanh_sach .= " WHERE ho_ten LIKE '%".$keyword."%'";
+    $mydb->setQuery("SELECT * FROM tlb_nhanvien WHERE ho_ten LIKE '%".$keyword."%'");
 }
 
-$RCdanh_sach = mysql_query($query_RCdanh_sach, $Myconnection) or die(mysql_error());
-$row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach);
-$totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
+
+$result = $mydb->executeQuery();
+$row_RCdanh_sach = $mydb->fetch_assoc($result);
+$totalRows_RCdanh_sach = $mydb->num_rows($result);
 ?>
 
-<!--SEARCH BOX-->
-<!--   
-<div style="padding:10px; text-align:right;">
-  <form name="fsearch">
-    <input type="text" name="keyword" value="" />
-    <input type="submit" value="Tìm kiếm" />
-</form>
-</div>
--->
 <?php
 if($keyword!=''){
 	echo '<div id="tieude2">Kết quả tìm nhân viên có chứa từ khóa tìm kiếm "'.$keyword.'"</div>';
@@ -74,7 +65,7 @@ if($keyword!=''){
                 </a>
             </td>
         </tr>
-<?php } while ($row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach)); ?>
+<?php } while ($row_RCdanh_sach = $mydb->fetch_assoc($result)); ?>
 
     <tfoot>
             <tr>
@@ -90,7 +81,3 @@ if($keyword!=''){
             </tr>
     </tfoot>
 </table>
-
-<?php
-mysql_free_result($RCdanh_sach);
-?>

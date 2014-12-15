@@ -1,5 +1,4 @@
 <?php require_once('includes/initialize.php'); ?>
-<?php //require_once('header.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -29,14 +28,13 @@ if (!function_exists("GetSQLValueString")) {
         break;
     }
     return $theValue;
+    }
 }
-}
+$mydb->setQuery("SELECT * FROM tlb_nhanvien where nghi_viec = 1");
+$result = $mydb->executeQuery();
+$row_RCdanh_sach = $mydb->fetch_assoc($result);
+$totalRows_RCdanh_sach = $mydb->num_rows($result);
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCdanh_sach = "SELECT * FROM tlb_nhanvien where nghi_viec = 1";
-$RCdanh_sach = mysql_query($query_RCdanh_sach, $Myconnection) or die(mysql_error());
-$row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach);
-$totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
 ?>
 <table id="rounded-corner" summary="Bảng Thống Kê Nhân Viên Đã Nghỉ Việc" >
     <thead>
@@ -77,7 +75,7 @@ $totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
                 </a>
             </td>
         </tr>
-    <?php } while ($row_RCdanh_sach = mysql_fetch_assoc($RCdanh_sach)); ?>
+    <?php } while ($row_RCdanh_sach = $mydb->fetch_assoc($result)); ?>
     <tfoot>
             <tr>
                 <td colspan="8" class="rounded-foot-left"><em><b><u>Hướng Dẫn:</u></b> 
@@ -89,6 +87,3 @@ $totalRows_RCdanh_sach = mysql_num_rows($RCdanh_sach);
             </tr>
     </tfoot>
 </table>
-<?php
-    mysql_free_result($RCdanh_sach);
-?>

@@ -37,7 +37,7 @@
     }
 
     if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff")) {
-       $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh=%s, noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap=%s, noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien=%s",
+       $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh=%s, noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap=%s, noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['ho_ten'], "text"),
         GetSQLValueString($_POST['gioi_tinh'], "int"),
         GetSQLValueString($_POST['gia_dinh'], "int"),
@@ -53,8 +53,7 @@
         GetSQLValueString($_POST['que_quan'], "text"),
         GetSQLValueString($_POST['dia_chi'], "text"),
         GetSQLValueString($_POST['tam_tru'], "text"),
-        GetSQLValueString($_POST['nghi_viec'], "int"),
-        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
+        GetSQLValueString($_POST['nghi_viec'], "int"));
 
 
     
@@ -80,8 +79,8 @@
             echo "There was an error uploading the file, please try again!";
         }
 
-        mysql_select_db($database_Myconnection, $Myconnection);
-        $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+        $mydb->setQuery($updateSQL);
+        $result = $mydb->executeQuery();
 
 
         $updateGoTo = "danh_sach_nhan_vien.php";
@@ -93,11 +92,11 @@
         location($url);
     }
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $query_RCcapnhat_nhanvien = "SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'";
-    $RCcapnhat_nhanvien = mysql_query($query_RCcapnhat_nhanvien, $Myconnection) or die(mysql_error());
-    $row_RCcapnhat_nhanvien = mysql_fetch_assoc($RCcapnhat_nhanvien);
-    $totalRows_RCcapnhat_nhanvien = mysql_num_rows($RCcapnhat_nhanvien);
+    $mydb->setQuery("SELECT * FROM tlb_nhanvien where ma_nhan_vien = '$ma_nv'");
+    $RCcapnhat_nhanvien = $mydb->executeQuery();
+    $row_RCcapnhat_nhanvien = $mydb->fetch_assoc($RCcapnhat_nhanvien);
+    $totalRows_RCcapnhat_nhanvien = $mydb->num_rows($RCcapnhat_nhanvien);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -285,70 +284,6 @@
  
                         ?>
                     </div>
-
-
-
-                <!--
-                    <div class="avatar">
-                        <a data-target="#myModal" data-toggle="modal" href="" title="Click here to Change Image.">
-
-                            <?php
-            
-                                //echo $ma_nv;
-                                $mydb->setQuery("SELECT * FROM tlb_hinhanh WHERE `ma_nhan_vien`='$ma_nv'");
-                                $cur = $mydb->loadResultList();
-                                if ($mydb->affected_rows()== 0){
-                                    echo '<img src="./uploads/p.jpg" class="img-thumbnail" width="200px" height="100px" />';    
-                                
-                                } 
-                                foreach($cur as $object){
-                                   
-                                        echo '<img src="./uploads/'. $object->filename.'" class="img-thumbnail" width="200px" height="100px" />';
-                                    
-                                    }
-
-                                $hinh_anh   
-                            ?> 
-                        </a>
-                    </div>
-
-                    <div class="modal fade" id="myModal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="close" data-dismiss="modal" type="button">×</button>
-
-                                    <h4 class="modal-title" id="myModalLabel">Choose a picture for Profile.</h4>
-                                </div>
-                                <form action="update_photo.php" enctype="multipart/form-data" method="post">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <div class="rows">
-                                                <div class="col-md-12">
-                                                    <div class="rows">
-                                                        <div class="col-md-8">
-                                                            <input name="MAX_FILE_SIZE" type="hidden" value="1000000"> 
-                                                            <input id="uploadImage1" type="file" name="p1" onchange="PreviewImage(1);" />
-                                                            <img style="width:100px" id="uploadPreview1" class="img-thumbnail" src="./uploads/p.jpg" /><br />
-                                                        </div>
-
-                                                        <div class="col-md-4"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button class="btn btn-default" data-dismiss="modal" type="button">Close</button> 
-                                        <button class="btn btn-primary"name="savephoto" type="submit">Save Photo</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    -->        
                 </td>
             </tr>
 
@@ -373,12 +308,8 @@
         function fn_submit()
         {
             document.edit_staff.submit();
-            //alert("I am an alert box!");
         }
     </script> 
     <p>&nbsp;</p>
 </body>
 </html>
-<?php
-    mysql_free_result($RCcapnhat_nhanvien);
-?>

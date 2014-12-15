@@ -2,7 +2,7 @@
 require_once('includes/functions.php');
 require_once("includes/initialize.php");
 if ( !isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
-	header('Location: dang_nhap.php');
+	header('location: dang_nhap.php');
 	exit;
 }
 $title = get_param('title');

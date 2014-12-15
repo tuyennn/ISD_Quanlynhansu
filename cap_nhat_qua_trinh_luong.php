@@ -43,9 +43,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
         GetSQLValueString($_POST['ngay_chuyen'], "date"),
         GetSQLValueString($_POST['muc_luong'], "text"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
-
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_e = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($updateSQL);
+    $result_e = $mydb->executeQuery();
     if($result_e) {
         $message = "Thao tác cập nhật thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -62,12 +61,10 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
     }
     sprintf("location: %s", $updateGoTo);
 }
-
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCQTluong_DS = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-$RCQTluong_DS = mysql_query($query_RCQTluong_DS, $Myconnection) or die(mysql_error());
-$row_RCQTluong_DS = mysql_fetch_assoc($RCQTluong_DS);
-$totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
+$mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'");
+$RCQTluong_DS = $mydb->executeQuery();
+$row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS);
+$totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -129,21 +126,17 @@ $totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
                 <td><?php echo $row_RCQTluong_DS['muc_luong']; ?></td>
                 <td></td>
             </tr>
-            <?php } while ($row_RCQTluong_DS = mysql_fetch_assoc($RCQTluong_DS)); ?>
+            <?php } while ($row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS)); ?>
         </table>
-        <?php
-            mysql_free_result($RCQTluong_DS);
-        ?>
     </div>
     <!--MAIN BOTTOM CONTENT -->
 
     <div class="detail_bottom">
         <?php
-        mysql_select_db($database_Myconnection, $Myconnection);
-        $query_RCQTluong_CN = "SELECT * FROM tlb_quatrinhluong where id = $id";
-        $RCQTluong_CN = mysql_query($query_RCQTluong_CN, $Myconnection) or die(mysql_error());
-        $row_RCQTluong_CN = mysql_fetch_assoc($RCQTluong_CN);
-        $totalRows_RCQTluong_CN = mysql_num_rows($RCQTluong_CN);	
+            $mydb->setQuery("SELECT * FROM tlb_quatrinhluong where id = $id");
+            $RCQTluong_CN = $mydb->executeQuery();
+            $row_RCQTluong_CN = $mydb->fetch_assoc($RCQTluong_CN);
+            $totalRows_RCQTluong_CN = $mydb->num_rows($RCQTluong_CN);	
         ?>
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary" id="update_salary">
             <table id="rounded-corner" width="750" align="right">
@@ -218,6 +211,3 @@ $totalRows_RCQTluong_DS = mysql_num_rows($RCQTluong_DS);
     </form>
 </body>
 </html>
-<?php
-    mysql_free_result($RCQTluong_CN);
-?>

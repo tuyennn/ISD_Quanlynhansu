@@ -48,8 +48,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
     GetSQLValueString($_POST['dtll'], "text"),
     GetSQLValueString($_POST['ghi_chu'], "text"));
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_e = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($updateSQL);
+    $result_e = $mydb->executeQuery();
     if($result_e) {
         $message = "Thao tác cập nhật thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -89,11 +89,10 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
     <!--MAIN UP CONTENT -->
     <div class="detail_up">
         <?php
-            mysql_select_db($database_Myconnection, $Myconnection);
-            $query_RCQuanhe_DS = "SELECT * FROM tlb_quanhegiadinh WHERE ma_nhan_vien = '$ma_nv'";
-            $RCQuanhe_DS = mysql_query($query_RCQuanhe_DS, $Myconnection) or die(mysql_error());
-            $row_RCQuanhe_DS = mysql_fetch_assoc($RCQuanhe_DS);
-            $totalRows_RCQuanhe_DS = mysql_num_rows($RCQuanhe_DS); 
+            $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh WHERE ma_nhan_vien = '$ma_nv'");
+            $RCQuanhe_DS = $mydb->executeQuery();
+            $row_RCQuanhe_DS = $mydb->fetch_assoc($RCQuanhe_DS);
+            $totalRows_RCQuanhe_DS = $mydb->num_rows($RCQuanhe_DS);
         ?>
 
         <table id="rounded-corner" border="0" width="750">
@@ -113,23 +112,19 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
                 <td><?php echo $row_RCQuanhe_DS['dtll']; ?></td>
             </tr>
             <?php 
-                } while ($row_RCQuanhe_DS = mysql_fetch_assoc($RCQuanhe_DS)); 
+                } while ($row_RCQuanhe_DS = $mydb->fetch_assoc($RCQuanhe_DS)); 
             ?>
         </table>
-        <?php
-            mysql_free_result($RCQuanhe_DS);
-        ?>
     </div>
 
     <!--MAIN BOTTOM CONTENT -->
 
     <div class="detail_bottom">
         <?php
-            mysql_select_db($database_Myconnection, $Myconnection);
-            $query_RCQuanhe_CN = "SELECT * FROM tlb_quanhegiadinh WHERE id= $id";
-            $RCQuanhe_CN = mysql_query($query_RCQuanhe_CN, $Myconnection) or die(mysql_error());
-            $row_RCQuanhe_CN = mysql_fetch_assoc($RCQuanhe_CN);
-            $totalRows_RCQuanhe_CN = mysql_num_rows($RCQuanhe_CN);
+            $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh WHERE id= $id");
+            $RCQuanhe_CN = $mydb->executeQuery();
+            $row_RCQuanhe_CN = $mydb->fetch_assoc($RCQuanhe_CN);
+            $totalRows_RCQuanhe_CN = $mydb->num_rows($RCQuanhe_CN);
         ?>
 
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_relation" id="update_relation">
@@ -208,9 +203,5 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
             <input type="hidden" name="id" value="<?php echo $row_RCQuanhe_CN['id']; ?>" />
         </form>
     </div>
-
-    <?php
-        mysql_free_result($RCQuanhe_CN);
-    ?>
 </body>
 </html>

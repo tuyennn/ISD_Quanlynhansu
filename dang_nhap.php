@@ -5,13 +5,13 @@ $submit = get_param('submit');
 if($submit<>""){
 	$ten_dang_nhap=get_param('ten_dang_nhap');
 	$mat_khau=md5(get_param('mat_khau'));
-	mysql_select_db($database_Myconnection, $Myconnection);
-	$query_RCNguoidung = "SELECT * FROM tlb_nguoidung WHERE ten_dang_nhap = '".$ten_dang_nhap."' AND mat_khau = '".$mat_khau."'";
-	$RCNguoidung = mysql_query($query_RCNguoidung, $Myconnection) or die(mysql_error());
-	$row_RCNguoidung = mysql_fetch_assoc($RCNguoidung);
-	$totalRows_RCNguoidung = mysql_num_rows($RCNguoidung);
-	mysql_free_result($RCNguoidung);
-	//nếu đăng nhập thành công
+	$mydb->setQuery("SELECT * FROM tlb_nguoidung WHERE ten_dang_nhap = '".$ten_dang_nhap."' AND mat_khau = '".$mat_khau."'");
+	$result = $mydb->executeQuery();
+	$row_RCNguoidung = $mydb->fetch_assoc($result);
+	$totalRows_RCNguoidung = $mydb->num_rows($result);
+
+
+	// Đăng nhập thành công
 	if ($totalRows_RCNguoidung<>0)
 	{
 		$_SESSION['logged-in'] = true;

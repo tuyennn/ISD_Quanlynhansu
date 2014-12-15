@@ -37,79 +37,82 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-  $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam=%s, phong_ban_id=%s, cong_viec_id=%s, chuc_vu_id=%s, muc_luong_cb=%s, he_so=%s, phu_cap=%s, so_sld=%s, ngay_cap=%s, noi_cap=%s, tknh=%s, ngan_hang=%s, hoc_van_id=%s, bang_cap_id=%s, ngoai_ngu_id=%s, tin_hoc_id=%s, dan_toc_id=%s, quoc_tich_id=%s, ton_giao_id=%s, tinh_thanh_id=%s WHERE ma_nhan_vien=%s",
-     GetSQLValueString($_POST['ngay_vao_lam'], "date"),
-     GetSQLValueString($_POST['phong_ban_id'], "text"),
-     GetSQLValueString($_POST['cong_viec_id'], "text"),
-     GetSQLValueString($_POST['chuc_vu_id'], "text"),
-     GetSQLValueString($_POST['muc_luong_cb'], "text"),
-     GetSQLValueString($_POST['he_so'], "text"),
-     GetSQLValueString($_POST['phu_cap'], "text"),
-     GetSQLValueString($_POST['so_sld'], "text"),
-     GetSQLValueString($_POST['ngay_cap'], "date"),
-     GetSQLValueString($_POST['noi_cap'], "text"),
-     GetSQLValueString($_POST['tknh'], "text"),
-     GetSQLValueString($_POST['ngan_hang'], "text"),
-     GetSQLValueString($_POST['hoc_van_id'], "text"),
-     GetSQLValueString($_POST['bang_cap_id'], "text"),
-     GetSQLValueString($_POST['ngoai_ngu_id'], "text"),
-     GetSQLValueString($_POST['tin_hoc_id'], "text"),
-     GetSQLValueString($_POST['dan_toc_id'], "text"),
-     GetSQLValueString($_POST['quoc_tich_id'], "text"),
-     GetSQLValueString($_POST['ton_giao_id'], "text"),
-     GetSQLValueString($_POST['tinh_thanh_id'], "text"),
-     GetSQLValueString($_POST['ma_nhan_vien'], "text"));
-
-mysql_select_db($database_Myconnection, $Myconnection);
-$Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());
-
-$updateGoTo = "danh_sach_nhan_vien.php";
-if (isset($_SERVER['QUERY_STRING'])) {
-    $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
-    $updateGoTo .= $_SERVER['QUERY_STRING'];
+    $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam=%s, phong_ban_id=%s, cong_viec_id=%s, chuc_vu_id=%s, muc_luong_cb=%s, he_so=%s, phu_cap=%s, so_sld=%s, ngay_cap=%s, noi_cap=%s, tknh=%s, ngan_hang=%s, hoc_van_id=%s, bang_cap_id=%s, ngoai_ngu_id=%s, tin_hoc_id=%s, dan_toc_id=%s, quoc_tich_id=%s, ton_giao_id=%s, tinh_thanh_id=%s WHERE ma_nhan_vien=%s",
+        GetSQLValueString($_POST['ngay_vao_lam'], "date"),
+        GetSQLValueString($_POST['phong_ban_id'], "text"),
+        GetSQLValueString($_POST['cong_viec_id'], "text"),
+        GetSQLValueString($_POST['chuc_vu_id'], "text"),
+        GetSQLValueString($_POST['muc_luong_cb'], "text"),
+        GetSQLValueString($_POST['he_so'], "text"),
+        GetSQLValueString($_POST['phu_cap'], "text"),
+        GetSQLValueString($_POST['so_sld'], "text"),
+        GetSQLValueString($_POST['ngay_cap'], "date"),
+        GetSQLValueString($_POST['noi_cap'], "text"),
+        GetSQLValueString($_POST['tknh'], "text"),
+        GetSQLValueString($_POST['ngan_hang'], "text"),
+        GetSQLValueString($_POST['hoc_van_id'], "text"),
+        GetSQLValueString($_POST['bang_cap_id'], "text"),
+        GetSQLValueString($_POST['ngoai_ngu_id'], "text"),
+        GetSQLValueString($_POST['tin_hoc_id'], "text"),
+        GetSQLValueString($_POST['dan_toc_id'], "text"),
+        GetSQLValueString($_POST['quoc_tich_id'], "text"),
+        GetSQLValueString($_POST['ton_giao_id'], "text"),
+        GetSQLValueString($_POST['tinh_thanh_id'], "text"),
+        GetSQLValueString($_POST['ma_nhan_vien'], "text"));
+    $mydb->setQuery($updateSQL);
+    $result = $mydb->executeQuery();
+    $updateGoTo = "danh_sach_nhan_vien.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
+        $updateGoTo .= $_SERVER['QUERY_STRING'];
+    }
+    sprintf("location: %s", $updateGoTo);
 }
-sprintf("Location: %s", $updateGoTo);
-}
+$mydb->setQuery("SELECT * FROM tlb_congviec where ma_nhan_vien = '$ma_nv'");
+$RCcapnhat_congviec = $mydb->executeQuery();
+$row_RCcapnhat_congviec = $mydb->fetch_assoc($RCcapnhat_congviec);
+$totalRows_RCcapnhat_congviec = $mydb->num_rows($RCcapnhat_congviec);
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCcapnhat_congviec = "SELECT * FROM tlb_congviec where ma_nhan_vien = '$ma_nv'";
-$RCcapnhat_congviec = mysql_query($query_RCcapnhat_congviec, $Myconnection) or die(mysql_error());
-$row_RCcapnhat_congviec = mysql_fetch_assoc($RCcapnhat_congviec);
-$totalRows_RCcapnhat_congviec = mysql_num_rows($RCcapnhat_congviec);
 if ($totalRows_RCcapnhat_congviec==0)
 {
     $url = "index.php?require=them_moi_cong_viec.php&catID=$ma_nv&title=Thêm mới công việc";
     location($url);
 }
-$query_RCphongban1 = "SELECT * FROM tlb_phongban inner join tlb_congviec on tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCphongban1 = mysql_query($query_RCphongban1, $Myconnection) or die(mysql_error());
-$row_RCphongban1 = mysql_fetch_assoc($RCphongban1);
-$totalRows_RCphongban1 = mysql_num_rows($RCphongban1);
-//lay danh sach khi phong ban cap nhat
-$query_RCphongban = "SELECT * FROM tlb_phongban";
-$RCphongban = mysql_query($query_RCphongban, $Myconnection) or die(mysql_error());
-$row_RCphongban = mysql_fetch_assoc($RCphongban);
-$totalRows_RCphongban = mysql_num_rows($RCphongban);
-//lay cong viec hien tai
-$query_RCctcongviec1 = "SELECT * FROM tlb_ctcongviec inner join tlb_congviec on tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCctcongviec1 = mysql_query($query_RCctcongviec1, $Myconnection) or die(mysql_error());
-$row_RCctcongviec1 = mysql_fetch_assoc($RCctcongviec1);
-$totalRows_RCctcongviec1 = mysql_num_rows($RCctcongviec1);
-//lay danh sach cong viec khi cap nhat
-$query_RCctcongviec = "SELECT * FROM tlb_ctcongviec";
-$RCctcongviec = mysql_query($query_RCctcongviec, $Myconnection) or die(mysql_error());
-$row_RCctcongviec = mysql_fetch_assoc($RCctcongviec);
-$totalRows_RCctcongviec = mysql_num_rows($RCctcongviec);
-//lay chuc vu hien tai
-$query_RCChucvu1 = "SELECT * FROM tlb_chucvu inner join tlb_congviec on tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCChucvu1 = mysql_query($query_RCChucvu1, $Myconnection) or die(mysql_error());
-$row_RCChucvu1 = mysql_fetch_assoc($RCChucvu1);
-$totalRows_RCChucvu1 = mysql_num_rows($RCChucvu1);
-//lay danh sach chuc vu
-$query_RCChucvu = "SELECT * FROM tlb_chucvu";
-$RCChucvu = mysql_query($query_RCChucvu, $Myconnection) or die(mysql_error());
-$row_RCChucvu = mysql_fetch_assoc($RCChucvu);
-$totalRows_RCChucvu = mysql_num_rows($RCChucvu);
+$mydb->setQuery("SELECT * FROM tlb_phongban inner join tlb_congviec on tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCphongban1 = $mydb->executeQuery();
+$row_RCphongban1 = $mydb->fetch_assoc($RCphongban1);
+$totalRows_RCphongban1 = $mydb->num_rows($RCphongban1);
+
+// Lấy danh sách sau khi phòng ban cập nhật
+$mydb->setQuery("SELECT * FROM tlb_phongban");
+$RCphongban = $mydb->executeQuery();
+$row_RCphongban = $mydb->fetch_assoc($RCphongban);
+$totalRows_RCphongban = $mydb->num_rows($RCphongban);
+
+// Lấy công việc hiện tại
+$mydb->setQuery("SELECT * FROM tlb_ctcongviec inner join tlb_congviec on tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCctcongviec1 = $mydb->executeQuery();
+$row_RCctcongviec1 = $mydb->fetch_assoc($RCctcongviec1);
+$totalRows_RCctcongviec1 = $mydb->num_rows($RCctcongviec1);
+
+// Lấy danh sách công việc sau khi cập nhật
+$mydb->setQuery("SELECT * FROM tlb_ctcongviec");
+$RCctcongviec = $mydb->executeQuery();
+$row_RCctcongviec = $mydb->fetch_assoc($RCctcongviec);
+$totalRows_RCctcongviec = $mydb->num_rows($RCctcongviec);
+
+// Lấy chức vụ hiện tại
+$mydb->setQuery("SELECT * FROM tlb_chucvu inner join tlb_congviec on tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCChucvu1 = $mydb->executeQuery();
+$row_RCChucvu1 = $mydb->fetch_assoc($RCChucvu1);
+$totalRows_RCChucvu1 = $mydb->num_rows($RCChucvu1);
+
+// Lấy danh sách chức vụ sau khi cập nhật
+$mydb->setQuery("SELECT * FROM tlb_chucvu");
+$RCChucvu = $mydb->executeQuery();
+$row_RCChucvu = $mydb->fetch_assoc($RCChucvu);
+$totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
+
 //lay hoc van hien tai
 $query_RCHocvan1 = "SELECT * FROM tlb_hocvan inner join tlb_congviec on tlb_hocvan.hoc_van_id = tlb_congviec.hoc_van_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
 $RCHocvan1 = mysql_query($query_RCHocvan1, $Myconnection) or die(mysql_error());
@@ -199,11 +202,11 @@ $totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
     <style type="text/css">
         <!--
         body,td,th {
-           font-family: Arial, Helvetica, sans-serif;
-           font-size: 12px;
-           line-height: 1.4;
-       }
-   -->
+         font-family: Arial, Helvetica, sans-serif;
+         font-size: 12px;
+         line-height: 1.4;
+     }
+ -->
 </style></head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
     <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
