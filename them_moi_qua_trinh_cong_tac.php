@@ -70,14 +70,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     GetSQLValueString($_POST['cong_viec'], "text"),
     GetSQLValueString($_POST['ghi_chu'], "text"));
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_c = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($insertSQL);
+    $result_c = $mydb->executeQuery();
     if($result_c) {
-        $message = "Thêm quá trình thành công!";
+        $message = "Thao tác thêm mới thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
     else {
-        $message = "Thêm quá trình thất bại!";
+        $message = "Thao tác thêm mới thất bại!";
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
 
@@ -88,12 +88,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     }
     sprintf("location: %s", $insertGoTo);
 }
-
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $query_RCQuatrinh_TM = "SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'";
-    $RCQuatrinh_TM = mysql_query($query_RCQuatrinh_TM, $Myconnection) or die(mysql_error());
-    $row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM);
-    $totalRows_RCQuatrinh_TM = mysql_num_rows($RCQuatrinh_TM);
+    $mydb->setQuery("SELECT * FROM tlb_quatrinhcongtac where ma_nhan_vien = '$ma_nv'");
+    $RCQuatrinh_TM = $mydb->executeQuery();
+    $row_RCQuatrinh_TM = $mydb->fetch_assoc($RCQuatrinh_TM);
+    $totalRows_RCQuatrinh_TM = $mydb->num_rows($RCQuatrinh_TM);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -134,7 +132,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                 <th width="200" class="rounded-company" rowspan="2" align="center"><a href="index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&title=Quan hệ gia đình&action=new">Quan hệ gia đình</a></td>
                 <th width="200" rowspan="2" align="center"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác&action=new">Quá trình công tác</a></td>
                 <th width="150" rowspan="2" align="center"><a href="index.php?require=them_moi_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&title=Quá trình lương&action=new">Quá trình lương</a></td>
-                <th width="120" rowspan="2" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Hợp đồng&action=new">Hợp đồng</a></td>
+                <th width="120" rowspan="2" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Ký Hợp Đồng&action=new">Ký Hợp Đồng</a></td>
                 <th width="112" class="rounded-q4" rowspan="2" align="center"><a href="index.php?require=them_moi_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Bảo hiểm&action=new">Bảo hiểm</a></td>
             </tr>
         </thead>
@@ -186,7 +184,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                         </script>
                     </td>
                 <?php } 
-                    while ($row_RCQuatrinh_TM = mysql_fetch_assoc($RCQuatrinh_TM)); 
+                    while ($row_RCQuatrinh_TM = $mydb->fetch_assoc($RCQuatrinh_TM)); 
                 ?>
             </table>
         <?php
@@ -240,6 +238,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                     <td>
                         <input type="text" name="so_quyet_dinh" value="" size="54" />
                     </td>
+                </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày hiệu lực:</td>
                     <td>
@@ -276,6 +275,3 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     </div>
 </body>
 </html>
-<?php
-    mysql_free_result($RCQuatrinh_TM);
-?>

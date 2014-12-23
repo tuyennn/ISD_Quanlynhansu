@@ -255,13 +255,13 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
     
     <table class="tablebg" align="center" width="900" border="0" cellspacing="1" cellpadding="1">
         <tr>
-            <td class="row5" align="left" colspan="5"><h3>Hợp đồng lao động</h3></td>
+            <td class="row5" align="left" colspan="5"><h3>Ký Hợp Đồng lao động</h3></td>
         </tr>
         <tr>
             <td width="176" class="row5">Số quyết định</td>
             <td width="86" class="row5">Từ ngày</td>
             <td width="86" class="row5">Đến ngày</td>
-            <td width="105" class="row5">Loại hợp đồng</td>
+            <td width="105" class="row5">Loại Ký Hợp Đồng</td>
             <td width="430" class="row5">Ghi chú</td>
         </tr>
         <?php do { ?>

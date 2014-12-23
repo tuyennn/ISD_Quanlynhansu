@@ -70,14 +70,14 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_relationship_fo
         GetSQLValueString($_POST['dtll'], "text"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_c = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($insertSQL);
+    $result_c = $mydb->executeQuery();
     if($result_c) {
-        $message = "Thêm quan hệ thành công!";
+        $message = "Thao tác thêm mới thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
     else {
-        $message = "Thêm quan hệ thất bại!";
+        $message = "Thao tác thêm mới thất bại!";
         echo "<script type='text/javascript'>alert('$message');</script>";
     }
 
@@ -88,12 +88,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_relationship_fo
 }
 sprintf("location: %s", $insertGoTo);
 }
+$mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'");
+    $RCQuanHeGD = $mydb->executeQuery();
+    $row_RCQuanHeGD = $mydb->fetch_assoc($RCQuanHeGD);
+    $totalRows_RCQuanHeGD = $mydb->num_rows($RCQuanHeGD);
 
-mysql_select_db($database_Myconnection, $Myconnection);
-$query_RCQuanHeGD = "SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'";
-$RCQuanHeGD = mysql_query($query_RCQuanHeGD, $Myconnection) or die(mysql_error());
-$row_RCQuanHeGD = mysql_fetch_assoc($RCQuanHeGD);
-$totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -109,7 +108,7 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
                 <th width="200" class="rounded-company" rowspan="2" align="center"><a href="index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&title=Quan hệ gia đình&action=new">Quan hệ gia đình</a></td>
                 <th width="200" rowspan="2" align="center"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác&action=new">Quá trình công tác</a></td>
                 <th width="150" rowspan="2" align="center"><a href="index.php?require=them_moi_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&title=Quá trình lương&action=new">Quá trình lương</a></td>
-                <th width="120" rowspan="2" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Hợp đồng&action=new">Hợp đồng</a></td>
+                <th width="120" rowspan="2" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Ký Hợp Đồng&action=new">Ký Hợp Đồng</a></td>
                 <th width="112" class="rounded-q4" rowspan="2" align="center"><a href="index.php?require=them_moi_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Bảo hiểm&action=new">Bảo hiểm</a></td>
             </tr>
         </thead>
@@ -133,36 +132,36 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
                     <th width="120" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                 </tr>
             </thead>
-                <?php do { ?>
-                    <tr>
-                        <td><?php echo $row_RCQuanHeGD['ten_nguoi_than']; ?></td>
-                        <td><?php echo $row_RCQuanHeGD['moi_quan_he']; ?></td>
-                        <td><?php echo $row_RCQuanHeGD['nam_sinh']; ?></td>
-                        <td><?php echo $row_RCQuanHeGD['dtll']; ?></td>
-                        <?php $ma_id = $row_RCQuanHeGD['id']; ?>
-                        <td align="center">
-                            <a href="index.php?require=cap_nhat_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình">
-                                <?php
-                                    echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
-                                ?>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a href="#" onclick="ConfirmDelete()" value="Xóa quan hệ gia đình">
-                                <?php
-                                    echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
-                                ?>
-                            </a>
-                            <script type="text/javascript">
-                                function ConfirmDelete()
-                                {
-                                    if (confirm("Bạn có chắc chắn thao tác xóa!"))
-                                        location.href='index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình&action=del';
-                                }
-                            </script>
-                        </td>
-                    </tr>
-                <?php } while ($row_RCQuanHeGD = mysql_fetch_assoc($RCQuanHeGD)); ?>
+            <?php do { ?>
+                <tr>
+                    <td><?php echo $row_RCQuanHeGD['ten_nguoi_than']; ?></td>
+                    <td><?php echo $row_RCQuanHeGD['moi_quan_he']; ?></td>
+                    <td><?php echo $row_RCQuanHeGD['nam_sinh']; ?></td>
+                    <td><?php echo $row_RCQuanHeGD['dtll']; ?></td>
+                    <?php $ma_id = $row_RCQuanHeGD['id']; ?>
+                    <td align="center">
+                        <a href="index.php?require=cap_nhat_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình">
+                            <?php
+                                echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
+                            ?>
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a href="#" onclick="ConfirmDelete()" value="Xóa quan hệ gia đình">
+                            <?php
+                                echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
+                            ?>
+                        </a>
+                        <script type="text/javascript">
+                            function ConfirmDelete()
+                            {
+                                if (confirm("Bạn có chắc chắn thao tác xóa!"))
+                                    location.href='index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuanHeGD['id']; ?>&title=Cập nhật quan hệ gia đình&action=del';
+                            }
+                        </script>
+                    </td>
+                </tr>
+                <?php } while ($row_RCQuanHeGD = $mydb->fetch_assoc($RCQuanHeGD)); ?>
             </table>
         <?php
             }
@@ -252,6 +251,4 @@ $totalRows_RCQuanHeGD = mysql_num_rows($RCQuanHeGD);
     </div>
 </body>
 </html>
-<?php
-    mysql_free_result($RCQuanHeGD);
-?>
+

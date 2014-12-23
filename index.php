@@ -151,20 +151,20 @@ $(function($) {
 					<li><a href="index.php?require=danh_sach_nhan_vien_nghi.php&title=Danh sách nghỉ việc">Danh sách đã nghỉ việc</a></li>
                     </ul>
                 </div>
-                <a class="menuitem submenuheader" href="" >Thống Kê Quản Lý</a>
+                <a class="menuitem submenuheader" href="" >Thống Kê</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Quản Lý Phòng ban</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Quản Lý Công việc</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Quản Lý Chức vụ</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Quản Lý Học vấn</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Quản Lý Bằng cấp</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Quản Lý Ngoại ngữ</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Quản Lý Tin học</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Quản Lý Dân tộc</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Quản Lý Quốc tịch</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Quản Lý Tôn giáo</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Quản Lý Tỉnh thành</a></li>
+                    <li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Thống Kê Phòng ban</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Thống Kê Công việc</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Thống Kê Chức vụ</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Thống Kê Học vấn</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Thống Kê Dân tộc</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Thống Kê Quốc tịch</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Thống Kê Tôn giáo</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Thống Kê Tỉnh thành</a></li>
                     </ul>
                 </div>
                 <a class="menuitem submenuheader" href="">Tiền Lương & Thưởng</a>
@@ -232,11 +232,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <img src="images/info.png" alt="" title="" class="sidebar_icon_right" />
                 <ul>
                 <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                 <li>Lorem ipsum dolor sit ametconsectetur <strong>adipisicing</strong> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-                  <li>Lorem ipsum dolor sit amet, consectetur <a href="#">adipisicing</a> elit.</li>
-                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                     <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
                 </ul>                
                 </div>
                 <div class="sidebar_box_bottom"></div>
@@ -274,84 +269,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
      <div class="error_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
      </div>  
-           
-     <h2>Nice Form example</h2>
-     
-         <div class="form">
-         <form action="" method="post" class="niceform">
-         
-                <fieldset>
-                    <dl>
-                        <dt><label for="email">Email Address:</label></dt>
-                        <dd><input type="text" name="" id="" size="54" /></dd>
-                    </dl>
-                    <dl>
-                        <dt><label for="password">Password:</label></dt>
-                        <dd><input type="text" name="" id="" size="54" /></dd>
-                    </dl>
-                    
-                    
-                    <dl>
-                        <dt><label for="gender">Select categories:</label></dt>
-                        <dd>
-                            <select size="1" name="gender" id="">
-                                <option value="">Select option 1</option>
-                                <option value="">Select option 2</option>
-                                <option value="">Select option 3</option>
-                                <option value="">Select option 4</option>
-                                <option value="">Select option 5</option>
-                            </select>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><label for="interests">Select tags:</label></dt>
-                        <dd>
-                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Web design</label>
-                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Business</label>
-                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Simple</label>
-                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Clean</label>
-                        </dd>
-                    </dl>
-                    
-                    <dl>
-                        <dt><label for="color">Select type</label></dt>
-                        <dd>
-                            <input type="radio" name="type" id="" value="" /><label class="check_label">Basic</label>
-                            <input type="radio" name="type" id="" value="" /><label class="check_label">Medium</label>
-                            <input type="radio" name="type" id="" value="" /><label class="check_label">Premium</label>
-                        </dd>
-                    </dl>
-                    
-                    
-                    
-                    <dl>
-                        <dt><label for="upload">Upload a File:</label></dt>
-                        <dd><input type="file" name="upload" id="upload" /></dd>
-                    </dl>
-                    
-                    <dl>
-                        <dt><label for="comments">Message:</label></dt>
-                        <dd><textarea name="comments" id="comments" rows="5" cols="36"></textarea></dd>
-                    </dl>
-                    
-                    <dl>
-                        <dt><label></label></dt>
-                        <dd>
-                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">I agree to the <a href="#">terms &amp; conditions</a></label>
-                        </dd>
-                    </dl>
-                    
-                     <dl class="submit">
-                    <input type="submit" name="submit" id="submit" value="Submit" />
-                     </dl>
-                     
-                     
-                    
-                </fieldset>
-                
-         </form>
-         </div>  
-      
      
      </div><!-- end of right content-->
             

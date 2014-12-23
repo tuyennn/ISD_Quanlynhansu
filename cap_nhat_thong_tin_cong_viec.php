@@ -101,7 +101,7 @@ $RCctcongviec = $mydb->executeQuery();
 $row_RCctcongviec = $mydb->fetch_assoc($RCctcongviec);
 $totalRows_RCctcongviec = $mydb->num_rows($RCctcongviec);
 
-// Lấy chức vụ hiện tại
+// Lấy danh sách chức vụ hiện tại
 $mydb->setQuery("SELECT * FROM tlb_chucvu inner join tlb_congviec on tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
 $RCChucvu1 = $mydb->executeQuery();
 $row_RCChucvu1 = $mydb->fetch_assoc($RCChucvu1);
@@ -113,27 +113,36 @@ $RCChucvu = $mydb->executeQuery();
 $row_RCChucvu = $mydb->fetch_assoc($RCChucvu);
 $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
 
-//lay hoc van hien tai
-$query_RCHocvan1 = "SELECT * FROM tlb_hocvan inner join tlb_congviec on tlb_hocvan.hoc_van_id = tlb_congviec.hoc_van_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCHocvan1 = mysql_query($query_RCHocvan1, $Myconnection) or die(mysql_error());
-$row_RCHocvan1 = mysql_fetch_assoc($RCHocvan1);
-$totalRows_RCHocvan1 = mysql_num_rows($RCHocvan1);
-//lay danh sach Hoc van
-$query_RCHocvan = "SELECT * FROM tlb_hocvan";
-$RCHocvan = mysql_query($query_RCHocvan, $Myconnection) or die(mysql_error());
-$row_RCHocvan = mysql_fetch_assoc($RCHocvan);
-$totalRows_RCHocvan = mysql_num_rows($RCHocvan);
-//lay bang cap hien tai
-$query_RCBangcap1 = "SELECT * FROM tlb_bangcap inner join tlb_congviec on tlb_bangcap.bang_cap_id = tlb_congviec.bang_cap_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCBangcap1 = mysql_query($query_RCBangcap1, $Myconnection) or die(mysql_error());
-$row_RCBangcap1 = mysql_fetch_assoc($RCBangcap1);
-$totalRows_RCBangcap1 = mysql_num_rows($RCBangcap1);
-// lay danh sach bang cap
-$query_RCBangcap = "SELECT * FROM tlb_bangcap";
-$RCBangcap = mysql_query($query_RCBangcap, $Myconnection) or die(mysql_error());
-$row_RCBangcap = mysql_fetch_assoc($RCBangcap);
-$totalRows_RCBangcap = mysql_num_rows($RCBangcap);
-//lay ngoai ngu hien tai
+// Lấy danh sách học vấn hiện tại
+$mydb->setQuery("SELECT * FROM tlb_hocvan inner join tlb_congviec on tlb_hocvan.hoc_van_id = tlb_congviec.hoc_van_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCHocvan1 = $mydb->executeQuery();
+$row_RCHocvan1 = $mydb->fetch_assoc($RCHocvan1);
+$totalRows_RCHocvan1 = $mydb->num_rows($RCHocvan1);
+
+// Lấy danh sách học vấn sau cập nhật
+$mydb->setQuery("SELECT * FROM tlb_hocvan");
+$RCHocvan = $mydb->executeQuery();
+$row_RCHocvan = $mydb->fetch_assoc($RCHocvan);
+$totalRows_RCHocvan = $mydb->num_rows($RCHocvan);
+
+// Lấy danh sách bằng cấp hiện tại
+$mydb->setQuery("SELECT * FROM tlb_bangcap inner join tlb_congviec on tlb_bangcap.bang_cap_id = tlb_congviec.bang_cap_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCBangcap1 = $mydb->executeQuery();
+$row_RCBangcap1 = $mydb->fetch_assoc($RCBangcap1);
+$totalRows_RCBangcap1 = $mydb->num_rows($RCBangcap1);
+
+// Lấy danh sách bằng cấp sau cập nhật
+$mydb->setQuery("SELECT * FROM tlb_bangcap");
+$RCBangcap = $mydb->executeQuery();
+$row_RCBangcap = $mydb->fetch_assoc($RCBangcap);
+$totalRows_RCBangcap = $mydb->num_rows($RCBangcap);
+
+// Lấy danh sách ngoại ngữ hiện tại
+$mydb->setQuery("SELECT * FROM tlb_bangcap");
+$RCBangcap = $mydb->executeQuery();
+$row_RCBangcap = $mydb->fetch_assoc($RCBangcap);
+$totalRows_RCBangcap = $mydb->num_rows($RCBangcap);
+
 $query_RCNgoaingu1 = "SELECT * FROM tlb_ngoaingu inner join tlb_congviec on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
 $RCNgoaingu1 = mysql_query($query_RCNgoaingu1, $Myconnection) or die(mysql_error());
 $row_RCNgoaingu1 = mysql_fetch_assoc($RCNgoaingu1);

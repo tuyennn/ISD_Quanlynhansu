@@ -76,7 +76,7 @@ $totalRows_RCHopdong_DS = mysql_num_rows($RCHopdong_DS);
               <td width="20%"><a href="index.php?require=them_moi_quan_he_gia_dinh.php&catID=<?php echo $ma_nv; ?>&title=Quan hệ gia đình">Quan hệ gia đình</a></td>
               <td width="20%" align="center"><a href="index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác">Quá trình công tác</a></td>
               <td width="19%" align="center"><a href="index.php?require=them_moi_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&title=Quá trình lương">Quá trình lương</a></td>
-              <td width="20%" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Hợp đồng">Hợp đồng</a></td>
+              <td width="20%" align="center"><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Ký Hợp Đồng">Ký Hợp Đồng</a></td>
               <td width="20%" align="center"><a href="index.php?require=them_moi_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Bảo hiểm">Bảo hiểm</a></td>
           </tr>
       </table>
@@ -85,7 +85,7 @@ $totalRows_RCHopdong_DS = mysql_num_rows($RCHopdong_DS);
             <th width="150">Số QĐ</th>
             <th width="80">Từ ngày</th>
             <th width="100">Đến ngày</th>
-            <th width="120">Loại hợp đồng</th>
+            <th width="120">Loại Ký Hợp Đồng</th>
             <th width="200">Ghi chú</th>
             <th colspan="3">&nbsp;</th>
         </tr>
@@ -107,7 +107,7 @@ $totalRows_RCHopdong_DS = mysql_num_rows($RCHopdong_DS);
               ?></td>
               <td><?php echo $row_RCHopdong_DS['ghi_chu']; ?></td>
               <td><a href="index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Thêm mới quá trình công tác">Thêm</a></td>
-              <td><a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_DS['id']; ?>&title=Cập nhật hợp đồng">Sửa</a></td>
+              <td><a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_DS['id']; ?>&title=Cập nhật Ký Hợp Đồng">Sửa</a></td>
               <td>Xoá</td>
           </tr>
           <?php } while ($row_RCHopdong_DS = mysql_fetch_assoc($RCHopdong_DS)); ?>
@@ -140,7 +140,7 @@ $totalRows_RCHopdong_DS = mysql_num_rows($RCHopdong_DS);
                   (yyyy/mm/dd)</td>
               </tr>
               <tr valign="baseline">
-                  <td nowrap="nowrap" align="right">Loại hợp đồng:</td>
+                  <td nowrap="nowrap" align="right">Loại Ký Hợp Đồng:</td>
                   <td><select name="loai_hop_dong">
                       <option selected="selected" value="<?php echo $row_RCHopdong_CN['loai_hop_dong']?>">
                          <?php 
