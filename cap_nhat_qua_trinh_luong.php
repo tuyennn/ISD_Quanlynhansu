@@ -38,9 +38,11 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
-    $updateSQL = sprintf("UPDATE tlb_quatrinhluong SET so_quyet_dinh=%s, ngay_chuyen=%s, muc_luong=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
+    $tDate = str_replace('/', '-', $_POST['ngay_chuyen']);
+    $tDate = date('Y-m-d', strtotime($tDate));
+
+    $updateSQL = sprintf("UPDATE tlb_quatrinhluong SET so_quyet_dinh=%s, ngay_chuyen='{$tDate}', muc_luong=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['so_quyet_dinh'], "text"),
-        GetSQLValueString($_POST['ngay_chuyen'], "date"),
         GetSQLValueString($_POST['muc_luong'], "text"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
     $mydb->setQuery($updateSQL);
@@ -85,12 +87,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
             $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-         
-    $('#dateFormat').change(function() { 
-        $('#ngay_chuyen').val('').datepick('option', 
-            {dateFormat: formats[$(this).val()]}); 
-    });
-    });
+        });
     </script>
 </head>
 
@@ -113,16 +110,18 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
     <!--MAIN UP CONTENT -->
     <div class="detail_up">
         <table id="rounded-corner" align="center" cellpadding="1" cellspacing="1">
+            <thead>
             <tr>
-                <th width="200">Số quyết định</th>
+                <th width="200" class="rounded-content">Số quyết định</th>
                 <th width="150">Ngày chuyển mức</th>
                 <th width="150">Mức lương</th>
-                <th width="200">Tổng lương</th>
+                <th width="200"  class="rounded-q4">Tổng lương</th>
             </tr>
+            </thead>
             <?php do { ?>
             <tr>
                 <td><?php echo $row_RCQTluong_DS['so_quyet_dinh']; ?></td>
-                <td><?php echo $row_RCQTluong_DS['ngay_chuyen']; ?></td>
+                <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_DS['ngay_chuyen'])); ?></td>
                 <td><?php echo $row_RCQTluong_DS['muc_luong']; ?></td>
                 <td></td>
             </tr>
@@ -139,10 +138,10 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             $totalRows_RCQTluong_CN = $mydb->num_rows($RCQTluong_CN);	
         ?>
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary" id="update_salary">
-            <table id="rounded-corner" width="750" align="right">
+            <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Mã nhân viên:</td>
-                    <td style="color:red"><b><?php echo htmlentities($row_RCQTluong_CN['ma_nhan_vien'], ENT_COMPAT, 'utf-8'); ?></b></td>
+                    <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nhân viên:</td>
@@ -170,7 +169,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày chuyển mức:</td>
                     <td>
-                        <input type="text" name="ngay_chuyen" id="ngay_chuyen" value="<?php echo htmlentities($row_RCQTluong_CN['ngay_chuyen'], ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_chuyen" id="ngay_chuyen" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQTluong_CN['ngay_chuyen'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
                         (dd/mm/yyyy)
                     </td>
                 </tr>

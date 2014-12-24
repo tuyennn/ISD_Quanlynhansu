@@ -7,8 +7,8 @@ if ($action=="del")
 	$tomID = $_GET['tomID'];
 	$deleteSQL = "DELETE FROM tlb_quanhegiadinh WHERE id=$tomID";                     
 	
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_d = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($deleteSQL);
+    $result_d = $mydb->executeQuery();
 
     if($result_d) {
         $message = "Thao tác xóa thành công!";

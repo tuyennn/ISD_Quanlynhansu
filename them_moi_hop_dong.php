@@ -7,8 +7,8 @@ if ($action=="del")
     $tomID = $_GET['tomID'];
     $deleteSQL = "DELETE FROM tlb_hopdong WHERE id=$tomID";                     
     
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_d = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($deleteSQL);
+    $result_d = $mydb->executeQuery();
 
     if($result_d) {
         $message = "Thao tác xóa thành công!";
@@ -62,11 +62,16 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 
+
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_contract_form")) {
-    $insertSQL = sprintf("INSERT INTO tlb_hopdong (ma_nhan_vien, so_quyet_dinh, tu_ngay, den_ngay, loai_hop_dong, ghi_chu) VALUES ('{$ma_nv}', %s, %s, %s, %s, %s)",
+
+    $sDate = str_replace('/', '-', $_POST['tu_ngay']);
+    $tDate = str_replace('/', '-', $_POST['den_ngay']);
+    $sDate = date('Y-m-d', strtotime($sDate));
+    $tDate = date('Y-m-d', strtotime($tDate));
+
+    $insertSQL = sprintf("INSERT INTO tlb_hopdong (ma_nhan_vien, so_quyet_dinh, tu_ngay, den_ngay, loai_hop_dong, ghi_chu) VALUES ('{$ma_nv}', %s, '{$sDate}', '{$tDate}', %s, %s)",
         GetSQLValueString($_POST['so_quyet_dinh'], "text"),
-        GetSQLValueString($_POST['tu_ngay'], "date"),
-        GetSQLValueString($_POST['den_ngay'], "date"),
         GetSQLValueString($_POST['loai_hop_dong'], "int"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
 
@@ -113,12 +118,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
             $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-
-            $('#dateFormat').change(function() { 
-                $('#tu_ngay').val('').datepick('option', 
-                    {dateFormat: formats[$(this).val()]}); 
-            });
+            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C];
         });
     </script>
 </head>
@@ -160,8 +160,9 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                 <?php do { ?>
                 <tr>
                     <td><?php echo $row_RCHopdong_TM['so_quyet_dinh']; ?></td>
-                    <td><?php echo $row_RCHopdong_TM['tu_ngay']; ?></td>
-                    <td><?php echo $row_RCHopdong_TM['den_ngay']; ?></td>
+
+                    <td><?php echo date("d/m/Y", strtotime($row_RCHopdong_TM['tu_ngay'])); ?></td>
+                    <td><?php echo date("d/m/Y", strtotime($row_RCHopdong_TM['den_ngay'])); ?></td>
                     <td>
                         <?php 
                         if ($row_RCHopdong_TM['loai_hop_dong']==0)
@@ -270,7 +271,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                         </select>
                     </td>
                 </tr>
-                    <tr valign="baseline">
+                <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>

@@ -122,7 +122,7 @@
     $('#dateFormat').change(function() { 
         $('#ngay_cap').val('').datepick('option', 
             {dateFormat: formats[$(this).val()]}); 
-    });
+        });
     });
     </script>
 

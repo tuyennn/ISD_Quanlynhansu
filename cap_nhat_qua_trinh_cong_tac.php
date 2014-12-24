@@ -30,7 +30,7 @@ if (!function_exists("GetSQLValueString")) {
         break;
     }
     return $theValue;
-}
+    }
 }
 
 $editFormAction = $_SERVER['PHP_SELF'];
@@ -39,10 +39,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_workingprocess")) {
-    $updateSQL = sprintf("UPDATE tlb_quatrinhcongtac SET so_quyet_dinh=%s, ngay_ky=%s, ngay_hieu_luc=%s, cong_viec=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
+    $sDate = str_replace('/', '-', $_POST['ngay_ky']);
+    $tDate = str_replace('/', '-', $_POST['ngay_hieu_luc']);
+    $sDate = date('Y-m-d', strtotime($sDate));
+    $tDate = date('Y-m-d', strtotime($tDate));
+
+    $updateSQL = sprintf("UPDATE tlb_quatrinhcongtac SET so_quyet_dinh=%s, ngay_ky='{$sDate}', ngay_hieu_luc='{$tDate}', cong_viec=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
     GetSQLValueString($_POST['so_quyet_dinh'], "text"),
-    GetSQLValueString($_POST['ngay_ky'], "date"),
-    GetSQLValueString($_POST['ngay_hieu_luc'], "date"),
     GetSQLValueString($_POST['cong_viec'], "text"),
     GetSQLValueString($_POST['ghi_chu'], "text"));
 
@@ -90,13 +93,8 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
             $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-         
-    $('#dateFormat').change(function() { 
-        $('#ngay_ky').val('').datepick('option', 
-            {dateFormat: formats[$(this).val()]}); 
-    });
-    });
+            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C];   
+        });
     </script>
 </head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
@@ -117,23 +115,26 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
     </table>
     <!--MAIN UP CONTENT -->
     <div class="detail_up">
-        <table id="rounded-corner" align="center" cellpadding="1" cellspacing="1">
-            <tr>
-                <th width="140">Số QĐ</th>
-                <th width="120">Ngày ký</th>
-                <th width="120">Ngày hiệu lực</th>
-                <th width="340">Công việc</th>
-            </tr>
+        <table id="rounded-corner" border="0" width="750">
+            <thead>
+                <tr>
+                    <th width="140" class="rounded-content">Số QĐ</th>
+                    <th width="120">Ngày ký</th>
+                    <th width="120">Ngày hiệu lực</th>
+                    <th width="340" colspan="2" class="rounded-q4">Công việc</th>
+                </tr>
+            </thead>
         <?php do { ?>
             <tr>
                 <td><?php echo $row_RCQuatrinh_DS['so_quyet_dinh']; ?></td>
-                <td><?php echo $row_RCQuatrinh_DS['ngay_ky']; ?></td>
-                <td><?php echo $row_RCQuatrinh_DS['ngay_hieu_luc']; ?></td>
+                <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_DS['ngay_ky'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_DS['ngay_hieu_luc'])); ?></td>
                 <td><?php echo $row_RCQuatrinh_DS['cong_viec']; ?></td>
             </tr>
         <?php } while ($row_RCQuatrinh_DS = $mydb->fetch_assoc($RCQuatrinh_DS)); ?>
         </table>
     </div>
+
     <!--MAIN BOTTOM CONTENT -->
 
     <div class="detail_bottom">
@@ -144,11 +145,10 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
             $totalRows_RCQuatrinh_CN = $mydb->num_rows($RCQuatrinh_CN);
         ?>
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_workingprocess" id="update_workingprocess">
-            <table id="rounded-corner" width="750" align="right">
+            <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
-                    <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Mã nhân viên:</td>
-                    <td style="color:red"><b><?php echo htmlentities($row_RCQuatrinh_CN['ma_nhan_vien'], ENT_COMPAT, 'utf-8'); ?></b></td>
+                    <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nhân viên:</td>
@@ -170,12 +170,12 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày ký:</td>
                     <td>
-                        <input type="text" name="ngay_ky" id="ngay_ky" value="<?php echo htmlentities($row_RCQuatrinh_CN['ngay_ky'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="ngay_ky" id="ngay_ky" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_ky'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Số quyết định:</td>
+                    <td nowrap="nowrap" align="right">Số quyết định công tác:</td>
                     <td>
                         <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCQuatrinh_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
                     </td>
@@ -183,22 +183,20 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
                 <tr>
                     <td nowrap="nowrap" align="right">Ngày hiệu lực:</td>
                     <td>
-                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="<?php echo htmlentities($row_RCQuatrinh_CN['ngay_hieu_luc'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_hieu_luc'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Công việc:</td>
-                    <td>
-                        <input type="text" name="cong_viec" value="<?php echo htmlentities($row_RCQuatrinh_CN['cong_viec'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
-                    </td>
+                    <td colspan="3"><input type="text" name="cong_viec" value="<?php echo htmlentities($row_RCQuatrinh_CN['cong_viec'], ENT_COMPAT, 'utf-8'); ?>" size="54" /></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="<?php echo htmlentities($row_RCQuatrinh_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?>" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr valign="baseline">
-                    <td colspan="2">
+                    <td colspan="3">
                         <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>
                         <a href="#" onclick="go_back()" class="bt_blue"><span class="bt_blue_lft"></span><strong>Quay lại</strong><span class="bt_blue_r"></span></a>
                         <script type="text/javascript">

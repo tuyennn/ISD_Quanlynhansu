@@ -7,8 +7,8 @@ if ($action=="del")
     $tomID = $_GET['tomID'];
     $deleteSQL = "DELETE FROM tlb_quatrinhcongtac WHERE id=$tomID";                     
     
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_d = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($deleteSQL);
+    $result_d = $mydb->executeQuery();
 
     if($result_d) {
         $message = "Thao tác xóa thành công!";
@@ -63,12 +63,15 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_form")) {
-    $insertSQL = sprintf("INSERT INTO tlb_quatrinhcongtac (ma_nhan_vien, so_quyet_dinh, ngay_ky, ngay_hieu_luc, cong_viec, ghi_chu) VALUES ('{$ma_nv}', %s, %s, %s, %s, %s)",
-    GetSQLValueString($_POST['so_quyet_dinh'], "text"),
-    GetSQLValueString($_POST['ngay_ky'], "date"),
-    GetSQLValueString($_POST['ngay_hieu_luc'], "date"),
-    GetSQLValueString($_POST['cong_viec'], "text"),
-    GetSQLValueString($_POST['ghi_chu'], "text"));
+    $sDate = str_replace('/', '-', $_POST['ngay_ky']);
+    $tDate = str_replace('/', '-', $_POST['ngay_hieu_luc']);
+    $sDate = date('Y-m-d', strtotime($sDate));
+    $tDate = date('Y-m-d', strtotime($tDate));
+
+    $insertSQL = sprintf("INSERT INTO tlb_quatrinhcongtac (ma_nhan_vien, so_quyet_dinh, ngay_ky, ngay_hieu_luc, cong_viec, ghi_chu) VALUES ('{$ma_nv}', %s, '{$sDate}', '{$tDate}', %s, %s)",
+        GetSQLValueString($_POST['so_quyet_dinh'], "text"),
+        GetSQLValueString($_POST['cong_viec'], "text"),
+        GetSQLValueString($_POST['ghi_chu'], "text"));
 
     $mydb->setQuery($insertSQL);
     $result_c = $mydb->executeQuery();
@@ -113,11 +116,6 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
             $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-         
-    $('#dateFormat').change(function() { 
-        $('#ngay_ky').val('').datepick('option', 
-            {dateFormat: formats[$(this).val()]}); 
-    });
     });
     </script>
 </head>
@@ -145,21 +143,22 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
         if ($totalRows_RCQuatrinh_TM<>0)
             {
         ?>
-            <table id="rounded-corner" align="center" cellpadding="1" cellspacing="1">
-
-                <tr>
-                    <th width="120">Số QĐ</th>
-                    <th width="80">Ngày ký</th>
-                    <th width="100">Ngày hiệu lực</th>
-                    <th width="300">Công việc</th>
-                    <th colspan="2" align="center">Thao tác</th>
-                </tr>
-                <?php 
-                    do { ?>
+            <table id="rounded-corner" border="0" width="750">
+                <thead>
+                    <tr>
+                        <th width="120" class="rounded-content">Số QĐ</th>
+                        <th width="80">Ngày ký</th>
+                        <th width="100">Ngày hiệu lực</th>
+                        <th width="300">Công việc</th>
+                        <th colspan="2" align="center" class="rounded-q4">Thao tác</th>
+                    </tr>
+                </thead>
+                    <?php 
+                        do { ?>
                 <tr>
                     <td><?php echo $row_RCQuatrinh_TM['so_quyet_dinh']; ?></td>
-                    <td><?php echo $row_RCQuatrinh_TM['ngay_ky']; ?></td>
-                    <td><?php echo $row_RCQuatrinh_TM['ngay_hieu_luc']; ?></td>
+                    <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_TM['ngay_ky'])); ?></td>
+                    <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_TM['ngay_hieu_luc'])); ?></td>
                     <td><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
                     <td width="50" align="center">
                         <a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">

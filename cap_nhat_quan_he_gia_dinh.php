@@ -128,10 +128,10 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
         ?>
 
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_relation" id="update_relation">
-            <table id="rounded-corner" width="750" align="right">
+            <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Mã nhân viên:</td>
-                    <td style="color:red"><b><?php echo htmlentities($row_RCQuanhe_CN['ma_nhan_vien'], ENT_COMPAT, 'utf-8'); ?></b></td>
+                    <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nhân viên:</td>
