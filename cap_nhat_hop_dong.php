@@ -38,13 +38,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary_form")) {
     $sDate = str_replace('/', '-', $_POST['tu_ngay']);
     $tDate = str_replace('/', '-', $_POST['den_ngay']);
     $sDate = date('Y-m-d', strtotime($sDate));
     $tDate = date('Y-m-d', strtotime($tDate));
 
-    $updateSQL = sprintf("UPDATE tlb_hopdong SET so_quyet_dinh=%s, tu_ngay='{$sDate}', den_ngay='{$tDate}', loai_hop_dong=%s, ghi_chu=%s WHERE id=%s AND ma_nhan_vien='{$ma_nv}'",
+    $updateSQL = sprintf("UPDATE tlb_hopdong SET so_quyet_dinh=%s, tu_ngay='{$sDate}', den_ngay='{$tDate}', loai_hop_dong=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['so_quyet_dinh'], "text"),
         GetSQLValueString($_POST['loai_hop_dong'], "int"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
@@ -160,7 +160,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
         $row_RCHopdong_CN = $mydb->fetch_assoc($RCHopdong_CN);
         $totalRows_RCHopdong_CN = $mydb->num_rows($RCHopdong_CN);
     ?>
-    <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary" id="update_salary">
+    <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary_form" id="update_salary_form">
         <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <tr valign="baseline">
@@ -246,7 +246,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                             {
                                 if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
                                 {
-                                    update_salary.submit();
+                                    update_salary_form.submit();
                                     return false;
                                 }  
                             }
@@ -254,7 +254,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="MM_update" value="update_salary" />
+            <input type="hidden" name="MM_update" value="update_salary_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCHopdong_CN['id']; ?>" />
         </form>
     </div>

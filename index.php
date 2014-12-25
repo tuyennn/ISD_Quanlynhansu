@@ -90,20 +90,20 @@ $(function($) {
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                     </li>
 					
-                    <li><a href="#">Quản Lý<!--[if IE 7]><!--></a><!--<![endif]-->
+                    <li><a href="#">Thống Kê<!--[if IE 7]><!--></a><!--<![endif]-->
                     <!--[if lte IE 6]><table><tr><td><![endif]-->
                         <ul>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Quản Lý Phòng ban</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Quản Lý Công việc</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Quản Lý Chức vụ</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Quản Lý Học vấn</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Quản Lý Bằng cấp</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Quản Lý Ngoại ngữ</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Quản Lý Tin học</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Quản Lý Dân tộc</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Quản Lý Quốc tịch</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Quản Lý Tôn giáo</a></li>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Quản Lý Tỉnh thành</a></li>
+							<li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Thống Kê Phòng ban</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Thống Kê Công việc</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Thống Kê Chức vụ</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Thống Kê Học vấn</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Thống Kê Dân tộc</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Thống Kê Quốc tịch</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Thống Kê Tôn giáo</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Thống Kê Tỉnh thành</a></li>
                         </ul>
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                     </li>
@@ -188,19 +188,6 @@ $(function($) {
                     
             </div>
             
-            
-            <div class="sidebar_box">
-                <div class="sidebar_box_top"></div>
-                <div class="sidebar_box_content">
-                <h3>Trợ Giúp Nhanh</h3>
-                <img src="images/info.png" alt="" title="" class="sidebar_icon_right" />
-                <p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>                
-                </div>
-                <div class="sidebar_box_bottom"></div>
-            </div>
-            
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
@@ -218,21 +205,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <div class="sidebar_box_content">
                 <h5>Kho tài liệu</h5>
                 <img src="images/photo.png" alt="" title="" class="sidebar_icon_right" />
-                <p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>                
+                <p>Tải xuống các tài liệu, mẫu điền sẵn của công ty</p>                
                 </div>
                 <div class="sidebar_box_bottom"></div>
-            </div>  
-            
+            </div>
+
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
-                <h3>To do List</h3>
+                <h3>Cần trợ giúp?</h3>
                 <img src="images/info.png" alt="" title="" class="sidebar_icon_right" />
-                <ul>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                </ul>                
+                <p>
+                    Hãy gọi số (+84)0973874452 để được tư vấn và bảo trì phần mềm. Hoặc gửi thư về địa chỉ mail: thinghost76@gmail.com
+                </p>                
                 </div>
                 <div class="sidebar_box_bottom"></div>
             </div>

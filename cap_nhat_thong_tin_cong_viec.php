@@ -59,14 +59,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
         GetSQLValueString($_POST['ton_giao_id'], "text"),
         GetSQLValueString($_POST['tinh_thanh_id'], "text"),
         GetSQLValueString($_POST['ma_nhan_vien'], "text"));
-    $mydb->setQuery($updateSQL);
-    $result = $mydb->executeQuery();
-    $updateGoTo = "danh_sach_nhan_vien.php";
-    if (isset($_SERVER['QUERY_STRING'])) {
-        $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
-        $updateGoTo .= $_SERVER['QUERY_STRING'];
-    }
-    sprintf("location: %s", $updateGoTo);
+$mydb->setQuery($updateSQL);
+$result = $mydb->executeQuery();
+$updateGoTo = "danh_sach_nhan_vien.php";
+if (isset($_SERVER['QUERY_STRING'])) {
+    $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
+    $updateGoTo .= $_SERVER['QUERY_STRING'];
+}
+sprintf("location: %s", $updateGoTo);
 }
 $mydb->setQuery("SELECT * FROM tlb_congviec where ma_nhan_vien = '$ma_nv'");
 $RCcapnhat_congviec = $mydb->executeQuery();
@@ -211,11 +211,11 @@ $totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
     <style type="text/css">
         <!--
         body,td,th {
-         font-family: Arial, Helvetica, sans-serif;
-         font-size: 12px;
-         line-height: 1.4;
-     }
- -->
+           font-family: Arial, Helvetica, sans-serif;
+           font-size: 12px;
+           line-height: 1.4;
+       }
+   -->
 </style></head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
     <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">

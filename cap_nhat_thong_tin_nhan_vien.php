@@ -118,11 +118,6 @@
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
             $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-         
-    $('#dateFormat').change(function() { 
-        $('#ngay_cap').val('').datepick('option', 
-            {dateFormat: formats[$(this).val()]}); 
-        });
     });
     </script>
 

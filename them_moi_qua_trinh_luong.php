@@ -88,12 +88,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_salary_form")) 
     }
 sprintf("location: %s", $insertGoTo);
 }
+$mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'");
+$RCQTluong_TM = $mydb->executeQuery();
+$row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM);
+$totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $query_RCQTluong_TM = "SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'";
-    $RCQTluong_TM = mysql_query($query_RCQTluong_TM, $Myconnection) or die(mysql_error());
-    $row_RCQTluong_TM = mysql_fetch_assoc($RCQTluong_TM);
-    $totalRows_RCQTluong_TM = mysql_num_rows($RCQTluong_TM);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -178,7 +177,7 @@ sprintf("location: %s", $insertGoTo);
                     </script>
                 </td>
             </tr>
-                <?php } while ($row_RCQTluong_TM = mysql_fetch_assoc($RCQTluong_TM)); ?>
+                <?php } while ($row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM)); ?>
         </table>
     <?php }
         else { ?>
@@ -259,6 +258,3 @@ sprintf("location: %s", $insertGoTo);
     </div>
 </body>
 </html>
-<?php
-    mysql_free_result($RCQTluong_TM);
-?>

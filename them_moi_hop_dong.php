@@ -53,7 +53,7 @@ if (!function_exists("GetSQLValueString")) {
         break;
     }
     return $theValue;
-}
+    }
 }
 
 $editFormAction = $_SERVER['PHP_SELF'];
@@ -143,9 +143,9 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
     <!--MAIN UP CONTENT -->
     <div class="detail_up">
     <?php
-    if ($totalRows_RCHopdong_TM<>0)
-    {
-        ?>
+        if ($totalRows_RCHopdong_TM<>0)
+        {
+    ?>
         <table id="rounded-corner" border="0" width="750">
             <thead>
                 <tr>
@@ -160,7 +160,6 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                 <?php do { ?>
                 <tr>
                     <td><?php echo $row_RCHopdong_TM['so_quyet_dinh']; ?></td>
-
                     <td><?php echo date("d/m/Y", strtotime($row_RCHopdong_TM['tu_ngay'])); ?></td>
                     <td><?php echo date("d/m/Y", strtotime($row_RCHopdong_TM['den_ngay'])); ?></td>
                     <td>
@@ -202,8 +201,8 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
         </table>
         <?php
             }
-    else {
-    ?>
+        else {
+        ?>
         <table id="rounded-corner" border="0" width="460" align="center" cellpadding="1" cellspacing="1">
             <span><h4>Chưa có hợp đồng được ký, mời thêm mới</h4></span>
         </table>
