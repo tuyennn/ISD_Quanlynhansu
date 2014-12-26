@@ -125,11 +125,11 @@ $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'")
             <table id="rounded-corner" border="0" width="750">
             <thead>
                 <tr>
-                    <th width="280" class="rounded-content">Tên người thân</th>
-                    <th width="140">Quan hệ</th>
+                    <th width="240" class="rounded-content">Tên người thân</th>
+                    <th width="120">Quan hệ</th>
                     <th width="120">Năm sinh</th>
-                    <th width="180">Điện thoại</th>
-                    <th width="120" colspan="2" align="center" class="rounded-q4">Thao tác</th>
+                    <th width="120">Điện thoại</th>
+                    <th width="100" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                 </tr>
             </thead>
             <?php do { ?>

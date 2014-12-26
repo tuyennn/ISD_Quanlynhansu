@@ -96,12 +96,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
         ?>
 
         <table id="rounded-corner" border="0" width="750">
+        <thead>
             <tr>
-                <th width="280" class="rounded-company">Tên người thân</th>
+                <th width="300" class="rounded-content">Tên người thân</th>
                 <th width="180">Quan hệ</th>
                 <th width="120">Năm sinh</th>
                 <th width="180" class="rounded-q4">Điện thoại</th>
             </tr>
+        </thead>
             <?php 
                 do { 
             ?>

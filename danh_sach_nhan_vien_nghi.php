@@ -45,13 +45,13 @@ $totalRows_RCdanh_sach = $mydb->num_rows($result);
             <th width="90" rowspan="2" align="center">ĐT DI ĐỘNG</th>
             <th width="90" rowspan="2" align="center">ĐT NHÀ</th>
             <th width="150" rowspan="2" align="center">EMAIL</th>
-            <th colspan="2" align="center">THÔNG TIN</th>
+            <th colspan="2" align="center">HỒ SƠ</th>
             <th width="30" rowspan="2" align="center" class="rounded-q4">XÓA</th>
         </tr>
 
         <tr>
-            <td align="center" bgcolor="#CC0000">Nhân viên</td>
-            <td align="center" bgcolor="#CC0000">Công việc</td>
+            <td align="center" bgcolor="#CC0000">Cá nhân</td>
+            <td align="center" bgcolor="#CC0000">Công ty</td>
         </tr>
 
     </thead>

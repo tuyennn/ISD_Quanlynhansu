@@ -37,23 +37,26 @@
     }
 
     if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff")) {
-       $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh=%s, noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap=%s, noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien='{$ma_nv}'",
-        GetSQLValueString($_POST['ho_ten'], "text"),
-        GetSQLValueString($_POST['gioi_tinh'], "int"),
-        GetSQLValueString($_POST['gia_dinh'], "int"),
-        GetSQLValueString($_POST['dt_di_dong'], "text"),
-        GetSQLValueString($_POST['dt_nha'], "text"),
-        GetSQLValueString($_POST['email'], "text"),
-        GetSQLValueString($_POST['ngay_sinh'], "date"),
-        GetSQLValueString($_POST['noi_sinh'], "text"),
-        GetSQLValueString($_POST['tinh_thanh'], "text"),
-        GetSQLValueString($_POST['cmnd'], "text"),
-        GetSQLValueString($_POST['ngay_cap'], "date"),
-        GetSQLValueString($_POST['noi_cap'], "text"),
-        GetSQLValueString($_POST['que_quan'], "text"),
-        GetSQLValueString($_POST['dia_chi'], "text"),
-        GetSQLValueString($_POST['tam_tru'], "text"),
-        GetSQLValueString($_POST['nghi_viec'], "int"));
+        $sDate = str_replace('/', '-', $_POST['ngay_sinh']);
+        $tDate = str_replace('/', '-', $_POST['ngay_cap']);
+        $sDate = date('Y-m-d', strtotime($sDate));
+        $tDate = date('Y-m-d', strtotime($tDate));
+
+        $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh='{$sDate}', noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap='{$tDate}', noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien='{$ma_nv}'",
+            GetSQLValueString($_POST['ho_ten'], "text"),
+            GetSQLValueString($_POST['gioi_tinh'], "int"),
+            GetSQLValueString($_POST['gia_dinh'], "int"),
+            GetSQLValueString($_POST['dt_di_dong'], "text"),
+            GetSQLValueString($_POST['dt_nha'], "text"),
+            GetSQLValueString($_POST['email'], "text"),
+            GetSQLValueString($_POST['noi_sinh'], "text"),
+            GetSQLValueString($_POST['tinh_thanh'], "text"),
+            GetSQLValueString($_POST['cmnd'], "text"),
+            GetSQLValueString($_POST['noi_cap'], "text"),
+            GetSQLValueString($_POST['que_quan'], "text"),
+            GetSQLValueString($_POST['dia_chi'], "text"),
+            GetSQLValueString($_POST['tam_tru'], "text"),
+            GetSQLValueString($_POST['nghi_viec'], "int"));
 
 
     
@@ -76,11 +79,20 @@
             }  
         }
         else {
-            echo "There was an error uploading the file, please try again!";
+            //echo "There was an error uploading the file, please try again!";
         }
 
         $mydb->setQuery($updateSQL);
-        $result = $mydb->executeQuery();
+        $result_e = $mydb->executeQuery();
+
+        if($result_e) {
+            $message = "Thao tác cập nhật thành công!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+        }
+        else {
+            $message = "Thao tác cập nhật thất bại!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+        }
 
 
         $updateGoTo = "danh_sach_nhan_vien.php";
@@ -163,7 +175,7 @@
         <table id="rounded-corner" width="750" align="center" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
             <tr valign="baseline">
                 <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
-                <td width="227"><?php echo $row_RCcapnhat_nhanvien['ma_nhan_vien']; ?></td>
+                <td style="color:red" width="227"><b><?php echo $row_RCcapnhat_nhanvien['ma_nhan_vien']; ?></b></td>
                 <td nowrap="nowrap" align="right" width="68">Tình trạng:</td>
                 <td width="271">
                     <?php
@@ -193,7 +205,7 @@
                 <td><input type="text" name="ho_ten" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['ho_ten'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
                 <td>Ngày sinh:</td>
                 <td>
-                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="<?php echo $row_RCcapnhat_nhanvien['ngay_sinh']; ?>" size="25" />
+                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_sinh'])), ENT_COMPAT, 'utf-8'); ?>" size="25" />
                         (dd/mm/yyyy)
                 </td>
             </tr>
@@ -230,7 +242,7 @@
                 <td><input type="text" name="dt_nha" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['dt_nha'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
                 <td>Ngày cấp:</td>
                 <td>
-                    <input type="text" name="ngay_cap" id="ngay_cap" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['ngay_cap'], ENT_COMPAT, 'utf-8'); ?>" size="25" />
+                    <input type="text" name="ngay_cap" id="ngay_cap" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_cap'])), ENT_COMPAT, 'utf-8'); ?>" size="25" />
                     (dd/mm/yyyy)
                 </td>
             </tr>
@@ -297,14 +309,21 @@
         <input type="hidden" name="MM_update" value="edit_staff" />
         <input type="hidden" name="ma_nhan_vien" value="<?php echo $row_RCcapnhat_nhanvien['ma_nhan_vien']; ?>" />
     </form>
-    <a href="#" onClick="fn_submit();" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật thông tin</strong><span class="bt_green_r"></span></a>
-    <a href="#" class="bt_red"><span class="bt_red_lft"></span><strong>Quay lại</strong><span class="bt_red_r"></span></a>
+    <a href="#" onClick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật thông tin</strong><span class="bt_green_r"></span></a>
+    <a href="#" onclick="go_back()" class="bt_red"><span class="bt_red_lft"></span><strong>Quay lại</strong><span class="bt_red_r"></span></a>
     <script>
-        function fn_submit()
+        function go_back()
         {
-            document.edit_staff.submit();
+            location.href='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
+        }
+        function ConfirmEdit()
+        {
+            if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
+            {
+                edit_staff.submit();
+                return false;
+            }  
         }
     </script> 
-    <p>&nbsp;</p>
 </body>
 </html>
