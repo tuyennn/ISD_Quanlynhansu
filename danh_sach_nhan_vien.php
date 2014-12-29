@@ -3,6 +3,7 @@
 
 $keyword = get_param('keyword');
 $mydb->setQuery("SELECT * FROM tlb_nhanvien");
+
 if($keyword!=''){
     $mydb->setQuery("SELECT * FROM tlb_nhanvien WHERE ho_ten LIKE '%".$keyword."%'");
 }
@@ -37,7 +38,25 @@ if ($action=="del")
                     LEFT JOIN tlb_quatrinhcongtac ON tlb_quatrinhcongtac.ma_nhan_vien = tlb_nhanvien.ma_nhan_vien
                     LEFT JOIN tlb_quatrinhluong ON tlb_quatrinhluong.ma_nhan_vien = tlb_nhanvien.ma_nhan_vien
                 WHERE
-                    tlb_nhanvien.ma_nhan_vien = '$ma_nv'";                     
+                    tlb_nhanvien.ma_nhan_vien = '$ma_nv'";
+
+    $upload_dir = "uploads";
+    $mydb->setQuery("SELECT * FROM tlb_hinhanh WHERE ma_nhan_vien = '$ma_nv'");
+    $RChinh_anh = $mydb->executeQuery();
+    $row_RChinh_anh = $mydb->fetch_assoc($RChinh_anh);
+    $totalRows_RChinh_anh = $mydb->num_rows($RChinh_anh);
+    if($totalRows_RChinh_anh == 1) {
+        $file = $upload_dir."/".$row_RChinh_anh['filename'];
+        if (!unlink($file))
+        {
+            echo ("Error deleting $file");
+        }
+        else
+        {
+            echo ("$file deleted!");
+        }
+        $command=mysql_query("DELETE tlb_hinhanh.* FROM tlb_hinhanh WHERE `ma_nhan_vien` = '$ma_nv'");
+    }                  
     
     $mydb->setQuery($deleteSQL);
     $result_d = $mydb->executeQuery();

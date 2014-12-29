@@ -47,7 +47,7 @@ $error = '';
 if (!empty($_POST['login']) && isset($_POST['pass'])) {
 	if (@mysql_connect(DBHOST, $_POST['login'], $_POST['pass'])){
 		setcookie("sxd", base64_encode("SKD101:{$_POST['login']}:{$_POST['pass']}"));
-		header("Location: ".$_SERVER['PHP_SELF']);
+		header("location: ".$_SERVER['PHP_SELF']);
 		mysql_close();
 		exit;
 	}

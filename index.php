@@ -175,12 +175,17 @@ $(function($) {
                     <li><a href="">Quản Lý Thưởng</a></li>
                     </ul>
                 </div>
-                <a class="menuitem" href="">Bảo Hiểm Xã Hội</a>
+                <a class="menuitem submenuheader" href="">Bảo Hiểm Xã Hội</a>
+                <div class="submenu">
+                    <ul>
+                    <li><a href="">Thống Kê Bảo Hiểm</a></li>
+                    </ul>
+                </div>
                 
                 <a class="menuitem submenuheader" href="">Xuất Dữ Liệu</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="">Xuất Dữ Liệu Ra PDF</a></li>
+                    <li><a href="index.php?require=danh_sach_tailieu.php&title=Quản lý tài liệu">Quản Lý Mẫu Biểu Công Ty</a></li>
                     <li><a href="">Xuất Dữ Liệu Ra Excel</a></li>
                     </ul>
                 </div>
@@ -205,7 +210,15 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <div class="sidebar_box_content">
                 <h5>Kho tài liệu</h5>
                 <img src="images/photo.png" alt="" title="" class="sidebar_icon_right" />
-                <p>Tải xuống các tài liệu, mẫu điền sẵn của công ty</p>                
+                <p>
+                <?php
+                    $sql="SELECT title FROM tlb_tailieu ORDER BY id LIMIT 4;";
+                    $rs=mysql_query($sql) or die('Cannot select document');
+                    while($row=mysql_fetch_array($rs)){
+                        echo $row['title'];
+                    }
+                ?>
+                </p>               
                 </div>
                 <div class="sidebar_box_bottom"></div>
             </div>

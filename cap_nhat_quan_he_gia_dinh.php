@@ -30,7 +30,7 @@ if (!function_exists("GetSQLValueString")) {
         break;
     }
     return $theValue;
-}
+    }
 }
 
 $editFormAction = $_SERVER['PHP_SELF'];
