@@ -97,6 +97,10 @@ class Database {
 		return mysql_fetch_assoc($result);
 	}
 
+	public function fetch_rows($result) {
+		return mysql_fetch_row($result);
+	}
+
 	//gets the number or rows	
 	public function num_rows($result_set) {
 		return mysql_num_rows($result_set);

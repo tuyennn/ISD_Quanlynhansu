@@ -106,14 +106,12 @@ ddaccordion.init({
                     
                     <dl>
                         <dt><label></label></dt>
-                        <dd>
-                    <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Remember me</label>
-                        </dd>
+
                     </dl>
                     
-                     <dl class="submit">
-                    <input type="submit" name="submit" id="submit" value="Đăng nhập" />
-                     </dl>
+                    <dl class="submit">
+                    	<input type="submit" name="submit" id="submit" value="Đăng nhập" />
+                    </dl>
                     
                 </fieldset>
                 

@@ -85,8 +85,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_relationship_fo
     if (isset($_SERVER['QUERY_STRING'])) {
         $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
         $insertGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("location: %s", $insertGoTo);
+    }
+    sprintf("location: %s", $insertGoTo);
 }
 $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'");
     $RCQuanHeGD = $mydb->executeQuery();

@@ -7,49 +7,6 @@
 
 
 
-    $action = get_param('action');
-
-
-    if ($action=="del")
-    {
-        $ma_tailieu = $_GET['catID'];
-
-        $upload_dir = "uploads/documents";
-        $mydb->setQuery("SELECT * FROM tlb_tailieu WHERE id = '$ma_tailieu'");
-        $RCtailieu = $mydb->executeQuery();
-        $row_RCtailieu = $mydb->fetch_assoc($RCtailieu);
-        $totalRows_RCtailieu = $mydb->num_rows($RCtailieu);
-        if($totalRows_RCtailieu == 1) {
-            $file = $upload_dir."/".$row_RCtailieu['filename'];
-            if (!unlink($file))
-            {
-                echo ("Error deleting $file");
-            }
-            else
-            {
-                echo ("$file deleted!");
-            }
-            $deleteSQL="DELETE tlb_tailieu.* FROM tlb_tailieu WHERE `id` = '$ma_tailieu'";
-            $mydb->setQuery($deleteSQL);
-            $result_d = $mydb->executeQuery();
-
-            if($result_d) {
-                $message = "Thao tác xóa thành công!";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-                $url = "index.php?require=danh_sach_tailieu.php&title=Quản lý tài liệu";
-                location($url);
-            }
-            else {
-                $message = "Thao tác xóa thất bại!";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-                $url = "index.php?require=danh_sach_tailieu.php&title=Quản lý tài liệu";
-                location($url);
-            }
-        }                  
-    }
-
-
-
 ?>
 <!--MAIN UP CONTENT -->
     <div class="detail_up">
@@ -63,7 +20,8 @@
         <table id="rounded-corner" summary="Bảng Thống Kê Tài Liệu Công Ty" >
             <thead>
                 <tr>
-                    <th width="30" rowspan="2" align="left" class="rounded-company">MÃ</th>
+                    <th width="30" rowspan="2" align="center" class="rounded-company"></th>
+                    <th width="30" rowspan="2" align="left">MÃ</th>
                     <th width="320" rowspan="2" align="left">TÊN TÀI LIỆU</th>
                     <th width="120" rowspan="2" align="left">KÍCH CỠ</th>
                     <th colspan="3" align="center" class="rounded-q4">THAO TÁC</th>
@@ -77,25 +35,26 @@
             </thead>
     <?php do { ?>
             <tr class="row">
+                <td width="30" align="center"></th>
                 <td width="30" align="left"><?php echo $row_RCtailieu['id']; ?></td>
                 <td align="left"><?php echo $row_RCtailieu['title']; ?></td>
                 <td align="left"><?php echo $row_RCtailieu['size']; ?> bytes</td>
-                <td width="50" align="center" ><a href="index.php?require=danh_sach_tailieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu"><img src="images/user_edit.png" alt="Sửa tài liệu" title="Sửa tài liệu" border="0" /></a></td>
+                <td width="50" align="center" ><a href="index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu"><img src="images/user_edit.png" alt="Sửa tài liệu" title="Sửa tài liệu" border="0" /></a></td>
                 <td width="50" align="center"><a href="#" onclick="ConfirmDelete()" value="Xóa thông tin nhân viên"><img src="images/trash.png" alt="Xóa Tài Liệu" title="Xóa Tài Liệu" border="0" /></a></td>
                     <script type="text/javascript">
                         function ConfirmDelete()
                         {
                             if (confirm("Bạn có chắc chắn thao tác xóa?"))
-                                location.href='index.php?require=danh_sach_tailieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu&action=del';
+                                location.href='index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu&action=del';
                         }
                     </script>
-                <td width="50" align="center" ><a href="index.php?require=danh_sach_tailieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu"><img src="images/download.png" alt="Tải về tài liệu" title="Tải về tài liệu" border="0" /></a></td>
+                <td width="50" align="center" ><a href="index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu"><img src="images/download.png" alt="Tải về tài liệu" title="Tải về tài liệu" border="0" /></a></td>
             </tr>
         <?php } while ($row_RCtailieu = $mydb->fetch_assoc($RCtailieu)); ?>
 
             <tfoot>
                 <tr>
-                    <td colspan="5" class="rounded-foot-left"><em><p><b><u>Hướng Dẫn:</u></b> 
+                    <td colspan="6" class="rounded-foot-left"><em><p><b><u>Hướng Dẫn:</u></b> 
                                                             <br>&nbsp;+ Nhấn vào Mã Nhân Viên để xuất file thống kê
                                                             <br>&nbsp;&nbsp;&nbsp;&nbsp;- Trạng thái <img src="images/Available.png" alt="" title="" border="0" />: Đang làm việc
                                                             <br>&nbsp;&nbsp;&nbsp;&nbsp;- Trạng thái <img src="images/Offline.png" alt="" title="" border="0" />: Đã nghỉ việc 
@@ -149,7 +108,4 @@
             </table>
             <input type="hidden" name="MM_insert" value="new_document_form" />
         </form>
-        
     </div>
-    </body>
-</html>

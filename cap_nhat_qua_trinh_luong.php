@@ -114,18 +114,30 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             <tr>
                 <th width="200" class="rounded-content">Số quyết định</th>
                 <th width="150">Ngày chuyển mức</th>
-                <th width="150">Mức lương</th>
-                <th width="200"  class="rounded-q4">Tổng lương</th>
+                <th align="right" width="120">Mức lương</th>
+                <th align="right" width="200"  class="rounded-q4">Ghi chú</th>
             </tr>
             </thead>
             <?php do { ?>
             <tr>
                 <td><?php echo $row_RCQTluong_DS['so_quyet_dinh']; ?></td>
                 <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_DS['ngay_chuyen'])); ?></td>
-                <td><?php echo $row_RCQTluong_DS['muc_luong']; ?></td>
-                <td></td>
+                <td align="right"><?php echo number_format($row_RCQTluong_DS['muc_luong'],0,',','.'); ?> VND</td>
+                <td align="right"><?php echo $row_RCQTluong_DS['ghi_chu']; ?></td>
             </tr>
             <?php } while ($row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS)); ?>
+            <tr>
+                <td><b>Tổng mức lương</b></td>
+                <td></td>
+                <?php
+                    $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
+                    $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
+                    while($row=mysql_fetch_array($rs)){
+                        echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
+                    }
+                ?>
+                <td></td>
+            </tr>
         </table>
     </div>
     <!--MAIN BOTTOM CONTENT -->

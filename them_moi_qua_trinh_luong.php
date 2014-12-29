@@ -143,9 +143,9 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
             <thead>
             <tr>
                 <th width="185" class="rounded-content">Số quyết định</th>
-                <th width="140">Ngày chuyển mức</th>
-                <th width="150">Mức lương</th>
-                <th width="200">Tổng lương</th>
+                <th width="120">Ngày chuyển mức</th>
+                <th align="right" width="120">Mức lương</th>
+                <th align="center" width="150">Ghi chú</th>
                 <th colspan="2" align="center" class="rounded-q4">Thao tác</th>
             </tr>
             </thead>
@@ -153,7 +153,7 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
             <tr>
                 <td><?php echo $row_RCQTluong_TM['so_quyet_dinh']; ?></td>
                 <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_TM['ngay_chuyen'])); ?></td>
-                <td><?php echo $row_RCQTluong_TM['muc_luong']; ?></td>
+                <td align="right"><?php echo number_format($row_RCQTluong_TM['muc_luong'],0,',','.'); ?> VND</td>
                 <td></td>
                 <td width="35">
                     <a href="index.php?require=cap_nhat_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQTluong_TM['id']; ?>&title=Cập nhật quá trình lương">
@@ -178,6 +178,20 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                 </td>
             </tr>
                 <?php } while ($row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM)); ?>
+            <tr>
+                <td><b>Tổng mức lương</b></td>
+                <td></td>
+                <?php
+                    $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
+                    $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
+                    while($row=mysql_fetch_array($rs)){
+                        echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
+                    }
+                ?>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </table>
     <?php }
         else { ?>

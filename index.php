@@ -185,7 +185,7 @@ $(function($) {
                 <a class="menuitem submenuheader" href="">Xuất Dữ Liệu</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="index.php?require=danh_sach_tailieu.php&title=Quản lý tài liệu">Quản Lý Mẫu Biểu Công Ty</a></li>
+                    <li><a href="index.php?require=them_moi_tai_lieu.php&title=Quản lý tài liệu">Quản Lý Mẫu Biểu Công Ty</a></li>
                     <li><a href="">Xuất Dữ Liệu Ra Excel</a></li>
                     </ul>
                 </div>
@@ -210,15 +210,16 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <div class="sidebar_box_content">
                 <h5>Kho tài liệu</h5>
                 <img src="images/photo.png" alt="" title="" class="sidebar_icon_right" />
-                <p>
+                <ul>
                 <?php
-                    $sql="SELECT title FROM tlb_tailieu ORDER BY id LIMIT 4;";
+                    $upload_dir = 'uploads/documents';
+                    $sql="SELECT * FROM tlb_tailieu ORDER BY id LIMIT 4";
                     $rs=mysql_query($sql) or die('Cannot select document');
                     while($row=mysql_fetch_array($rs)){
-                        echo $row['title'];
+                        echo '<li><a href="../'.$upload_dir.$row['filename'].'">'.$row['title'].'</a></li>';
                     }
                 ?>
-                </p>               
+                </ul>              
                 </div>
                 <div class="sidebar_box_bottom"></div>
             </div>
@@ -229,8 +230,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <h3>Cần trợ giúp?</h3>
                 <img src="images/info.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
-                    Hãy gọi số (+84)0973874452 để được tư vấn và bảo trì phần mềm. Hoặc gửi thư về địa chỉ mail: thinghost76@gmail.com
-                </p>                
+                    Hãy gọi số (+84)0973874452 để được tư vấn và bảo trì phần mềm. Hoặc gửi thư về địa chỉ mail: <a href="mailto:thinghost76@gmail.com?Subject=[Bảo Trì Quản Lý Nhân Sự]" target="_top">thinghost76@gmail.com</a>  
+                </p>
+                              
                 </div>
                 <div class="sidebar_box_bottom"></div>
             </div>

@@ -11,15 +11,15 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($deleteSQL);
+    $result_d = $mydb->executeQuery();
 
     $deleteGoTo = "them_danh_muc.php";
     if (isset($_SERVER['QUERY_STRING'])) {
-    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-    $deleteGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("location: %s", $deleteGoTo);
+        $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
+        $deleteGoTo .= $_SERVER['QUERY_STRING'];
+    }
+    sprintf("location: %s", $deleteGoTo);
 }
 
 if (!function_exists("GetSQLValueString")) {
@@ -58,24 +58,22 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO $table VALUES (%s, %s)",
-     GetSQLValueString($_POST['1'], "text"),
-     GetSQLValueString($_POST['2'], "text"));
+    $insertSQL = sprintf("INSERT INTO $table VALUES (%s, %s)",
+        GetSQLValueString($_POST['1'], "text"),
+        GetSQLValueString($_POST['2'], "text"));
 
-  mysql_select_db($database_Myconnection, $Myconnection);
-  $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($insertSQL);
+    $result_i = $mydb->executeQuery();
 
-  $insertGoTo = "them_danh_muc.php";
-  if (isset($_SERVER['QUERY_STRING'])) {
-    $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
-    $insertGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("location: %s", $insertGoTo);
+    $insertGoTo = "them_danh_muc.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
+        $insertGoTo .= $_SERVER['QUERY_STRING'];
+    }
+    sprintf("location: %s", $insertGoTo);
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
+
     <table width="800" border="0" cellspacing="1" cellpadding="0" align="center">
       <tr>
         <td class="row2" width="260" align="center" valign="top">
@@ -106,11 +104,11 @@ sprintf("location: %s", $insertGoTo);
         <th width="35">&nbsp;</th>
     </tr>
     <?php 
-	  	//mysql_select_db($database_Myconnection, $Myconnection);
-    $query_RCDanhmuc_TM = "SELECT * FROM $table";
-    $RCDanhmuc_TM = mysql_query($query_RCDanhmuc_TM, $Myconnection) or die(mysql_error());
-		//$row_RCDanhmuc_TM = mysql_fetch_assoc($RCDanhmuc_TM);
-    $totalRows_RCDanhmuc_TM = mysql_num_rows($RCDanhmuc_TM);
+
+
+    $mydb->setQuery("SELECT * FROM $table");
+            $RCDanhmuc_TM = $mydb->executeQuery();
+            $totalRows_RCDanhmuc_TM = $mydb->num_rows($RCDanhmuc_TM);
     ?>
     <?php 
     $stt =1;
@@ -127,8 +125,4 @@ sprintf("location: %s", $insertGoTo);
 </table></td>
 </tr>
 </table>
-<p></p>
-</html>
-<?php
-mysql_free_result($RCDanhmuc_TM);
-?>
+
