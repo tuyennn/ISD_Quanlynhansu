@@ -55,7 +55,7 @@ if (!function_exists("GetSQLValueString")) {
 }
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }

@@ -47,7 +47,7 @@ $error = '';
 if (!empty($_POST['login']) && isset($_POST['pass'])) {
 	if (@mysql_connect(DBHOST, $_POST['login'], $_POST['pass'])){
 		setcookie("sxd", base64_encode("SKD101:{$_POST['login']}:{$_POST['pass']}"));
-		header("location: ".$_SERVER['PHP_SELF']);
+		header("location: ".htmlspecialchars($_SERVER["PHP_SELF"]));
 		mysql_close();
 		exit;
 	}
@@ -538,7 +538,7 @@ class dumper {
 		$this->vars['comp_methods'] = $this->fn_select($this->comp_methods, $this->SET['comp_method']);
 		$this->vars['tables']       = $this->SET['tables'];
 		$this->vars['files']        = $this->fn_select($this->file_select(), '');
-		$buttons = "<INPUT TYPE=submit VALUE=Okie><INPUT TYPE=button VALUE='Tho&aacute;t' onClick=\"location.href = '".$_SERVER['PHP_SELF']."?reload'\">";
+		$buttons = "<INPUT TYPE=submit VALUE=Okie><INPUT TYPE=button VALUE='Tho&aacute;t' onClick=\"location.href = '".htmlspecialchars($_SERVER["PHP_SELF"])."?reload'\">";
 		echo tpl_page(tpl_main(), $buttons);
 	}
 
@@ -777,7 +777,7 @@ TITLE='&copy; 2007 by Huehacking.info'>
 <center><B><A HREF=http://Huehacking.info STYLE="color: white; text-decoration: none;">&#272;&#259;ng nh&#7853;p phpMyadmin</A></B><IMG ID=GS WIDTH=1 HEIGHT=1 STYLE="visibility: hidden;"> <b><font color='#FFFFFF'> |  Localhost:3306 </font></b></TD></center>
 </TR>
 <TR>
-<FORM NAME=skb METHOD=POST ACTION="{$_SERVER['PHP_SELF']}">
+<FORM NAME=skb METHOD=POST ACTION="{htmlspecialchars($_SERVER["PHP_SELF"])}">
 <TD VALIGN=TOP BGCOLOR=#F4F3EE STYLE="FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#FCFBFE,endColorStr=#F4F3EE); padding: 8px 8px;">
 {$content}
 <TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2>

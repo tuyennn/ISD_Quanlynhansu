@@ -42,6 +42,8 @@ if($submit<>""){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -86,37 +88,45 @@ ddaccordion.init({
     </div>
 
      
-         <div class="login_form">
+        <div class="login_form">
          
-         <h3>Admin Panel Login</h3>
+        <h1><span class="label label-primary">Admin Panel Login</span></h1>
          
-         <a href="#" class="forgot_pass">Forgot password</a> 
+        <a href="#" class="forgot_pass">Quên mật khẩu</a> 
          
-         <form action="dang_nhap.php" method="post" class="niceform" name="form1" id="form1">
+        <form action="dang_nhap.php" class="form-horizontal" method="post" name="login_form" id="login_form">
+        	
+
          
                 <fieldset>
-                    <dl>
-                        <dt><label for="email">Username:</label></dt>
-                        <dd><input type="text" name="ten_dang_nhap" id="user" size="54" /></dd>
-                    </dl>
-                    <dl>
-                        <dt><label for="password">Password:</label></dt>
-                        <dd><input type="password" name="mat_khau" id="password" size="54" /></dd>
-                    </dl>
-                    
-                    <dl>
-                        <dt><label></label></dt>
+                	<div class="form-group">
+    					<label class="col-sm-2 control-label">Tài khoản</label>
+    					<div class="col-sm-6">
+      						<input type="text" name="ten_dang_nhap" id="user" class="form-control" placeholder="Username" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên tài khoản phải dài trên 4 ký tự">
+    					</div>
+  					</div>
+					<div class="form-group">
+    					<label for="inputEmail3" class="col-sm-2 control-label">Mật khẩu</label>
+    					<div class="col-sm-6">
+      						<input type="password" class="form-control" name="mat_khau" id="password" placeholder="Password" data-validation="length" data-validation-length="min4" data-validation-error-msg="Mật khẩu phải dài trên 4 ký tự">
+    					</div>
+  					</div>
 
-                    </dl>
-                    
                     <dl class="submit">
-                    	<input type="submit" name="submit" id="submit" value="Đăng nhập" />
+                    	<input type="submit" class="btn btn-default" name="submit" id="submit" value="Đăng nhập" />
                     </dl>
                     
                 </fieldset>
                 
-         </form>
-         </div>  
+        </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+		<script>
+		/* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+    		$.validate({
+        		modules : 'security'
+    		});
+		</script>
+        </div>  
           
 	
     

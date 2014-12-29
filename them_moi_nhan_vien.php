@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
 if (isset($_SERVER['QUERY_STRING'])) {
     $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
@@ -42,8 +42,16 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     }
 
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $Result1 = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($insertSQL);
+    $result_c = $mydb->executeQuery();
+    if($result_c) {
+        $message = "Thao tác thêm mới thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+    else {
+        $message = "Thao tác thêm mới thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
 
     $insertGoTo = "danh_sach_nhan_vien.php";
     if (isset($_SERVER['QUERY_STRING'])) {
@@ -116,10 +124,10 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="10px">
                 <td nowrap="nowrap" align="right">Họ và tên(*):</td>
-                <td><input type="text" name="ho_ten" value="" size="32" /></td>
+                <td><input type="text" name="ho_ten" value="" size="32" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên nhân viên phải dài trên 4 ký tự"/></td>
                 <td>Ngày sinh:</td>
                 <td>
-                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25" />
+                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
@@ -141,32 +149,32 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                     </select>
                 </td>
                 <td>Tỉnh thành:</td>
-                <td><input type="text" name="tinh_thanh" value="" size="32" /></td>
+                <td><input type="text" name="tinh_thanh" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐTDĐ:</td>
-                <td><input type="text" name="dt_di_dong" value="" size="32" /></td>
+                <td><input type="text" name="dt_di_dong" value="" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc"/></td>
                 <td>CMND:</td>
-                <td><input type="text" name="cmnd" value="" size="32" /></td>
+                <td><input type="text" name="cmnd" value="" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc" /></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐT:</td>
                 <td><input type="text" name="dt_nha" value="" size="32" /></td>
                 <td>Ngày cấp:</td>
                 <td>
-                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25" />
+                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Email:</td>
-                <td><input type="text" name="email" value="" size="32" /></td>
+                <td><input type="text" name="email" value="" size="32" data-validation="email" data-validation-error-msg="Định dạng email không chính xác"/></td>
                 <td>Nơi cấp:</td>
                 <td><input type="text" name="noi_cap" value="" size="32" /></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Quê quán:</td>
-                <td colspan="3"><input type="text" name="que_quan" value="" size="90" /></td>
+                <td colspan="3"><input type="text" name="que_quan" value="" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Địa chỉ:</td>
@@ -174,7 +182,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Tạm trú:</td>
-                <td colspan="3"><input type="text" name="tam_tru" value="" size="90" /></td>
+                <td colspan="3"><input type="text" name="tam_tru" value="" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr style="height: 200px" valign="middle">
                 <td nowrap="nowrap" align="right">Hình ảnh:</td>
@@ -182,13 +190,20 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                     <label class="filebutton">
                         <a class="bt_blue"><span class="bt_blue_lft"></span><strong>Tìm ảnh</strong><span class="bt_blue_r"></span></a>
                         <span>
-                            <input id="uploadImage1" type="file" name="upload_file" onchange="PreviewImage(1);" />
+                            <input id="uploadImage1" type="file" name="upload_file" onchange="PreviewImage(1);" data-validation="mime size" data-validation-allowing="jpg, png" data-validation-max-size="512kb" data-validation-help="Định dạng JPG, PNG & không quá 512KB"/>
                         </span>
                     </label>
 
                     <div class="avatar">
                         <img id="uploadPreview1" class="img-thumbnail" src="./uploads/p.jpg" /><br />
                     </div>
+                </td>
+            </tr>
+            <tr valign="baseline">
+                <td colspan="3"></td>
+                <td align="right">
+                    <button class="btn btn-default" onclick="new_staff.reset();">Làm lại</button>
+                    <input type="submit" class="btn btn-default" name="submit" id="submit" value="Thêm mới nhân viên" />
                 </td>
             </tr>
 
@@ -206,9 +221,12 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
         </table>
         <input type="hidden" name="MM_insert" value="new_staff" />
     </form>
-    <a href="#" onclick="new_staff.submit();return false;" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới nhân viên</strong><span class="bt_green_r"></span></a>
-                    <a href="#" onclick="new_staff.reset();" class="bt_red"><span class="bt_red_lft"></span><strong>Xóa làm lại</strong><span class="bt_red_r"></span></a>
-    <p>&nbsp;</p>
-
+    <script src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script>
+    /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+        $.validate({
+            modules : 'date, security, file'
+        });
+    </script>
 </body>
 </html>

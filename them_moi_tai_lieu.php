@@ -70,7 +70,7 @@ if (!function_exists("GetSQLValueString")) {
     }
 }
 
-$editFormAction = $_SERVER['PHP_SELF'];
+$editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
@@ -129,8 +129,7 @@ $mydb->setQuery("SELECT * FROM tlb_tailieu");
         <table id="rounded-corner" summary="Bảng Thống Kê Tài Liệu Công Ty" >
             <thead>
                 <tr>
-                    <th width="30" rowspan="2" align="center" class="rounded-company"></th>
-                    <th width="30" rowspan="2" align="left">MÃ</th>
+                    <th width="30" rowspan="2" align="center" class="rounded-company">MÃ</th>
                     <th width="320" rowspan="2" align="left">TÊN TÀI LIỆU</th>
                     <th width="120" rowspan="2" align="left">KÍCH CỠ</th>
                     <th colspan="3" align="center" class="rounded-q4">THAO TÁC</th>
@@ -144,8 +143,7 @@ $mydb->setQuery("SELECT * FROM tlb_tailieu");
             </thead>
     <?php do { ?>
             <tr class="row">
-                <td width="30" align="center"></th>
-                <td width="30" align="left"><?php echo $row_RCtailieu['id']; ?></td>
+                <td width="30" align="center"><?php echo sprintf("%03d", $row_RCtailieu['id']); ?></td>
                 <td align="left"><?php echo $row_RCtailieu['title']; ?></td>
                 <td align="left"><?php echo $row_RCtailieu['size']; ?> bytes</td>
                 <td width="50" align="center" ><a href="index.php?require=cap_nhat_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Cập nhật tài liệu"><img src="images/user_edit.png" alt="Sửa tài liệu" title="Sửa tài liệu" border="0" /></a></td>
