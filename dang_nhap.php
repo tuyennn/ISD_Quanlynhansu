@@ -99,13 +99,13 @@ ddaccordion.init({
                 <fieldset>
                 	<div class="form-group">
     					<label class="col-sm-2 control-label">Tài khoản</label>
-    					<div class="col-sm-6">
+    					<div class="col-sm-8">
       						<input type="text" name="ten_dang_nhap" id="user" class="form-control" placeholder="Username" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên tài khoản phải dài trên 4 ký tự">
     					</div>
   					</div>
 					<div class="form-group">
     					<label for="inputEmail3" class="col-sm-2 control-label">Mật khẩu</label>
-    					<div class="col-sm-6">
+    					<div class="col-sm-8">
       						<input type="password" class="form-control" name="mat_khau" id="password" placeholder="Password" data-validation="length" data-validation-length="min4" data-validation-error-msg="Mật khẩu phải dài trên 4 ký tự">
     					</div>
   					</div>
