@@ -43,8 +43,10 @@ if($submit<>""){
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/niceforms.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap-growl.js"></script>
 <script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 ddaccordion.init({
@@ -68,16 +70,6 @@ ddaccordion.init({
 	}
 })
 </script>
-<script src="js/jconfirmaction.jquery.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-	
-	$(document).ready(function() {
-		$('.ask').jConfirmAction();
-	});
-	
-</script>
-<script src="js/niceforms.js" type="text/javascript" charset="utf-8"></script>
-
 </head>
 <body>
 <div id="main_container">
@@ -92,8 +84,14 @@ ddaccordion.init({
          
         <h1><span class="label label-primary">Admin Panel Login</span></h1>
          
-        <a href="#" class="forgot_pass">Quên mật khẩu</a> 
-         
+        <a href="#lostpassword" class="forgot_pass">Quên mật khẩu</a>
+        <script>
+        	$(document).on("click", ".forgot_pass", function(e) {
+				$.growl("<strong>Quên mật khẩu:</strong> Gọi (+84) <strong>0973874452</strong> để được hỗ trợ! <a href=\"http://thinghost.co.vu\" target=\"_blank\">thinghost76@gmail.com</a>", { 
+					type: "warning"
+				}); 
+			}); 
+        </script>  
         <form action="dang_nhap.php" class="form-horizontal" method="post" name="login_form" id="login_form">
         	
 
@@ -126,10 +124,7 @@ ddaccordion.init({
         		modules : 'security'
     		});
 		</script>
-        </div>  
-          
-	
-    
+        </div>   
     <div class="footer_login">
     
     	<div class="left_footer_login">PHU THANH VALVE ADMIN PANEL | Powered by <a href="http://thinghost.co.vu">GhoSter..,Inc</a></div>

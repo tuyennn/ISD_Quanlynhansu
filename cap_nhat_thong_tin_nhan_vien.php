@@ -42,7 +42,7 @@
         $sDate = date('Y-m-d', strtotime($sDate));
         $tDate = date('Y-m-d', strtotime($tDate));
 
-        $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh='{$sDate}', noi_sinh=%s, tinh_thanh=%s, cmnd=%s, ngay_cap='{$tDate}', noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien='{$ma_nv}'",
+        $updateSQL = sprintf("UPDATE tlb_nhanvien SET ho_ten=%s, gioi_tinh=%s, gia_dinh=%s, dt_di_dong=%s, dt_nha=%s, email=%s, ngay_sinh='{$sDate}', noi_sinh=%s, cmnd=%s, ngay_cap='{$tDate}', noi_cap=%s, que_quan=%s, dia_chi=%s, tam_tru=%s, nghi_viec=%s WHERE ma_nhan_vien='{$ma_nv}'",
             GetSQLValueString($_POST['ho_ten'], "text"),
             GetSQLValueString($_POST['gioi_tinh'], "int"),
             GetSQLValueString($_POST['gia_dinh'], "int"),
@@ -50,7 +50,6 @@
             GetSQLValueString($_POST['dt_nha'], "text"),
             GetSQLValueString($_POST['email'], "text"),
             GetSQLValueString($_POST['noi_sinh'], "text"),
-            GetSQLValueString($_POST['tinh_thanh'], "text"),
             GetSQLValueString($_POST['cmnd'], "text"),
             GetSQLValueString($_POST['noi_cap'], "text"),
             GetSQLValueString($_POST['que_quan'], "text"),
@@ -202,10 +201,10 @@
             </tr>
             <tr valign="10px">
                 <td nowrap="nowrap" align="right">Họ và tên(*):</td>
-                <td><input type="text" name="ho_ten" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['ho_ten'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                <td><input type="text" name="ho_ten" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['ho_ten'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên nhân viên phải dài trên 4 ký tự"/></td>
                 <td>Ngày sinh:</td>
                 <td>
-                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_sinh'])), ENT_COMPAT, 'utf-8'); ?>" size="25" />
+                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_sinh'])), ENT_COMPAT, 'utf-8'); ?>" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
                         (dd/mm/yyyy)
                 </td>
             </tr>
@@ -221,40 +220,40 @@
                 <td><input type="text" name="noi_sinh" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['noi_sinh'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
             </tr>
             <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Gia đình:</td>
+                <td nowrap="nowrap" align="right">Hôn nhân:</td>
                 <td>
                     <select name="gia_dinh">
                         <option value="1" <?php if (!(strcmp(1, htmlentities($row_RCcapnhat_nhanvien['gia_dinh'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>>Có gia đình</option>
                         <option value="0" <?php if (!(strcmp(0, htmlentities($row_RCcapnhat_nhanvien['gia_dinh'], ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?>>Chưa có</option>
                     </select>
                 </td>
-                <td>Tỉnh thành:</td>
-                <td><input type="text" name="tinh_thanh" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['tinh_thanh'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐTDĐ:</td>
-                <td><input type="text" name="dt_di_dong" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['dt_di_dong'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                <td><input type="text" name="dt_di_dong" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['dt_di_dong'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc"/></td>
                 <td>CMND:</td>
-                <td><input type="text" name="cmnd" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['cmnd'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                <td><input type="text" name="cmnd" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['cmnd'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐT:</td>
                 <td><input type="text" name="dt_nha" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['dt_nha'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
                 <td>Ngày cấp:</td>
                 <td>
-                    <input type="text" name="ngay_cap" id="ngay_cap" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_cap'])), ENT_COMPAT, 'utf-8'); ?>" size="25" />
+                    <input type="text" name="ngay_cap" id="ngay_cap" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCcapnhat_nhanvien['ngay_cap'])), ENT_COMPAT, 'utf-8'); ?>" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Email:</td>
-                <td><input type="text" name="email" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['email'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                <td><input type="text" name="email" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['email'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="email" data-validation-error-msg="Định dạng email không chính xác"/></td>
                 <td>Nơi cấp:</td>
                 <td><input type="text" name="noi_cap" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['noi_cap'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Quê quán:</td>
-                <td colspan="3"><input type="text" name="que_quan" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['que_quan'], ENT_COMPAT, 'utf-8'); ?>" size="90" /></td>
+                <td colspan="3"><input type="text" name="que_quan" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['que_quan'], ENT_COMPAT, 'utf-8'); ?>" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Địa chỉ:</td>
@@ -262,7 +261,7 @@
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Tạm trú:</td>
-                <td colspan="3"><input type="text" name="tam_tru" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['tam_tru'], ENT_COMPAT, 'utf-8'); ?>" size="90" /></td>
+                <td colspan="3"><input type="text" name="tam_tru" value="<?php echo htmlentities($row_RCcapnhat_nhanvien['tam_tru'], ENT_COMPAT, 'utf-8'); ?>" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
             </tr>
             <tr style="height: 200px" valign="middle">
                 <td nowrap="nowrap" align="right">Hình ảnh:</td>
@@ -270,7 +269,7 @@
                     <label class="filebutton">
                         <a class="bt_blue"><span class="bt_blue_lft"></span><strong>Tìm ảnh</strong><span class="bt_blue_r"></span></a>
                         <span>
-                            <input id="uploadImage1" type="file" name="upload_file" onchange="PreviewImage(1);" />
+                            <input id="uploadImage1" type="file" name="upload_file" onchange="PreviewImage(1);" data-validation="mime size" data-validation-allowing="jpg, png" data-validation-max-size="512kb" data-validation-help="Định dạng JPG, PNG & không quá 512KB"/>
                         </span>
                     </label>
                     <div class="avatar">
@@ -293,14 +292,19 @@
                     </div>
                 </td>
             </tr>
-
+            <tr valign="baseline">
+                <td colspan="3"></td>
+                <td align="right">
+                    <input onClick="ConfirmEdit()" type="submit" class="btn btn-default" name="submit" id="submit" value="Cập nhật thông tin" />
+                </td>
+            </tr>
             <tfoot>
                 <tr>
                     <td colspan="3" class="rounded-foot-left"><em><b><u>Hướng Dẫn:</u></b> 
                                                                 <br>&nbsp;+ Các trường gắn (*) bắt buộc phải có 
                                                                 <br>&nbsp;+ Sửa các thông tin bằng cách chọn sẵn hoặc gõ bằng bàn phím
                                                                 <br>&nbsp;+ Nhấn Cập nhật thông tin để hoàn tất thao tác</em></td>
-                    <td class="rounded-foot-right">&nbsp;</td>
+                    <td class="rounded-foot-right"><a href="#" onclick="go_back()" class="bt_red"><span class="bt_red_lft"></span><strong>Quay lại</strong><span class="bt_red_r"></span></a></td>
 
                 </tr>
             </tfoot>
@@ -309,8 +313,14 @@
         <input type="hidden" name="MM_update" value="edit_staff" />
         <input type="hidden" name="ma_nhan_vien" value="<?php echo $row_RCcapnhat_nhanvien['ma_nhan_vien']; ?>" />
     </form>
-    <a href="#" onClick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật thông tin</strong><span class="bt_green_r"></span></a>
-    <a href="#" onclick="go_back()" class="bt_red"><span class="bt_red_lft"></span><strong>Quay lại</strong><span class="bt_red_r"></span></a>
+    <script src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script>
+    /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+        $.validate({
+            modules : 'date, security, file'
+        });
+    </script>
+    
     <script>
         function go_back()
         {
@@ -321,7 +331,7 @@
             if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
             {
                 edit_staff.submit();
-                return false;
+                return true;
             }  
         }
     </script> 

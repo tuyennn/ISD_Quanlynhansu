@@ -7,7 +7,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_staff")) {
-$insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh, gia_dinh, dt_di_dong, dt_nha, email, ngay_sinh, noi_sinh, tinh_thanh, cmnd, ngay_cap, noi_cap, que_quan, dia_chi, tam_tru) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+$insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh, gia_dinh, dt_di_dong, dt_nha, email, ngay_sinh, noi_sinh, cmnd, ngay_cap, noi_cap, que_quan, dia_chi, tam_tru) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
 	get_param('ma_nhan_vien'),
 	get_param('ho_ten'),
 	get_param('gioi_tinh'),
@@ -17,7 +17,6 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
 	get_param('email'),
 	get_param('ngay_sinh'),
 	get_param('noi_sinh'),
-	get_param('tinh_thanh'),
 	get_param('cmnd'),
 	get_param('ngay_cap'),
 	get_param('noi_cap'),
@@ -115,7 +114,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     </div>
 
     <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="new_staff" id="new_staff" runat="server">
-        <table id="rounded-corner" width="750" align="center" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
+        <table id="rounded-corner" >
             <tr valign="baseline">
               <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
               <td width="227"><input type="text" name="ma_nhan_vien" value="" size="32" /></td>
@@ -142,14 +141,14 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td><input type="text" name="noi_sinh" value="" size="32" /></td>
             </tr>
             <tr valign="baseline">
-                <td nowrap="nowrap" align="right">Gia đình:</td>
+                <td nowrap="nowrap" align="right">Hôn nhân:</td>
                 <td><select name="gia_dinh">
                     <option value="1" <?php if (!(strcmp(1, ""))) {echo "SELECTED";} ?>>Có gia đình</option>
                     <option value="0" <?php if (!(strcmp(0, ""))) {echo "SELECTED";} ?>>Chưa có</option>
                     </select>
                 </td>
-                <td>Tỉnh thành:</td>
-                <td><input type="text" name="tinh_thanh" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐTDĐ:</td>
@@ -203,7 +202,17 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td colspan="3"></td>
                 <td align="right">
                     <button class="btn btn-default" onclick="new_staff.reset();">Làm lại</button>
-                    <input type="submit" class="btn btn-default" name="submit" id="submit" value="Thêm mới nhân viên" />
+                    <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="submit" value="Thêm mới nhân viên" />
+                    <script>
+                        function ConfirmCreate(){
+                            if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
+                            {
+                                new_staff.submit();
+                                return true;
+                            }  
+                        }
+                        
+                    </script> 
                 </td>
             </tr>
 

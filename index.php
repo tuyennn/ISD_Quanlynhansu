@@ -16,8 +16,12 @@ if ($title == "") $title = 'Danh sách nhân viên';
 <title>PHU THANH VALVE ADMIN PANEL | Powered by GhoSter..,Inc</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.nav.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="js/niceforms.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap-growl.js"></script>
+<script type="text/javascript" src="js/bootbox.min.js"></script>
 <script src="js/ddaccordion.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 ddaccordion.init({
@@ -41,22 +45,6 @@ ddaccordion.init({
 	}
 })
 </script>
-<script src="js/jquery.jclock-1.2.0.js" type="text/javascript"></script>
-<script src="js/jconfirmaction.jquery.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-	
-	$(document).ready(function() {
-		$('.ask').jConfirmAction();
-	});
-	
-</script>
-<script type="text/javascript">
-$(function($) {
-    $('.jclock').jclock();
-});
-</script>
-
-<script src="js/niceforms.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -65,8 +53,14 @@ $(function($) {
 	<div class="header">
     <div class="logo"><a href="#"><img src="images/logo.png" alt="" title="" border="0" /></a></div>
     
-    <div class="right_header">Kính Chào Admin |<a href="#" class="messages">(3) Tin Nhắn</a>| <a href="dang_xuat.php" class="logout">Đăng xuất</a></div>
-    <div class="jclock"></div>
+    <div class="right_header">Kính Chào Administrator || <a href="dang_xuat.php" class="logout">Đăng xuất</a></div>
+        <script>
+            $(document).on("click", ".logout", (function() {
+                $.growl("<strong>Đăng xuất thành công</strong>", { 
+                    type: "success"
+                });
+            }); 
+        </script> 
     </div>
     
     <div class="main_content">
@@ -100,10 +94,6 @@ $(function($) {
                             <li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
                             <li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
                             <li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Thống Kê Dân tộc</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Thống Kê Quốc tịch</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Thống Kê Tôn giáo</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Thống Kê Tỉnh thành</a></li>
                         </ul>
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                     </li>
@@ -161,10 +151,6 @@ $(function($) {
 					<li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
 					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
 					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_dantoc&title=Dân tộc&column=dan_toc&action=new">Thống Kê Dân tộc</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_quoctich&title=Quốc tịch&column=quoc_tich&action=new">Thống Kê Quốc tịch</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tongiao&title=Tôn giáo&column=ton_giao&action=new">Thống Kê Tôn giáo</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhthanh&title=Tỉnh thành&column=tinh_thanh&action=new">Thống Kê Tỉnh thành</a></li>
                     </ul>
                 </div>
                 <a class="menuitem submenuheader" href="">Tiền Lương & Thưởng</a>
@@ -256,21 +242,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
      
         <div class="pagination">
         <span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>…<a href="">10</a><a href="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
-        </div> 
-     
-     <h2>Warning Box examples</h2>
+        </div>
       
-     <div class="warning_box">
+    <div class="warning_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-     </div>
-     <div class="valid_box">
+    </div>
+    <div class="valid_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-     </div>
-     <div class="error_box">
+    </div>
+    <div class="error_box">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-     </div>  
+    </div>  
      
-     </div><!-- end of right content-->
+    </div><!-- end of right content-->
             
                     
   </div>   <!--end of center content -->               

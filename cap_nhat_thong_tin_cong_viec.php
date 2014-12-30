@@ -3,37 +3,37 @@ $ma_nv = $_GET['catID'];
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
-      if (PHP_VERSION < 6) {
-        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-    }
+        if (PHP_VERSION < 6) {
+            $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+        }
 
-    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+        $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-    switch ($theType) {
-        case "text":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;    
-        case "long":
-        case "int":
-        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-        break;
-        case "double":
-        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-        break;
-        case "date":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;
-        case "defined":
-        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-        break;
+        switch ($theType) {
+            case "text":
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;    
+            case "long":
+            case "int":
+            $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+            break;
+            case "double":
+            $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+            break;
+            case "date":
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;
+            case "defined":
+            $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+            break;
+        }
+        return $theValue;
     }
-    return $theValue;
-}
 }
 
 $editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
 if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
@@ -59,14 +59,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
         GetSQLValueString($_POST['ton_giao_id'], "text"),
         GetSQLValueString($_POST['tinh_thanh_id'], "text"),
         GetSQLValueString($_POST['ma_nhan_vien'], "text"));
-$mydb->setQuery($updateSQL);
-$result = $mydb->executeQuery();
-$updateGoTo = "danh_sach_nhan_vien.php";
-if (isset($_SERVER['QUERY_STRING'])) {
-    $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
-    $updateGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("location: %s", $updateGoTo);
+    $mydb->setQuery($updateSQL);
+    $result = $mydb->executeQuery();
+    $updateGoTo = "danh_sach_nhan_vien.php";
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
+        $updateGoTo .= $_SERVER['QUERY_STRING'];
+    }
+    sprintf("location: %s", $updateGoTo);
 }
 $mydb->setQuery("SELECT * FROM tlb_congviec where ma_nhan_vien = '$ma_nv'");
 $RCcapnhat_congviec = $mydb->executeQuery();
@@ -138,70 +138,31 @@ $row_RCBangcap = $mydb->fetch_assoc($RCBangcap);
 $totalRows_RCBangcap = $mydb->num_rows($RCBangcap);
 
 // Lấy danh sách ngoại ngữ hiện tại
-$mydb->setQuery("SELECT * FROM tlb_bangcap");
-$RCBangcap = $mydb->executeQuery();
-$row_RCBangcap = $mydb->fetch_assoc($RCBangcap);
-$totalRows_RCBangcap = $mydb->num_rows($RCBangcap);
+$mydb->setQuery("SELECT * FROM tlb_ngoaingu inner join tlb_congviec on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCNgoaingu1 = $mydb->executeQuery();
+$row_RCNgoaingu1 = $mydb->fetch_assoc($RCNgoaingu1);
+$totalRows_RCNgoaingu1 = $mydb->num_rows($RCNgoaingu1);
 
-$query_RCNgoaingu1 = "SELECT * FROM tlb_ngoaingu inner join tlb_congviec on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCNgoaingu1 = mysql_query($query_RCNgoaingu1, $Myconnection) or die(mysql_error());
-$row_RCNgoaingu1 = mysql_fetch_assoc($RCNgoaingu1);
-$totalRows_RCNgoaingu1 = mysql_num_rows($RCNgoaingu1);
-//lay danh sach ngoai ngu
-$query_RCNgoaingu = "SELECT * FROM tlb_ngoaingu";
-$RCNgoaingu = mysql_query($query_RCNgoaingu, $Myconnection) or die(mysql_error());
-$row_RCNgoaingu = mysql_fetch_assoc($RCNgoaingu);
-$totalRows_RCNgoaingu = mysql_num_rows($RCNgoaingu);
-//lay tin hoc hien tai
-$query_RCTinhoc1 = "SELECT * FROM tlb_tinhoc inner join tlb_congviec on tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCTinhoc1 = mysql_query($query_RCTinhoc1, $Myconnection) or die(mysql_error());
-$row_RCTinhoc1 = mysql_fetch_assoc($RCTinhoc1);
-$totalRows_RCTinhoc1 = mysql_num_rows($RCTinhoc1);
-//lay danh sach tin hoc
-$query_RCTinhoc = "SELECT * FROM tlb_tinhoc";
-$RCTinhoc = mysql_query($query_RCTinhoc, $Myconnection) or die(mysql_error());
-$row_RCTinhoc = mysql_fetch_assoc($RCTinhoc);
-$totalRows_RCTinhoc = mysql_num_rows($RCTinhoc);
-//lay dan toc hien tai
-$query_RCDantoc1 = "SELECT * FROM tlb_dantoc inner join tlb_congviec on tlb_dantoc.dan_toc_id = tlb_congviec.dan_toc_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCDantoc1 = mysql_query($query_RCDantoc1, $Myconnection) or die(mysql_error());
-$row_RCDantoc1 = mysql_fetch_assoc($RCDantoc1);
-$totalRows_RCDantoc1 = mysql_num_rows($RCDantoc1);
-//lay danh sach dan toc
-$query_RCDantoc = "SELECT * FROM tlb_dantoc";
-$RCDantoc = mysql_query($query_RCDantoc, $Myconnection) or die(mysql_error());
-$row_RCDantoc = mysql_fetch_assoc($RCDantoc);
-$totalRows_RCDantoc = mysql_num_rows($RCDantoc);
-//Lay quoc tich hien tai
-$query_RCQuoctich1 = "SELECT * FROM tlb_quoctich inner join tlb_congviec on tlb_quoctich.quoc_tich_id = tlb_congviec.quoc_tich_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCQuoctich1 = mysql_query($query_RCQuoctich1, $Myconnection) or die(mysql_error());
-$row_RCQuoctich1 = mysql_fetch_assoc($RCQuoctich1);
-$totalRows_RCQuoctich1 = mysql_num_rows($RCQuoctich1);
-//Lay danh sach quoc tich
-$query_RCQuoctich = "SELECT * FROM tlb_quoctich";
-$RCQuoctich = mysql_query($query_RCQuoctich, $Myconnection) or die(mysql_error());
-$row_RCQuoctich = mysql_fetch_assoc($RCQuoctich);
-$totalRows_RCQuoctich = mysql_num_rows($RCQuoctich);
-//Lay ton giao hien tai
-$query_RCTongiao1 = "SELECT * FROM tlb_tongiao inner join tlb_congviec on tlb_tongiao.ton_giao_id = tlb_congviec.ton_giao_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCTongiao1 = mysql_query($query_RCTongiao1, $Myconnection) or die(mysql_error());
-$row_RCTongiao1 = mysql_fetch_assoc($RCTongiao1);
-$totalRows_RCTongiao1 = mysql_num_rows($RCTongiao1);
-//Lay danh sach ton giao
-$query_RCTongiao = "SELECT * FROM tlb_tongiao";
-$RCTongiao = mysql_query($query_RCTongiao, $Myconnection) or die(mysql_error());
-$row_RCTongiao = mysql_fetch_assoc($RCTongiao);
-$totalRows_RCTongiao = mysql_num_rows($RCTongiao);
-//Lay tinh thanh hien tai
-$query_RCTinhthanh1 = "SELECT * FROM tlb_tinhthanh inner join tlb_congviec on tlb_tinhthanh.tinh_thanh_id = tlb_congviec.tinh_thanh_id where tlb_congviec.ma_nhan_vien = '$ma_nv'";
-$RCTinhthanh1 = mysql_query($query_RCTinhthanh1, $Myconnection) or die(mysql_error());
-$row_RCTinhthanh1 = mysql_fetch_assoc($RCTinhthanh1);
-$totalRows_RCTinhthanh1 = mysql_num_rows($RCTinhthanh1);
-//Lay danh sach tinh thanh
-$query_RCTinhthanh = "SELECT * FROM tlb_tinhthanh";
-$RCTinhthanh = mysql_query($query_RCTinhthanh, $Myconnection) or die(mysql_error());
-$row_RCTinhthanh = mysql_fetch_assoc($RCTinhthanh);
-$totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
+// Lấy danh sách ngoại ngữ sau cập nhật
+$mydb->setQuery("SELECT * FROM tlb_ngoaingu");
+$RCNgoaingu = $mydb->executeQuery();
+$row_RCNgoaingu = $mydb->fetch_assoc($RCNgoaingu);
+$totalRows_RCNgoaingu = $mydb->num_rows($RCNgoaingu);
+
+// Lấy danh sách trình độ tin học hiện tại
+$mydb->setQuery("SELECT * FROM tlb_tinhoc inner join tlb_congviec on tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$RCTinhoc1 = $mydb->executeQuery();
+$row_RCTinhoc1 = $mydb->fetch_assoc($RCTinhoc1);
+$totalRows_RCTinhoc1 = $mydb->num_rows($RCTinhoc1);
+
+
+// Lấy danh sách tin học sau khi cập nhật
+$mydb->setQuery("SELECT * FROM tlb_tinhoc");
+$RCTinhoc = $mydb->executeQuery();
+$row_RCTinhoc = $mydb->fetch_assoc($RCTinhoc);
+$totalRows_RCTinhoc = $mydb->num_rows($RCTinhoc);
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -211,11 +172,11 @@ $totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
     <style type="text/css">
         <!--
         body,td,th {
-           font-family: Arial, Helvetica, sans-serif;
-           font-size: 12px;
-           line-height: 1.4;
-       }
-   -->
+         font-family: Arial, Helvetica, sans-serif;
+         font-size: 12px;
+         line-height: 1.4;
+     }
+ -->
 </style></head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
     <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
@@ -322,62 +283,26 @@ $totalRows_RCTinhthanh = mysql_num_rows($RCTinhthanh);
 <tr valign="baseline">
   <td nowrap="nowrap" align="right">Hệ số:</td>
   <td><input type="text" name="he_so" value="<?php echo htmlentities($row_RCcapnhat_congviec['he_so'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
-  <td>Dân tộc:</td>
-  <td><select name="dan_toc_id">
-      <option selected="selected" value="<?php echo $row_RCDantoc1['dan_toc_id']?>"><?php echo $row_RCDantoc1['ten_dan_toc']?></option>
-      <?php 
-      do {  
-        ?>
-        <option value="<?php echo $row_RCDantoc['dan_toc_id']?>"><?php echo $row_RCDantoc['ten_dan_toc']?></option>
-        <?php
-    } while ($row_RCDantoc = mysql_fetch_assoc($RCDantoc));
-    ?>
-</select></td>
+  <td></td>
+  <td></td>
 </tr>
 <tr valign="baseline">
   <td nowrap="nowrap" align="right">Phụ cấp:</td>
   <td><input type="text" name="phu_cap" value="<?php echo htmlentities($row_RCcapnhat_congviec['phu_cap'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
-  <td>Quốc tịch:</td>
-  <td><select name="quoc_tich_id">
-      <option selected="selected" value="<?php echo $row_RCQuoctich1['quoc_tich_id']?>"><?php echo $row_RCQuoctich1['ten_quoc_tich']?></option>
-      <?php 
-      do {  
-        ?>
-        <option value="<?php echo $row_RCQuoctich['quoc_tich_id']?>"><?php echo $row_RCQuoctich['ten_quoc_tich']?></option>
-        <?php
-    } while ($row_RCQuoctich = mysql_fetch_assoc($RCQuoctich));
-    ?>
-</select></td>
+  <td></td>
+  <td></td>
 </tr>
 <tr valign="baseline">
   <td nowrap="nowrap" align="right">Số sổ lao động:</td>
   <td><input type="text" name="so_sld" value="<?php echo htmlentities($row_RCcapnhat_congviec['so_sld'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
-  <td>Tôn giáo:</td>
-  <td><select name="ton_giao_id">
-      <option selected="selected" value="<?php echo $row_RCTongiao1['ton_giao_id']?>"><?php echo $row_RCTongiao1['ten_ton_giao']?></option>
-      <?php 
-      do {  
-        ?>
-        <option value="<?php echo $row_RCTongiao['ton_giao_id']?>"><?php echo $row_RCTongiao['ten_ton_giao']?></option>
-        <?php
-    } while ($row_RCTongiao = mysql_fetch_assoc($RCTongiao));
-    ?>
-</select></td>
+  <td></td>
+  <td></td>
 </tr>
 <tr valign="baseline">
   <td nowrap="nowrap" align="right">Ngày cấp:</td>
   <td><input type="text" name="ngay_cap" value="<?php echo htmlentities($row_RCcapnhat_congviec['ngay_cap'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
-  <td>Tỉnh thành:</td>
-  <td><select name="tinh_thanh_id">
-      <option selected="selected" value="<?php echo $row_RCTinhthanh1['tinh_thanh_id']?>"><?php echo $row_RCTinhthanh1['ten_tinh_thanh']?></option>
-      <?php 
-      do {  
-        ?>
-        <option value="<?php echo $row_RCTinhthanh['tinh_thanh_id']?>"><?php echo $row_RCTinhthanh['ten_tinh_thanh']?></option>
-        <?php
-    } while ($row_RCTinhthanh = mysql_fetch_assoc($RCTinhthanh));
-    ?>
-</select></td>
+  <td></td>
+  <td></td>
 </tr>
 <tr valign="baseline">
   <td nowrap="nowrap" align="right">Nơi cấp:</td>

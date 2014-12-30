@@ -62,16 +62,20 @@ if ($action=="del")
     $result_d = $mydb->executeQuery();
 
     if($result_d) {
-        $message = "Thao tác xóa thành công!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $message = "$.growl('<strong>Thao tác xóa thành công!</strong> ', { 
+                        type: 'success'
+                    });";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
+        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
     else {
-        $message = "Thao tác xóa thất bại!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $message = "$.growl('<strong>Thao tác xóa thất bại!</strong> ', { 
+                        type: 'danger'
+                    });";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
+        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
 }
 ?>
@@ -123,11 +127,11 @@ if($keyword!=''){
             <td align="left"><?php echo $row_RCdanh_sach['email']; ?></td>
             <td width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin nhân viên"><img src="images/user_edit.png" alt="Xem Hồ Sơ Cá Nhân" title="" border="0" /></a></td>
             <td width="100" align="center" ><a href="index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Thông tin công việc"><img src="images/user_edit.png" alt="Xem Hồ Sơ Công Ty" title="" border="0" /></a></td>
-            <td width="50" align="center"><a href="#" onclick="ConfirmDelete()" value="Xóa thông tin nhân viên"><img src="images/trash.png" alt="Xóa Thông tin nhân viên" title="" border="0" /></a></td>
+            <td width="50" align="center"><a href="#" onclick="ConfirmDelete()" class="delete" value="Xóa thông tin nhân viên"><img src="images/trash.png" alt="Xóa Thông tin nhân viên" title="" border="0" /></a></td> 
             <script type="text/javascript">
                 function ConfirmDelete()
                 {
-                    if (confirm("   Bạn có chắc chắn thao tác xóa?\n\nThao Tác Này Không Thể Hoàn Lại!"))
+                    if (confirm("Thao tác này sẽ không thể hoàn lại!"))
                         location.href='index.php?require=danh_sach_nhan_vien.php&catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>&title=Danh sách nhân viên&action=del';
                 }
             </script>

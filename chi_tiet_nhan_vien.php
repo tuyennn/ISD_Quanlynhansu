@@ -68,7 +68,19 @@ $RCtlb_nhanvien = $mydb->executeQuery();
 $row_RCtlb_nhanvien = $mydb->fetch_assoc($RCtlb_nhanvien);
 $totalRows_RCtlb_nhanvien = $mydb->num_rows($RCtlb_nhanvien);
 
-$mydb->setQuery("SELECT * FROM tlb_phongban inner join (tlb_ctcongviec inner join (tlb_chucvu inner join (tlb_hocvan inner join (tlb_bangcap inner join (tlb_ngoaingu inner join (tlb_tinhoc inner join (tlb_dantoc inner join (tlb_quoctich inner join (tlb_tongiao inner join (tlb_tinhthanh inner join tlb_congviec on tlb_tinhthanh.tinh_thanh_id = tlb_congviec.tinh_thanh_id) on tlb_tongiao.ton_giao_id = tlb_congviec.ton_giao_id) on tlb_quoctich.quoc_tich_id = tlb_congviec.quoc_tich_id) on tlb_dantoc.dan_toc_id = tlb_congviec.dan_toc_id) on tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id) on tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id) on tlb_bangcap.bang_cap_id =tlb_congviec.bang_cap_id) on tlb_hocvan.hoc_van_id=tlb_congviec.hoc_van_id) on tlb_chucvu.chuc_vu_id=tlb_congviec.chuc_vu_id) on tlb_ctcongviec.cong_viec_id=tlb_congviec.cong_viec_id) on tlb_phongban.phong_ban_id=tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien= '$ma_nv'");
+
+$sql = " SELECT * FROM tlb_congviec
+                    INNER JOIN tlb_phongban ON tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id
+                    INNER JOIN tlb_ctcongviec ON tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id
+                    INNER JOIN tlb_chucvu ON tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id
+                    INNER JOIN tlb_hocvan ON tlb_hocvan.hoc_van_id = tlb_congviec.hoc_van_id
+                    INNER JOIN tlb_bangcap ON tlb_bangcap.bang_cap_id = tlb_congviec.bang_cap_id
+                    INNER JOIN tlb_ngoaingu ON tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id
+                    INNER JOIN tlb_tinhoc ON tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id
+                WHERE
+                    tlb_congviec.ma_nhan_vien = '$ma_nv'";
+
+$mydb->setQuery($sql);
 $RCTTcongviec = $mydb->executeQuery();
 $row_RCTTcongviec = $mydb->fetch_assoc($RCTTcongviec);
 $totalRows_RCTTcongviec = $mydb->num_rows($RCTTcongviec);
@@ -154,8 +166,7 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
         </tr>
         <tr>
             <td>Ngày sinh: <b><?php echo date("d/m/Y", strtotime($row_RCtlb_nhanvien['ngay_sinh'])); ?></b></td>
-            <td>Nơi sinh: <b><?php echo $row_RCtlb_nhanvien['noi_sinh']; ?></b></td>
-            <td colspan="2">Tỉnh thành: <b><?php echo $row_RCtlb_nhanvien['tinh_thanh']; ?></b></td>
+            <td colspan="3">Nơi sinh: <b><?php echo $row_RCtlb_nhanvien['noi_sinh']; ?></b></td>
         </tr>
         <tr>
             <td>Số CMND: <b><?php echo $row_RCtlb_nhanvien['cmnd']; ?></b></td>
@@ -184,10 +195,13 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
             <td width="300">Chức vụ: <b><?php echo $row_RCTTcongviec['ten_chuc_vu']; ?></b></td>
         </tr>
         <tr>
-            <td>Công việc: <b><?php echo $row_RCTTcongviec['ten_cong_viec']; ?></b></td>
+            <td colspan="4">Công việc: <b><?php echo $row_RCTTcongviec['ten_cong_viec']; ?></b></td>
+        </tr>
+        <tr>
             <td width="152">Mức lương: <b><?php echo $row_RCTTcongviec['muc_luong_cb']; ?><b></td>
             <td width="134">Hệ số: <b><?php echo $row_RCTTcongviec['he_so']; ?></b></td>
             <td>Phụ cấp: <b><?php echo $row_RCTTcongviec['phu_cap']; ?></b></td>
+            <td>Tổng lương: </td>
         </tr>
         <tr>
             <td>Sổ LĐ: <b><?php echo $row_RCTTcongviec['so_sld']; ?></b></td>
@@ -202,16 +216,6 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
             <td>Học vấn: <b><?php echo $row_RCTTcongviec['ten_hoc_van']; ?></b></td>
             <td colspan="2">Bằng cấp:<b><?php echo $row_RCTTcongviec['ten_bang_cap']; ?></b></td>
             <td>Ngoại ngữ: <b><?php echo $row_RCTTcongviec['ten_ngoai_ngu']; ?></b></td>
-        </tr>
-        <tr>
-            <td>Tin học: <b><?php echo $row_RCTTcongviec['ten_tin_hoc']; ?></b></td>
-            <td colspan="2">Dân tộc: <b><?php echo $row_RCTTcongviec['ten_dan_toc']; ?></b></td>
-            <td>Quốc tịch: <b><?php echo $row_RCTTcongviec['ten_quoc_tich']; ?></b></td>
-        </tr>
-        <tr>
-            <td>Tôn giáo: <b><?php echo $row_RCTTcongviec['ten_ton_giao']; ?></b></td>
-            <td colspan="2">Tỉnh thành: <b><?php echo $row_RCTTcongviec['ten_tinh_thanh']; ?></b></td>
-            <td>&nbsp;</td>
         </tr>
     </table>
 
