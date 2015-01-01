@@ -77,23 +77,18 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     <script type="text/javascript" src="js/jquery.datepick.js"></script>
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
-    $(function() {
-        $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg'});
-        $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg'});
-         
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
+        $(function() {
+            $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg'});
+            $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg'});
+
+            var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
             'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
             'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
             $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
             $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
             $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
             $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
-         
-    $('#dateFormat').change(function() { 
-        $('#ngay_cap').val('').datepick('option', 
-            {dateFormat: formats[$(this).val()]}); 
-    });
-    });
+        });
     </script>
 
     <script type="text/javascript">
@@ -106,6 +101,64 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             };
         }
     </script>
+    <script type="text/javascript">
+    pic1 = new Image(16, 16); 
+    pic1.src = "images/loader.gif";
+    $(document).ready(function(){
+        $('#ma_nhan_vien').change(function(){ // Keyup function for check the user action in input
+            var ma_nhan_vien = $(this).val(); // Get the ma_nhan_vien textbox using $(this) or you can use directly $('#ma_nhan_vien')
+            var code = "PT";
+            var ma_nhan_vienAvailResult = $('#ma_nhan_vien_avail_result'); // Get the ID of the result where we gonna display the results
+            if(ma_nhan_vien.length == 4) { // check if greater than 4 (minimum 4)
+
+                ma_nhan_vienAvailResult.html('<img src="images/loader.gif" align="absmiddle">&nbsp;Đang kiểm tra khả dụng...'); // Preloader, use can use loading animation here
+                var UrlToPass = 'action=ma_nhan_vien_availability&ma_nhan_vien='+ma_nhan_vien;
+                $.ajax({ // Send the ma_nhan_vien val to another checker.php using Ajax in POST menthod
+                    type : 'POST',
+                    data : UrlToPass,
+                    url  : 'checker.php',
+                    success: function(responseText){ // Get the result and asign to each cases
+                        if(ma_nhan_vien.slice(0, 2) != code) {
+                            ma_nhan_vienAvailResult.html('<span class="error">Mã nhân viên bao gồm PTxx(PT: Mã Công ty; xx: Số gồm 2 chữ số)</span>');
+                            $("#ma_nhan_vien").removeClass('object_ok'); // if necessary
+                            $("#ma_nhan_vien").addClass("object_error");
+                        }
+                        else{
+                            if(responseText == 0){
+                                $("#ma_nhan_vien").removeClass('object_error'); // if necessary
+                                $("#ma_nhan_vien").addClass("object_ok");
+                                ma_nhan_vienAvailResult.html('<span class="success">&nbsp;<img src="images/tick.gif" align="absmiddle"></span>');
+                            }
+                            else if(responseText > 0){
+                                $("#ma_nhan_vien").removeClass('object_ok'); // if necessary
+                                $("#ma_nhan_vien").addClass("object_error");
+                                ma_nhan_vienAvailResult.html('<span class="error">Mã nhân viên này đã sử dụng</span>');
+                            }
+
+                            else{
+                                alert('Lỗi cơ sở dữ liệu');
+                            }
+                        }
+                        
+                    }
+                });
+            }else{
+                ma_nhan_vienAvailResult.html('<span class="error">Mã nhân viên bao gồm PTxx(PT: Mã Công ty; xx: Số gồm 2 chữ số)</span>');
+                $("#ma_nhan_vien").removeClass('object_ok'); // if necessary
+                $("#ma_nhan_vien").addClass("object_error");
+            }
+            if(ma_nhan_vien.length == 0) {
+                ma_nhan_vienAvailResult.html('');
+            }
+        });
+    
+        $('#ma_nhan_vien').keydown(function(e) { // Dont allow users to enter spaces for their ma_nhan_vien and passwords
+            if (e.which == 32) {
+                return false;
+            }
+        });
+    });
+    </script>
 </head>
 
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
@@ -116,10 +169,9 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="new_staff" id="new_staff" runat="server">
         <table id="rounded-corner" >
             <tr valign="baseline">
-              <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
-              <td width="227"><input type="text" name="ma_nhan_vien" value="" size="32" /></td>
-              <td width="117">&nbsp;</td>
-              <td width="301">&nbsp;</td>
+                <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
+                <td width="227"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" /></td>
+                <td colspan="2"><div class="ma_nhan_vien_avail_result" id="ma_nhan_vien_avail_result"></div></td>
             </tr>
             <tr valign="10px">
                 <td nowrap="nowrap" align="right">Họ và tên(*):</td>

@@ -182,7 +182,7 @@ ddaccordion.init({
             <div class="sidebar_box">
                 <div class="sidebar_box_top"></div>
                 <div class="sidebar_box_content">
-                <h4>Ghi Chú Quan Trọng</h4>
+                <h4>Ghi Chú</h4>
                 <img src="images/notice.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

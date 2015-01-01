@@ -105,7 +105,7 @@ if($keyword!=''){
         </tr>
     </thead>
 <?php do { ?>
-        <tr class="row">
+        <tr>
             <td width="50" align="center">
                 <a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>">
                 <?php 

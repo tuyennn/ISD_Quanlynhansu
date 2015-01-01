@@ -861,3 +861,41 @@ label.check_label{
 select, input, textarea, button {outline:none; resize:none;}
 
 /*---- End of Login Form --- */
+/*------ Checker ------------*/
+.object_ok
+{
+border: 1px solid green; 
+color: #333333; 
+}
+
+.object_error
+{
+border: 1px solid #AC3962; 
+color: #333333; 
+}
+
+
+
+.as_wrapper{
+	margin: 0 auto;
+	width: 1000px;
+}
+.mytable{
+	margin: 0 auto;
+	padding: 20px;
+	border:2px dashed #17A3F7;
+}
+.success{
+	color:#009900;
+}
+.error{
+	color:#F33C21;
+}
+.talign_right{
+	text-align:right;
+}
+.ma_nhan_vien_avail_result{
+	display:block;
+	width:auto;
+}
+/*----- End of checker ----*/

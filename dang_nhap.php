@@ -19,10 +19,7 @@ if($submit<>""){
 		$_SESSION['quyen_them'] = true;
 		$_SESSION['quyen_sua'] = true;
 		$_SESSION['quyen_xoa'] = true;
-		//echo "Đăng nhập thành công";
-		//$url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
-		//location($url);
-		$msg="Đăng Nhập  Thành Công! Chào Administrator";
+		$msg="Đăng Nhập Thành Công! Chào Administrator";
 		$page='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
 		page_transfer($msg,$page);
 		exit;
@@ -33,6 +30,12 @@ if($submit<>""){
 		$page='dang_nhap.php';
 		page_transfer($msg,$page);
 	}
+}
+
+if($_SESSION['logged-in'] == true) {
+	$msg="Bạn đã đăng nhập rồi!";
+	$page='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
+	page_transfer($msg,$page);
 }
 ?>
 

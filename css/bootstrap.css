@@ -876,6 +876,17 @@ th {
 .glyphicon-tree-deciduous:before {
   content: "\e200";
 }
+.form-control {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-control:before,
+.form-control:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
 html {
   font-size: 10px;
@@ -6041,6 +6052,7 @@ button.close {
 .modal-footer:before,
 .modal-footer:after {
   display: table;
+  content: " ";
 }
 .clearfix:after,
 .dl-horizontal dd:after,
