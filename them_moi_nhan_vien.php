@@ -75,20 +75,36 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script type="text/javascript" src="js/jquery.datepick.js"></script>
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
+    <script type="text/javascript" src="js/jquery.datepick.validation.js"></script>
     <script>
         $(function() {
-            $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg'});
-            $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg'});
 
-            var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+            $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
+            $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
+
+            $('#new_staff').validate({ 
+                errorPlacement: $.datepick.errorPlacement, 
+                rules: { 
+                    ngay_sinh: { 
+                        required: true,
+                        dpDate: true,
+                        dpCompareDate: {before: $.datepick.today()}
+                    },
+                    ngay_cap: {
+                        required: true,
+                        dpDate: true,
+                        dpCompareDate: {notLessThan: '#ngay_sinh'} 
+                    } 
+                }, 
+                messages: { 
+                    ngay_sinh: 'Sai định dạng hoặc đã chọn quá hiện tại',
+                    ngay_cap: 'Sai định dạng hoặc đã chọn trước ngày sinh'
+                    
+                } 
+            });
         });
     </script>
 
@@ -170,8 +186,8 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="new_staff" id="new_staff" runat="server">
         <table id="rounded-corner" >
             <tr valign="baseline">
-                <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
-                <td width="227"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td align="right" nowrap="nowrap">Mã nhân viên(*):</td>
+                <td width="300"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
                 <td colspan="2"><div class="ma_nhan_vien_avail_result" id="ma_nhan_vien_avail_result"></div></td>
             </tr>
             <tr valign="10px">
@@ -179,7 +195,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td><input type="text" name="ho_ten" value="" size="32" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên nhân viên phải dài trên 4 ký tự"/></td>
                 <td>Ngày sinh:</td>
                 <td>
-                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
+                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
@@ -214,7 +230,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td><input type="text" name="dt_nha" value="" size="32" /></td>
                 <td>Ngày cấp:</td>
                 <td>
-                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác"/>
+                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
@@ -287,7 +303,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     <script>
     /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
         $.validate({
-            modules : 'date, security, file'
+            modules : 'date, security, file',
         });
     </script>
 </body>

@@ -5,7 +5,7 @@
 *
 * @website http://formvalidator.net/
 * @license Dual licensed under the MIT or GPL Version 2 licenses
-* @version 2.2.beta.25
+* @version 2.2.beta.33
 */
 (function($) {
 
@@ -132,7 +132,7 @@
         this.find('input[data-validation][data-validation-event],textarea[data-validation][data-validation-event],select[data-validation][data-validation-event]')
 			.each(function(){
 				var $el = $(this),
-				    etype = $el.attr("data-validation-event");
+				    etype = $el.valAttr("event");
 				if (etype){
 					$el.bind(etype + ".validation", function(){
                 		$(this).validateInputOnBlur(language, settings, true, etype);
@@ -326,19 +326,16 @@
          * @para {jQuery} $elem
          */
         var addErrorMessage = function(mess, $elem) {
-            // validate server side will return null as error message before the server is requested
-            if(mess !== null) {
-                if ($.inArray(mess, errorMessages) < 0) {
-                    errorMessages.push(mess);
-                }
-                errorInputs.push($elem);
-                $elem.attr('current-error', mess);
-                if( displayError )
-                    _applyErrorStyle($elem, conf);
+            if ($.inArray(mess, errorMessages) < 0) {
+                errorMessages.push(mess);
             }
+            errorInputs.push($elem);
+            $elem.attr('current-error', mess);
+            if( displayError )
+                _applyErrorStyle($elem, conf);
         },
 
-        /** HoldsInputs already validated, to prevent recheck of mulitple checkboxes & radios */
+        /** Holds inputs (of type checkox or radio) already validated, to prevent recheck of mulitple checkboxes & radios */
         checkedInputs = [],
 	
         /** Error messages for this validation */
@@ -374,11 +371,13 @@
         $form.find('input,textarea,select').filter(':not([type="submit"],[type="button"])').each(function() {
             var $elem = $(this),
                 elementType = $elem.attr('type'),
+                isCheckboxOrRadioBtn = elementType == 'radio' || elementType == 'checkbox',
                 elementName = $elem.attr('name');
 
-            if (!ignoreInput(elementName, elementType) && $.inArray(elementName, checkedInputs) < 0 ) {
+            if (!ignoreInput(elementName, elementType) && (!isCheckboxOrRadioBtn || $.inArray(elementName, checkedInputs) < 0) ) {
 
-                checkedInputs.push(elementName);
+                if( isCheckboxOrRadioBtn )
+                    checkedInputs.push(elementName);
 
                 var validation = $.formUtils.validateInput(
                                 $elem,
@@ -1339,8 +1338,8 @@
             badNumberOfSelectedOptionsEnd : ' answers',
             badAlphaNumeric : 'The input value can only contain alphanumeric characters ',
             badAlphaNumericExtra: ' and ',
-            wrongFileSize : 'The file you are trying to upload is too large',
-            wrongFileType : 'The file you are trying to upload is of wrong type',
+            wrongFileSize : 'The file you are trying to upload is too large (max %s)',
+            wrongFileType : 'Only files of type %s is allowed',
             groupCheckedRangeStart : 'Please choose between ',
             groupCheckedTooFewStart : 'Please choose at least ',
             groupCheckedTooManyStart : 'Please choose a maximum of ',
@@ -1628,7 +1627,7 @@
         validatorFunction : function(val, $el, conf, language) {
             var patternStart = '^([a-zA-Z0-9',
                 patternEnd = ']+)$',
-                additionalChars = $el.attr('data-validation-allowing'),
+                additionalChars = $el.valAttr('allowing'),
                 pattern = '';
 
             if( additionalChars ) {

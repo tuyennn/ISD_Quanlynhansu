@@ -105,15 +105,8 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
     $(function() {
-        $('#ngay_chuyen').datepick({showOnFocus: false, showTrigger: '#calImg'});
-         
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C];        
+        $('#ngay_chuyen').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
+
         });
     </script>
 </head>
@@ -179,19 +172,6 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                 </td>
             </tr>
                 <?php } while ($row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM)); ?>
-            <tr>
-                <td><b>Tổng mức lương</b></td>
-                <td colspan="2"></td>
-                <?php
-                    $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
-                    $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
-                    while($row=mysql_fetch_array($rs)){
-                        echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
-                    }
-                ?>
-                <td></td>
-                <td></td>
-            </tr>
         </table>
     <?php }
         else { ?>
@@ -247,7 +227,7 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                         <input type="text" name="muc_luong" value="" size="54" />
                     </td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>

@@ -38,16 +38,21 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_job_form")) {
-    $insertSQL = sprintf("INSERT INTO tlb_congviec (ma_nhan_vien, ngay_vao_lam, phong_ban_id, cong_viec_id, chuc_vu_id, muc_luong_cb, he_so, phu_cap, tknh, ngan_hang) VALUES ('$ma_nv', %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-        GetSQLValueString(get_param('ngay_vao_lam'), "date"),
+    $sDate = str_replace('/', '-', $_POST['ngay_vao_lam']);
+    $sDate = date('Y-m-d', strtotime($sDate));
+    $muc_luong_cb = $_POST['muc_luong_cb'];
+    $he_so = $_POST['he_so'];
+    $phu_cap = $_POST['phu_cap'];
+    $tong_luong = ($muc_luong_cb * $he_so) + $phu_cap;
+
+
+    $insertSQL = sprintf("INSERT INTO tlb_congviec (ma_nhan_vien, ngay_vao_lam, phong_ban_id, cong_viec_id, chuc_vu_id, muc_luong_cb, he_so, phu_cap, tong_luong, tknh, ngan_hang) VALUES ('{$ma_nv}', '{$sDate}', %s, %s, %s, '{$muc_luong_cb}', '{$he_so}', '{$phu_cap}', '{$tong_luong}', %s, %s)",
         GetSQLValueString(get_param('phong_ban_id'), "text"),
         GetSQLValueString(get_param('cong_viec_id'), "text"),
         GetSQLValueString(get_param('chuc_vu_id'), "text"),
-        GetSQLValueString(get_param('muc_luong_cb'), "text"),
-        GetSQLValueString(get_param('he_so'), "text"),
-        GetSQLValueString(get_param('phu_cap'), "text"),
         GetSQLValueString(get_param('tknh'), "text"),
-        GetSQLValueString(get_param('ngan_hang'), "text"));
+        GetSQLValueString(get_param('ngan_hang'), "text"),
+        GetSQLValueString(get_param('ghi_chu'), "text"));
 
     $mydb->setQuery($insertSQL);
     $result_c = $mydb->executeQuery();
@@ -118,15 +123,9 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
     $(function() {
-        $('#ngay_vao_lam').datepick({showOnFocus: false, showTrigger: '#calImg'});
+        $('#ngay_vao_lam').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
          
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+         
         });
     </script>
 </head>
@@ -169,12 +168,7 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                     ?></b>
                     </td>
                 </tr>
-                <tr>
-                    <td width="117">Tài khoản NH:</td>
-                    <td width="300"><input type="text" name="tknh" value="" size="32" /></td>
-                    <td>Ngân hàng:</td>
-                    <td><input type="text" name="ngan_hang" value="" size="32" /></td>
-                </tr>
+                
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày vào làm (*):</td>
                     <td>
@@ -199,7 +193,7 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                     <td colspan="2"></td>
                 </tr>
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="right">Công việc:</td>
+                    <td nowrap="nowrap" align="right">Mảng lĩnh vực:</td>
                     <td>
                         <select name="cong_viec_id">
                         <?php 
@@ -236,13 +230,13 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 ?>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mức lương :</td>
-                    <td><input type="text" name="muc_luong_cb" value="<?php echo number_format($row['muc_luong'],0,',','.'); ?>" size="32" readonly="readonly" data-validation="required" data-validation-error-msg="Thông tin bắt buộc" /> VND</td>
+                    <td><input type="text" name="muc_luong_cb" value="<?php echo $row['muc_luong']; ?>" size="32" readonly="readonly" data-validation="required" data-validation-error-msg="Thông tin bắt buộc" /> VND</td>
                     <td colspan="2"></td>
                 <?php } ?>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hệ số:</td>
-                    <td><input type="text" name="he_so" value="" size="32"data-validation="required" data-validation-error-msg="Thông tin bắt buộc" /></td>
+                    <td><input type="text" name="he_so" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc" /></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -251,6 +245,16 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                     <td><input type="text" name="phu_cap" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
                     <td></td>
                     <td></td>
+                </tr>
+                <tr valign="baseline">
+                    <td nowrap="nowrap" align="right">Tài khoản NH:</td>
+                    <td><input type="text" name="tknh" value="" size="32" /></td>
+                    <td>Ngân hàng:</td>
+                    <td><input type="text" name="ngan_hang" value="" size="32" /></td>
+                </tr>
+                <tr valign="middle">
+                    <td nowrap="nowrap" align="right">Ghi chú:</td>
+                    <td colspan="3"><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr valign="baseline">
                     <td colspan="4" align="center" nowrap="nowrap"><input type="submit" value="Insert record" /></td>

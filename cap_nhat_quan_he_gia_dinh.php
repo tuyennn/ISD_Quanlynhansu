@@ -176,7 +176,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation_for
                     <td nowrap="nowrap" align="right">ĐT Liên Hệ:</td>
                     <td><input type="text" name="dtll" value="<?php echo htmlentities($row_RCQuanhe_CN['dtll'], ENT_COMPAT, 'utf-8'); ?>" size="54" /></td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" rows="5" cols="60" /><?php echo htmlentities($row_RCQuanhe_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>

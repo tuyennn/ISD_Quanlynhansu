@@ -40,8 +40,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
     $tDate = str_replace('/', '-', $_POST['ngay_chuyen']);
     $tDate = date('Y-m-d', strtotime($tDate));
+    $currentDate = date("Y-m-d");
 
-    $updateSQL = sprintf("UPDATE tlb_quatrinhluong SET so_quyet_dinh=%s, ngay_chuyen='{$tDate}', muc_luong=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
+    $updateSQL = sprintf("UPDATE tlb_quatrinhluong SET so_quyet_dinh=%s, ngay_chuyen='{$tDate}', muc_luong=%s, ghi_chu=%s, ngay_sua='{$currentDate}' WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['so_quyet_dinh'], "text"),
         GetSQLValueString($_POST['muc_luong'], "text"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
@@ -78,15 +79,9 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
     $(function() {
-        $('#ngay_chuyen').datepick({showOnFocus: false, showTrigger: '#calImg'});
+        $('#ngay_chuyen').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
          
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+         
         });
     </script>
 </head>
@@ -126,17 +121,6 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <td align="right"><?php echo number_format($row_RCQTluong_DS['muc_luong'],0,',','.'); ?> VND</td>
             </tr>
             <?php } while ($row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS)); ?>
-            <tr>
-                <td><b>Tổng mức</b></td>
-                <td colspan="2"></td>
-                <?php
-                    $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
-                    $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
-                    while($row=mysql_fetch_array($rs)){
-                        echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
-                    }
-                ?>
-            </tr>
         </table>
     </div>
     <!--MAIN BOTTOM CONTENT -->
@@ -188,10 +172,10 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mức lương:</td>
                     <td>
-                        <input type="text" name="muc_luong" value="<?php echo number_format($row_RCQTluong_CN['muc_luong'],0,',','.'); ?>" size="54" />
+                        <input type="text" name="muc_luong" value="<?php echo $row_RCQTluong_CN['muc_luong']; ?>" size="54" />
                     </td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCQTluong_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>                 
                 </tr>

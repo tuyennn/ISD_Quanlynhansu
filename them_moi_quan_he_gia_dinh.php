@@ -225,7 +225,7 @@ $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'")
                     <td nowrap="nowrap" align="right">ĐT liên lạc:</td>
                     <td><input type="text" name="dtll" value="" size="54" /></td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>

@@ -37,14 +37,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_job_form")) {
-    $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam=%s, phong_ban_id=%s, cong_viec_id=%s, chuc_vu_id=%s, muc_luong_cb=%s, he_so=%s, phu_cap=%s, tknh=%s, ngan_hang=%s WHERE ma_nhan_vien='{$ma_nv}'",
-        GetSQLValueString($_POST['ngay_vao_lam'], "date"),
+    $sDate = str_replace('/', '-', $_POST['ngay_vao_lam']);
+    $sDate = date('Y-m-d', strtotime($sDate));
+    $muc_luong_cb = $_POST['muc_luong_cb'];
+    $he_so = $_POST['he_so'];
+    $phu_cap = $_POST['phu_cap'];
+    $tong_luong = ($muc_luong_cb * $he_so) + $phu_cap;
+    echo $tong_luong;
+    $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam='{$sDate}', phong_ban_id=%s, cong_viec_id=%s, chuc_vu_id=%s, muc_luong_cb='{$muc_luong_cb}', he_so='{$he_so}', phu_cap='{$phu_cap}', tong_luong='{$tong_luong}', tknh=%s, ngan_hang=%s WHERE ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['phong_ban_id'], "text"),
         GetSQLValueString($_POST['cong_viec_id'], "text"),
         GetSQLValueString($_POST['chuc_vu_id'], "text"),
-        GetSQLValueString($_POST['muc_luong_cb'], "text"),
-        GetSQLValueString($_POST['he_so'], "text"),
-        GetSQLValueString($_POST['phu_cap'], "text"),
         GetSQLValueString($_POST['tknh'], "text"),
         GetSQLValueString($_POST['ngan_hang'], "text"));
 
@@ -119,23 +122,53 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                     <th align="center" class="rounded-q4"></th>
                 </tr>
             </thead>
+                <tr valign="baseline">
+                    <td>Mã nhân viên:</td>
+                    <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
+                </tr>
+                <tr valign="baseline">
+                    <td>Nhân viên:</td>
+                    <td style="color:red"><b>
+                    <?php
+            
+                        //echo $ma_nv;
+                        $mydb->setQuery("SELECT ho_ten FROM tlb_nhanvien WHERE `ma_nhan_vien`='$ma_nv' ");
+                        $cur = $mydb->loadResultList();
+                        foreach($cur as $object){
+                           
+                                echo $object->ho_ten;
+                            
+                            }
+
+                    ?></b>
+                    </td>
+                </tr>
+
                 <tr>
-                    <td colspan="4">Ngày vào làm: <b><?php echo $row_RCcapnhat_congviec['ngay_vao_lam']; ?></b></td>
+                    <td>Ngày vào làm:</td>
+                    <td><b><?php echo date("d/m/Y", strtotime($row_RCcapnhat_congviec['ngay_vao_lam'])); ?></b></td>
                 </tr>
                 <tr>
-                    <td colspan="4">Công việc: <b><?php echo $row_RCctcongviec1['ten_cong_viec']; ?></b></td>
+                    <td>Mảng lĩnh vực:</td>
+                    <td><b><?php echo $row_RCctcongviec1['ten_cong_viec']; ?></b></td>
                 </tr>
                 <tr>
-                    <td width="400">Phòng ban: <b><?php echo $row_RCphongban1['ten_phong_ban']; ?></b></td>
-                    <td colspan="3" width="350">Chức vụ: <b><?php echo $row_RCChucvu1['ten_chuc_vu']; ?></b></td>
+                    <td>Phòng ban:</td>
+                    <td><b><?php echo $row_RCphongban1['ten_phong_ban']; ?></b></td>
                 </tr>
                 <tr>
-                    <td>Mức lương: <b><?php echo $row_RCcapnhat_congviec['muc_luong_cb']; ?><b></td>
+                    <td>Chức vụ:</td>
+                    <td><b><?php echo $row_RCChucvu1['ten_chuc_vu']; ?></b></td>
+                </tr>
+                <tr>
+                    <td>Mức lương:
+                    <td><b><?php echo number_format($row_RCcapnhat_congviec['muc_luong_cb'],0,',','.'); ?><b></td>
                     <td>Hệ số: <b><?php echo $row_RCcapnhat_congviec['he_so']; ?></b></td>
-                    <td colspan="2">Phụ cấp: <b><?php echo $row_RCcapnhat_congviec['phu_cap']; ?></b></td>
+                    <td>Phụ cấp: <b><?php echo number_format($row_RCcapnhat_congviec['phu_cap'],0,',','.'); ?></b></td>
                 </tr>
                 <tr>
-                    <td colspan="4">Tổng lương: </td>
+                    <td>Tổng lương: </td>
+                    <td><b><?php echo number_format($row_RCcapnhat_congviec['tong_luong'],0,',','.'); ?></b></td>
                 </tr>
                 <tr>
                     <td>Tài khoản NH: <b><?php echo $row_RCcapnhat_congviec['tknh']; ?><b></td>
@@ -231,7 +264,7 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phụ cấp:</td>
-                    <td><input type="text" name="phu_cap" value="<?php echo htmlentities($row_RCcapnhat_congviec['phu_cap'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                    <td><input type="text" name="phu_cap" value="<?php echo $row_RCcapnhat_congviec['phu_cap']; ?>" size="32" /></td>
                     <td></td>
                     <td></td>
                 </tr>

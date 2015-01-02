@@ -119,16 +119,10 @@
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
     $(function() {
-        $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg'});
-        $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg'});
+        $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
+        $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
          
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+         
     });
     </script>
 

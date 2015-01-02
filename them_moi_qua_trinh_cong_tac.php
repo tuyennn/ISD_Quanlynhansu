@@ -106,16 +106,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
     <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
     <script>
     $(function() {
-        $('#ngay_ky').datepick({showOnFocus: false, showTrigger: '#calImg'});
-        $('#ngay_hieu_luc').datepick({showOnFocus: false, showTrigger: '#calImg'});
+        $('#ngay_ky').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
+        $('#ngay_hieu_luc').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
          
-        var formats = ['mm/dd/yyyy', 'M d, yyyy', 'MM d, yyyy', 
-            'DD, MM d, yyyy', 'mm/dd/yy', 'dd/mm/yyyy', 
-            'mm/dd/yyyy (\'w\'w)', '\'Day\' d \'of\' MM, yyyy', 
-            $.datepick.ATOM, $.datepick.COOKIE, $.datepick.ISO_8601, 
-            $.datepick.RFC_822, $.datepick.RFC_850, $.datepick.RFC_1036, 
-            $.datepick.RFC_1123, $.datepick.RFC_2822, $.datepick.RSS, 
-            $.datepick.TICKS, $.datepick.TIMESTAMP, $.datepick.W3C]; 
+         
     });
     </script>
 </head>
@@ -249,7 +243,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                     <td nowrap="nowrap" align="right">Công việc:</td>
                     <td colspan="3"><input type="text" name="cong_viec" value="" size="54" /></td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>
