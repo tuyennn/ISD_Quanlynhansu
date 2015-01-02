@@ -131,7 +131,7 @@ $totalRows_RCBaohiem_DS = $mydb->num_rows($RCBaohiem_DS);
                     <th width="140" class="rounded-q4">Nơi cấp</th>
                 </tr>
             </thead>
-        <tr class="row">
+        <tr>
             <td><?php echo $row_RCBaohiem_DS['so_bhxh']; ?></td>
             <td><?php echo date("d/m/Y", strtotime($row_RCBaohiem_DS['ngay_cap_bhxh'])); ?></td>
             <td><?php echo $row_RCBaohiem_DS['noi_cap_bhxh']; ?></td>
@@ -205,10 +205,9 @@ $totalRows_RCBaohiem_DS = $mydb->num_rows($RCBaohiem_DS);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHYT:</td>
-                    <td>
-                        <input type="text" name="noi_cap_bhyt" value="<?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhyt'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
-                    </td>
+                    <td><textarea name="noi_cap_bhyt" rows="5" cols="60"><?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhyt'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
+
                 <tr valign="baseline">
                     <td colspan="2">
                         <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>

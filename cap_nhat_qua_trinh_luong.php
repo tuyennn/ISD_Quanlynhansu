@@ -63,7 +63,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
     }
     sprintf("location: %s", $updateGoTo);
 }
-$mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'");
+$mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv' ORDER BY `tlb_quatrinhluong`.`ngay_chuyen` DESC");
 $RCQTluong_DS = $mydb->executeQuery();
 $row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS);
 $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
@@ -114,21 +114,21 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             <tr>
                 <th width="200" class="rounded-content">Số quyết định</th>
                 <th width="150">Ngày chuyển mức</th>
-                <th align="right" width="120">Mức lương</th>
-                <th align="right" width="200"  class="rounded-q4">Ghi chú</th>
+                <th width="150">Ngày sửa</th>
+                <th align="right" width="200"  class="rounded-q4">Mức lương</th>
             </tr>
             </thead>
             <?php do { ?>
             <tr>
                 <td><?php echo $row_RCQTluong_DS['so_quyet_dinh']; ?></td>
                 <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_DS['ngay_chuyen'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_DS['ngay_sua'])); ?></td>
                 <td align="right"><?php echo number_format($row_RCQTluong_DS['muc_luong'],0,',','.'); ?> VND</td>
-                <td align="right"><?php echo $row_RCQTluong_DS['ghi_chu']; ?></td>
             </tr>
             <?php } while ($row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS)); ?>
             <tr>
-                <td><b>Tổng mức lương</b></td>
-                <td></td>
+                <td><b>Tổng mức</b></td>
+                <td colspan="2"></td>
                 <?php
                     $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
                     $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
@@ -136,7 +136,6 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                         echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
                     }
                 ?>
-                <td></td>
             </tr>
         </table>
     </div>
@@ -189,12 +188,12 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mức lương:</td>
                     <td>
-                        <input type="text" name="muc_luong" value="<?php echo htmlentities($row_RCQTluong_CN['muc_luong'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="muc_luong" value="<?php echo number_format($row_RCQTluong_CN['muc_luong'],0,',','.'); ?>" size="54" />
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
-                    <td><textarea name="ghi_chu" value="<?php echo htmlentities($row_RCQTluong_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?>" rows="5" cols="60"></textarea></td>                 
+                    <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCQTluong_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>                 
                 </tr>
                 <tr valign="baseline">
                     <td colspan="2">

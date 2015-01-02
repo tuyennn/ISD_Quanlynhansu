@@ -38,7 +38,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) {
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation_form")) {
   $updateSQL = sprintf("UPDATE tlb_quanhegiadinh SET ten_nguoi_than=%s, nam_sinh=%s, moi_quan_he=%s, nghe_nghiep=%s, dia_chi=%s, dtll=%s, ghi_chu=%s WHERE id='{$id}' AND ma_nhan_vien='{$ma_nv}'",
     GetSQLValueString($_POST['ten_nguoi_than'], "text"),
     GetSQLValueString($_POST['nam_sinh'], "int"),
@@ -129,7 +129,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
             $totalRows_RCQuanhe_CN = $mydb->num_rows($RCQuanhe_CN);
         ?>
 
-        <form action="<?php echo $editFormAction; ?>" method="post" name="update_relation" id="update_relation">
+        <form action="<?php echo $editFormAction; ?>" method="post" name="update_relation_form" id="update_relation_form">
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
@@ -178,7 +178,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
-                    <td><textarea name="ghi_chu" value="<?php echo htmlentities($row_RCQuanhe_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?>" rows="5" cols="60" /></textarea></td>
+                    <td><textarea name="ghi_chu" rows="5" cols="60" /><?php echo htmlentities($row_RCQuanhe_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
                 <tr valign="baseline">
                     <td colspan="2">
@@ -193,7 +193,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
                             {
                                 if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
                                 {
-                                    update_relation.submit();
+                                    update_relation_form.submit();
                                     return false;
                                 }  
                             }
@@ -201,7 +201,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation")) 
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="MM_update" value="update_relation" />
+            <input type="hidden" name="MM_update" value="update_relation_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCQuanhe_CN['id']; ?>" />
         </form>
     </div>

@@ -156,12 +156,12 @@ if ($totalRows_RCBaohiem_TM <>0)
             <table id="rounded-corner" border="0" width="750">
             <thead>
                 <tr>
-                    <th width="100" class="rounded-content">Số BHXH</th>
+                    <th width="80" class="rounded-content">Số BHXH</th>
                     <th width="70">Ngày cấp</th>
-                    <th width="100">Nơi cấp</th>
-                    <th width="100">Số BHYT</th>
+                    <th width="120">Nơi cấp</th>
+                    <th width="80">Số BHYT</th>
                     <th width="70">Ngày cấp</th>
-                    <th width="100">Nơi cấp</th>
+                    <th width="120">Nơi cấp</th>
                     <th width="100" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                 </tr>
             </thead>
@@ -172,7 +172,7 @@ if ($totalRows_RCBaohiem_TM <>0)
                     <td><?php echo $row_RCBaohiem_TM['so_bhyt']; ?></td>
                     <td><?php echo date("d/m/Y", strtotime($row_RCBaohiem_TM['ngay_cap_bhyt'])); ?></td>
                     <td><?php echo $row_RCBaohiem_TM['noi_cap_bhyt']; ?></td>
-                    <td width="50" align="center">
+                    <td align="center">
                         <a href="index.php?require=cap_nhat_bao_hiem.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCBaohiem_TM['id']; ?>&title=Cập nhật bảo hiểm">
                             <?php
                                 echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
@@ -250,9 +250,7 @@ if ($totalRows_RCBaohiem_TM <>0)
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHXH:</td>
-                    <td>
-                        <input type="text" name="noi_cap_bhxh" value="" size="54" />
-                    </td>
+                    <td><textarea name="noi_cap_bhxh" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số BHYT:</td>
@@ -269,10 +267,9 @@ if ($totalRows_RCBaohiem_TM <>0)
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHYT:</td>
-                    <td>
-                        <input type="text" name="noi_cap_bhyt" value="" size="54" />
-                    </td>
+                    <td><textarea name="noi_cap_bhyt" value="" rows="5" cols="60"></textarea></td>
                 </tr>
+
                 <tr>
                     <td colspan="3">
                         <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới bảo hiểm</strong><span class="bt_green_r"></span></a>

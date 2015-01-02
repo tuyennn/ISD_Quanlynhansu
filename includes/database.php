@@ -133,8 +133,7 @@ class Database {
 			mysql_close($this->conn);
 			unset($this->conn);
 		}
-	}
-	
+	}	
 } 
 $mydb = new Database();
 

@@ -150,7 +150,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                         <th width="80">Ngày ký</th>
                         <th width="100">Ngày hiệu lực</th>
                         <th width="300">Công việc</th>
-                        <th colspan="2" align="center" class="rounded-q4">Thao tác</th>
+                        <th width="100" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                     </tr>
                 </thead>
                     <?php 
@@ -160,7 +160,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                     <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_TM['ngay_ky'])); ?></td>
                     <td><?php echo date("d/m/Y", strtotime($row_RCQuatrinh_TM['ngay_hieu_luc'])); ?></td>
                     <td><?php echo $row_RCQuatrinh_TM['cong_viec']; ?></td>
-                    <td width="50" align="center">
+                    <td align="center">
                         <a href="index.php?require=cap_nhat_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQuatrinh_TM['id']; ?>&title=Cập nhật quá trình công tác">
                             <?php
                                 echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';

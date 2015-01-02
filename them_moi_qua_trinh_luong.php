@@ -64,14 +64,15 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_salary_form")) {
     $tDate = str_replace('/', '-', $_POST['ngay_chuyen']);
     $tDate = date('Y-m-d', strtotime($tDate));
+    $currentDate = date("Y-m-d");
 
-    $insertSQL = sprintf("INSERT INTO tlb_quatrinhluong (ma_nhan_vien, so_quyet_dinh, ngay_chuyen, muc_luong, ghi_chu) VALUES ('{$ma_nv}', %s, '{$tDate}', %s, %s)",
+    $insertSQL = sprintf("INSERT INTO tlb_quatrinhluong (ma_nhan_vien, so_quyet_dinh, ngay_chuyen, muc_luong, ghi_chu, ngay_sua) VALUES ('{$ma_nv}', %s, '{$tDate}', %s, %s, '{$currentDate}')",
         GetSQLValueString($_POST['so_quyet_dinh'], "text"),
         GetSQLValueString($_POST['muc_luong'], "text"),
         GetSQLValueString($_POST['ghi_chu'], "text"));
 
-    mysql_select_db($database_Myconnection, $Myconnection);
-    $result_c = mysql_query($insertSQL, $Myconnection) or die(mysql_error());
+    $mydb->setQuery($insertSQL);
+    $result_c = $mydb->executeQuery();
     if($result_c) {
         $message = "Thêm quá trình thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
@@ -88,7 +89,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_salary_form")) 
     }
 sprintf("location: %s", $insertGoTo);
 }
-$mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv'");
+$mydb->setQuery("SELECT * FROM tlb_quatrinhluong WHERE ma_nhan_vien = '$ma_nv' ORDER BY `tlb_quatrinhluong`.`ngay_chuyen` DESC");
 $RCQTluong_TM = $mydb->executeQuery();
 $row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM);
 $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
@@ -144,18 +145,18 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
             <tr>
                 <th width="185" class="rounded-content">Số quyết định</th>
                 <th width="120">Ngày chuyển mức</th>
-                <th align="right" width="120">Mức lương</th>
-                <th align="center" width="150">Ghi chú</th>
-                <th colspan="2" align="center" class="rounded-q4">Thao tác</th>
+                <th width="150">Ngày sửa</th>
+                <th align="right" width="120">Mức lương</th>  
+                <th width="100" colspan="2" align="center" class="rounded-q4">Thao tác</th>
             </tr>
             </thead>
             <?php do { ?>
             <tr>
                 <td><?php echo $row_RCQTluong_TM['so_quyet_dinh']; ?></td>
                 <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_TM['ngay_chuyen'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($row_RCQTluong_TM['ngay_sua'])); ?></td>
                 <td align="right"><?php echo number_format($row_RCQTluong_TM['muc_luong'],0,',','.'); ?> VND</td>
-                <td></td>
-                <td width="35">
+                <td align="center">
                     <a href="index.php?require=cap_nhat_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCQTluong_TM['id']; ?>&title=Cập nhật quá trình lương">
                     <?php
                         echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
@@ -180,7 +181,7 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                 <?php } while ($row_RCQTluong_TM = $mydb->fetch_assoc($RCQTluong_TM)); ?>
             <tr>
                 <td><b>Tổng mức lương</b></td>
-                <td></td>
+                <td colspan="2"></td>
                 <?php
                     $sql="SELECT sum(muc_luong) FROM tlb_quatrinhluong WHERE ma_nhan_vien='{$ma_nv}'";
                     $rs=mysql_query($sql) or die('Cannot select tlb_quatrinhluong');
@@ -188,7 +189,6 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                         echo '<td align="right"><b>'.number_format($row['sum(muc_luong)'],0,',','.').' VND<b></td>';
                     }
                 ?>
-                <td></td>
                 <td></td>
                 <td></td>
             </tr>

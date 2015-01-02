@@ -7,11 +7,11 @@
 		return isset($_SESSION['ma_nv']);
         
 	}
-	//this function if session member is not set then it will be redirected to index.php
+	//this function if session member is not set then it will be redirected to dangnhap.php
 	function confirm_logged_in() {
 		if (!logged_in()) {?>
 			<script type="text/javascript">
-				window.location = "index.php";
+				window.location = "dangnhap.php";
 			</script>
 
 		<?php

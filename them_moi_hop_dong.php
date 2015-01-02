@@ -149,10 +149,10 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
         <table id="rounded-corner" border="0" width="750">
             <thead>
                 <tr>
-                    <th width="280" class="rounded-content">Số Quyết Định HĐ</th>
+                    <th width="180" class="rounded-content">Số Quyết Định HĐ</th>
                     <th width="140">Hiệu lực từ</th>
                     <th width="120">Đến hết</th>
-                    <th width="180">Loại hợp đồng</th>
+                    <th width="120">Loại hợp đồng</th>
                     <th width="120" colspan="2" align="center" class="rounded-q4">Thao tác</th>
                 </tr>
             </thead>
@@ -175,7 +175,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                         }
                         ?>
                     </td>
-                    <td width="50" align="center">
+                    <td align="center">
                         <a href="index.php?require=cap_nhat_hop_dong.php&catID=<?php echo $ma_nv; ?>&tomID=<?php echo $row_RCHopdong_TM['id']; ?>&title=Cập nhật hợp đồng">
                             <?php
                                 echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
@@ -238,7 +238,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                     ?></b>
                     </td>
                 </tr>
-               <tr valign="baseline">
+                <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hiệu lực từ:</td>
                     <td>
                         <input type="text" name="tu_ngay" id="tu_ngay" value="" size="27" />
@@ -272,7 +272,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
-                    <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
+                    <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="3">

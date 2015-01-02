@@ -1,36 +1,6 @@
 <?php require_once('includes/initialize.php'); ?>
 <?php
 $ma_nv = $_GET['catID'];
-if (!function_exists("GetSQLValueString")) {
-    function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-    {
-      if (PHP_VERSION < 6) {
-        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-    }
-
-    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-    switch ($theType) {
-        case "text":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;    
-        case "long":
-        case "int":
-        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-        break;
-        case "double":
-        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-        break;
-        case "date":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;
-        case "defined":
-        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-        break;
-    }
-    return $theValue;
-}
-}
 
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -73,10 +43,6 @@ $sql = " SELECT * FROM tlb_congviec
                     INNER JOIN tlb_phongban ON tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id
                     INNER JOIN tlb_ctcongviec ON tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id
                     INNER JOIN tlb_chucvu ON tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id
-                    INNER JOIN tlb_hocvan ON tlb_hocvan.hoc_van_id = tlb_congviec.hoc_van_id
-                    INNER JOIN tlb_bangcap ON tlb_bangcap.bang_cap_id = tlb_congviec.bang_cap_id
-                    INNER JOIN tlb_ngoaingu ON tlb_ngoaingu.ngoai_ngu_id = tlb_congviec.ngoai_ngu_id
-                    INNER JOIN tlb_tinhoc ON tlb_tinhoc.tin_hoc_id = tlb_congviec.tin_hoc_id
                 WHERE
                     tlb_congviec.ma_nhan_vien = '$ma_nv'";
 
@@ -213,9 +179,9 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
             <td colspan="3">Ngân hàng: <b><?php echo $row_RCTTcongviec['ngan_hang']; ?></b></td>
         </tr>
         <tr>
-            <td>Học vấn: <b><?php echo $row_RCTTcongviec['ten_hoc_van']; ?></b></td>
-            <td colspan="2">Bằng cấp:<b><?php echo $row_RCTTcongviec['ten_bang_cap']; ?></b></td>
-            <td>Ngoại ngữ: <b><?php echo $row_RCTTcongviec['ten_ngoai_ngu']; ?></b></td>
+            <td></td>
+            <td colspan="2"></td>
+            <td></td>
         </tr>
     </table>
 

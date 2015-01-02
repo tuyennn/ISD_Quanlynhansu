@@ -1,6 +1,7 @@
 <?php
 require_once('includes/functions.php');
 require_once("includes/initialize.php");
+
 $submit = get_param('submit');
 if($submit<>""){
 	$ten_dang_nhap=get_param('ten_dang_nhap');
@@ -22,7 +23,6 @@ if($submit<>""){
 		$msg="Đăng Nhập Thành Công! Chào Administrator";
 		$page='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
 		page_transfer($msg,$page);
-		exit;
 	}
 	else
 	{
@@ -31,8 +31,7 @@ if($submit<>""){
 		page_transfer($msg,$page);
 	}
 }
-
-if($_SESSION['logged-in'] == true) {
+if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == true) {
 	$msg="Bạn đã đăng nhập rồi!";
 	$page='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
 	page_transfer($msg,$page);

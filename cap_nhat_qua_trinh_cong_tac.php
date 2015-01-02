@@ -193,7 +193,7 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
-                    <td><textarea name="ghi_chu" value="<?php echo htmlentities($row_RCQuatrinh_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?>" rows="5" cols="60"></textarea></td>
+                    <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCQuatrinh_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
                 <tr valign="baseline">
                     <td colspan="3">

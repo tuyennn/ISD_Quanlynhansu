@@ -44,25 +44,26 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     $mydb->setQuery($insertSQL);
     $result_c = $mydb->executeQuery();
     if($result_c) {
-        $message = "Thao tác thêm mới thành công!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $message = "$.growl('<strong>Thao tác thêm mới thành công!</strong> ', { 
+                        type: 'success'
+                    });";
+        $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
+        location($url);
+        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
     else {
-        $message = "Thao tác thêm mới thất bại!";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $message = "$.growl('<strong>Thao tác thêm mới thất bại!</strong> ', { 
+                        type: 'danger'
+                    });";
+        $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
+        location($url);
+        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
 
     $insertGoTo = "danh_sach_nhan_vien.php";
     if (isset($_SERVER['QUERY_STRING'])) {
         $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
         $insertGoTo .= $_SERVER['QUERY_STRING'];
-    }
-
-    //thêm mới thành công chuyển sang nhập công việc
-    
-    if ($ma_nv <>""){
-       $url = "index.php?require=them_moi_cong_viec.php&catID=$ma_nv&title=Thêm mới công việc";
-       location($url);
     }
 }
 ?>
@@ -170,7 +171,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
         <table id="rounded-corner" >
             <tr valign="baseline">
                 <td width="127" align="right" nowrap="nowrap">Mã nhân viên(*):</td>
-                <td width="227"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" /></td>
+                <td width="227"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
                 <td colspan="2"><div class="ma_nhan_vien_avail_result" id="ma_nhan_vien_avail_result"></div></td>
             </tr>
             <tr valign="10px">
