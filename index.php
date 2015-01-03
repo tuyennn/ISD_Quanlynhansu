@@ -198,7 +198,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                 <img src="images/photo.png" alt="" title="" class="sidebar_icon_right" />
                 <ul>
                 <?php
-                    $upload_dir = 'uploads/documents';
+                    $upload_dir = 'uploads/documents/';
                     $sql="SELECT * FROM tlb_tailieu ORDER BY id LIMIT 4";
                     $rs=mysql_query($sql) or die('Cannot select document');
                     while($row=mysql_fetch_array($rs)){

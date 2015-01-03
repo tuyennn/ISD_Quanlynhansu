@@ -37,7 +37,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary_form")) {
     $tDate = str_replace('/', '-', $_POST['ngay_chuyen']);
     $tDate = date('Y-m-d', strtotime($tDate));
     $currentDate = date("Y-m-d");
@@ -64,6 +64,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary")) {
     }
     sprintf("location: %s", $updateGoTo);
 }
+
 $mydb->setQuery("SELECT * FROM tlb_quatrinhluong where ma_nhan_vien = '$ma_nv' ORDER BY `tlb_quatrinhluong`.`ngay_chuyen` DESC");
 $RCQTluong_DS = $mydb->executeQuery();
 $row_RCQTluong_DS = $mydb->fetch_assoc($RCQTluong_DS);
@@ -132,7 +133,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             $row_RCQTluong_CN = $mydb->fetch_assoc($RCQTluong_CN);
             $totalRows_RCQTluong_CN = $mydb->num_rows($RCQTluong_CN);	
         ?>
-        <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary" id="update_salary">
+        <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary_form" id="update_salary_form">
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right" width="380">Mã nhân viên:</td>
@@ -192,7 +193,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                             {
                                 if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
                                 {
-                                    update_salary.submit();
+                                    update_salary_form.submit();
                                     return false;
                                 }  
                             }
@@ -200,7 +201,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="MM_update" value="update_salary" />
+            <input type="hidden" name="MM_update" value="update_salary_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCQTluong_CN['id']; ?>" />
     </form>
 </body>

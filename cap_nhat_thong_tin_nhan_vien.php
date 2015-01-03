@@ -36,7 +36,7 @@
         $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
 
-    if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff")) {
+    if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "edit_staff_form")) {
         $sDate = str_replace('/', '-', $_POST['ngay_sinh']);
         $tDate = str_replace('/', '-', $_POST['ngay_cap']);
         $sDate = date('Y-m-d', strtotime($sDate));
@@ -152,7 +152,7 @@
         <img id="calImg" src="images/calendar.gif" alt="Popup" class="trigger">
     </div>
 
-    <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="edit_staff" id="edit_staff">
+    <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="edit_staff_form" id="edit_staff_form">
         <table id="rounded-corner" width="750" cellpadding="2" cellspacing="2" bgcolor="#66CCFF">
             <thead>
                 <tr>
@@ -304,7 +304,7 @@
             </tfoot>
 
         </table>
-        <input type="hidden" name="MM_update" value="edit_staff" />
+        <input type="hidden" name="MM_update" value="edit_staff_form" />
         <input type="hidden" name="ma_nhan_vien" value="<?php echo $row_RCcapnhat_nhanvien['ma_nhan_vien']; ?>" />
     </form>
     <script src="js/form-validator/jquery.form-validator.min.js"></script>
@@ -324,7 +324,7 @@
         {
             if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
             {
-                edit_staff.submit();
+                edit_staff_form.submit();
                 return true;
             }  
         }

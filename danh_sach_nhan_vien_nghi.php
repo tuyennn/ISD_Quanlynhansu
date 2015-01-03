@@ -80,7 +80,7 @@ $totalRows_RCdanh_sach = $mydb->num_rows($result);
 
     </thead>
     
-        <tr class="row">
+        <tr>
             <td width="50" align="center">
                 <a href="chi_tiet_nhan_vien.php?catID=<?php echo $row_RCdanh_sach['ma_nhan_vien']; ?>">
                     <img src="images/Offline.png" alt="Đã nghỉ việc" title="" border="0" />

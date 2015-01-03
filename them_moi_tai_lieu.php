@@ -7,11 +7,11 @@ if ($action=="del")
 
     $upload_dir = "uploads/documents";
     $mydb->setQuery("SELECT * FROM tlb_tailieu WHERE id = '$ma_tailieu'");
-    $RCtailieu = $mydb->executeQuery();
-    $row_RCtailieu = $mydb->fetch_assoc($RCtailieu);
-    $totalRows_RCtailieu = $mydb->num_rows($RCtailieu);
-    if($totalRows_RCtailieu == 1) {
-        $file = $upload_dir."/".$row_RCtailieu['filename'];
+    $RCtailieu_DS = $mydb->executeQuery();
+    $row_RCtailieu_DS = $mydb->fetch_assoc($RCtailieu_DS);
+    $totalRows_RCtailieu_DS = $mydb->num_rows($RCtailieu_DS);
+    if($totalRows_RCtailieu_DS == 1) {
+        $file = $upload_dir."/".$row_RCtailieu_DS['filename'];
         if (!unlink($file))
         {
             echo ("Error deleting $file");
@@ -83,8 +83,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
     $filetype = $_FILES['upload_file']['type'];
 
     if(move_uploaded_file($tmp_file,$upload_dir."/".$target_file)) {
+
+        $currentDate = date("Y-m-d");
         
-        $insertSQL="INSERT INTO `tlb_tailieu` (`title`, `filename`, `type`, `size`) VALUES ('{$_POST['ten_tailieu']}', '{$target_file}', '{$filetype}', '{$filesize}')";
+        $insertSQL="INSERT INTO `tlb_tailieu` (`title`, `filename`, `type`, `size`, `ngay_tao`) VALUES ('{$_POST['ten_tailieu']}', '{$target_file}', '{$filetype}', '{$filesize}'), '{$currentDate}'";
         $mydb->setQuery($insertSQL);
         $result_c = $mydb->executeQuery();
         if($result_c) {
@@ -110,9 +112,9 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
 }
 
 $mydb->setQuery("SELECT * FROM tlb_tailieu");
-    $RCtailieu = $mydb->executeQuery();
-    $row_RCtailieu = $mydb->fetch_assoc($RCtailieu);
-    $totalRows_RCtailieu = $mydb->num_rows($RCtailieu);
+    $RCtailieu_DS = $mydb->executeQuery();
+    $row_RCtailieu_DS = $mydb->fetch_assoc($RCtailieu_DS);
+    $totalRows_RCtailieu_DS = $mydb->num_rows($RCtailieu_DS);
 
 
 
@@ -123,41 +125,54 @@ $mydb->setQuery("SELECT * FROM tlb_tailieu");
 
   
     <?php
-        if ($totalRows_RCtailieu<>0)
+        if ($totalRows_RCtailieu_DS<>0)
         {
     ?>
         <table id="rounded-corner" summary="Bảng Thống Kê Tài Liệu Công Ty" >
             <thead>
                 <tr>
                     <th width="30" rowspan="2" align="center" class="rounded-company">MÃ</th>
-                    <th width="320" rowspan="2" align="left">TÊN TÀI LIỆU</th>
-                    <th width="120" rowspan="2" align="left">KÍCH CỠ</th>
+                    <th width="340" rowspan="2" align="left">TÊN TÀI LIỆU</th>
+                    <th width="100" rowspan="2" align="left">KÍCH CỠ</th>
+                    <th width="80" rowspan="2" align="left">NGÀY TẠO</th>
                     <th colspan="3" align="center" class="rounded-q4">THAO TÁC</th>
                 </tr>
 
                 <tr>
                     <td align="center" bgcolor="#CC0000">Sửa</td>
                     <td align="center" bgcolor="#CC0000">Xóa</td>
-                    <td width="100" align="center" bgcolor="#CC0000">Tải Về</td>
+                    <td width="80" align="center" bgcolor="#CC0000">Tải Về</td>
                 </tr>
             </thead>
     <?php do { ?>
-            <tr class="row">
-                <td width="30" align="center"><?php echo sprintf("%03d", $row_RCtailieu['id']); ?></td>
-                <td align="left"><?php echo $row_RCtailieu['title']; ?></td>
-                <td align="left"><?php echo $row_RCtailieu['size']; ?> bytes</td>
-                <td width="50" align="center" ><a href="index.php?require=cap_nhat_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Cập nhật tài liệu"><img src="images/user_edit.png" alt="Sửa tài liệu" title="Sửa tài liệu" border="0" /></a></td>
+            <tr>
+                <td width="30" align="center"><?php echo sprintf("%03d", $row_RCtailieu_DS['id']); ?></td>
+                <td align="left"><?php echo $row_RCtailieu_DS['title']; ?></td>
+                <td align="left"><?php echo $row_RCtailieu_DS['size']; ?> bytes</td>
+                <td align="left"><?php echo htmlentities(date("d/m/Y", strtotime($row_RCtailieu_DS['ngay_tao'])), ENT_COMPAT, 'utf-8'); ?></td>
+                <td width="50" align="center" ><a href="index.php?require=cap_nhat_tai_lieu.php&catID=<?php echo $row_RCtailieu_DS['id']; ?>&title=Cập nhật tài liệu"><img src="images/user_edit.png" alt="Sửa tài liệu" title="Sửa tài liệu" border="0" /></a></td>
                 <td width="50" align="center"><a href="#" onclick="ConfirmDelete()" value="Xóa tài liệu"><img src="images/trash.png" alt="Xóa Tài Liệu" title="Xóa Tài Liệu" border="0" /></a></td>
                     <script type="text/javascript">
                         function ConfirmDelete()
                         {
                             if (confirm("Bạn có chắc chắn thao tác xóa?"))
-                                location.href='index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Cập nhật tài liệu&action=del';
+                                location.href='index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu_DS['id']; ?>&title=Cập nhật tài liệu&action=del';
                         }
                     </script>
-                <td width="50" align="center" ><a href="index.php?require=them_moi_tai_lieu.php&catID=<?php echo $row_RCtailieu['id']; ?>&title=Quản lý tài liệu"><img src="images/download.png" alt="Tải về tài liệu" title="Tải về tài liệu" border="0" /></a></td>
+                <td width="50" align="center" >
+                    <?php
+                    $upload_dir = 'uploads/documents/';
+                    $sql="SELECT * FROM tlb_tailieu ORDER BY id LIMIT 4";
+                    $rs=mysql_query($sql) or die('Cannot select document');
+                    while($row=mysql_fetch_array($rs)){
+                        echo '<a href="../'.$upload_dir.$row['filename'].'">';
+                    }
+                    ?>
+                        <img src="images/download.png" alt="Tải về tài liệu" title="Tải về tài liệu" border="0" />
+                    </a>
+                </td>
             </tr>
-        <?php } while ($row_RCtailieu = $mydb->fetch_assoc($RCtailieu)); ?>
+        <?php } while ($row_RCtailieu_DS = $mydb->fetch_assoc($RCtailieu_DS)); ?>
         </table>
         <?php
             }
@@ -178,11 +193,12 @@ $mydb->setQuery("SELECT * FROM tlb_tailieu");
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="left" colspan="3">Tên tài liệu:</td>
-                    <td><input type="text" name="ten_tailieu" value="" size="107" /></td>
+                    <td><input type="text" name="ten_tailieu" value="" size="120" /></td>
+                    <td width="20"></td>
                 </tr>
 
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Tải lên</strong><span class="bt_green_r"></span></a>
                             <span>
                                 <input id="upload_file" type="file" name="upload_file" />

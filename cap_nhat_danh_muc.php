@@ -14,15 +14,15 @@ if ($action=="del")
 	$ma_column = $column . "_id";
 	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";                     
 	
- mysql_select_db($database_Myconnection, $Myconnection);
- $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
- 
- $deleteGoTo = "them_danh_muc.php";
- if (isset($_SERVER['QUERY_STRING'])) {
-  $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-  $deleteGoTo .= $_SERVER['QUERY_STRING'];
-}
-sprintf("Location: %s", $deleteGoTo);
+   mysql_select_db($database_Myconnection, $Myconnection);
+   $Result1 = mysql_query($deleteSQL, $Myconnection) or die(mysql_error());
+   
+   $deleteGoTo = "them_danh_muc.php";
+   if (isset($_SERVER['QUERY_STRING'])) {
+      $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
+      $deleteGoTo .= $_SERVER['QUERY_STRING'];
+  }
+  sprintf("Location: %s", $deleteGoTo);
 }
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -62,8 +62,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $updateSQL = sprintf("UPDATE $table SET $ten_column=%s WHERE $ma_column=%s",
-     GetSQLValueString($_POST['2'], "text"),
-     GetSQLValueString($_POST['1'], "text"));
+   GetSQLValueString($_POST['2'], "text"),
+   GetSQLValueString($_POST['1'], "text"));
 
   mysql_select_db($database_Myconnection, $Myconnection);
   $Result1 = mysql_query($updateSQL, $Myconnection) or die(mysql_error());

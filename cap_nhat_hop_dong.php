@@ -38,7 +38,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary_form")) {
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary_form_form")) {
     $sDate = str_replace('/', '-', $_POST['tu_ngay']);
     $tDate = str_replace('/', '-', $_POST['den_ngay']);
     $sDate = date('Y-m-d', strtotime($sDate));
@@ -154,7 +154,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
         $row_RCHopdong_CN = $mydb->fetch_assoc($RCHopdong_CN);
         $totalRows_RCHopdong_CN = $mydb->num_rows($RCHopdong_CN);
     ?>
-    <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary_form" id="update_salary_form">
+    <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary_form_form" id="update_salary_form_form">
         <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <tr valign="baseline">
@@ -240,7 +240,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                             {
                                 if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
                                 {
-                                    update_salary_form.submit();
+                                    update_salary_form_form.submit();
                                     return false;
                                 }  
                             }
@@ -248,7 +248,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="MM_update" value="update_salary_form" />
+            <input type="hidden" name="MM_update" value="update_salary_form_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCHopdong_CN['id']; ?>" />
         </form>
     </div>
