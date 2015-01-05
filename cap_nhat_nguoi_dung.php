@@ -4,8 +4,8 @@ $table = get_param('table');
 $title = get_param('title');
 $ma_nv = get_param('catID');
 $column = get_param('column');
-$ma_column = $column . "_id";
-$ten_column = "ten_" . $column;
+$ma_column = $column . "id";
+$ten_column = "ten_dang_nhap" . $column;
 $action = get_param('action');
 //Thực hiện lệnh xoá nếu chọn xoá
 if ($action=="del")

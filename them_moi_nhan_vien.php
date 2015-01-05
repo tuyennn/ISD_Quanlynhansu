@@ -72,39 +72,22 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
-    <script type="text/javascript" src="js/jquery.validate.js"></script>
-    <script type="text/javascript" src="js/jquery.datepick.js"></script>
-    <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
-    <script type="text/javascript" src="js/jquery.datepick.validation.js"></script>
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/siena.datepicker.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.datepicker-vi.js"></script>
+
+
     <script>
         $(function() {
-
-            $('#ngay_sinh').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
-            $('#ngay_cap').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
-
-            $('#new_staff').validate({ 
-                errorPlacement: $.datepick.errorPlacement, 
-                rules: { 
-                    ngay_sinh: { 
-                        required: true,
-                        dpDate: true,
-                        dpCompareDate: {before: $.datepick.today()}
-                    },
-                    ngay_cap: {
-                        required: true,
-                        dpDate: true,
-                        dpCompareDate: {notLessThan: '#ngay_sinh'} 
-                    } 
-                }, 
-                messages: { 
-                    ngay_sinh: 'Sai định dạng hoặc đã chọn quá hiện tại',
-                    ngay_cap: 'Sai định dạng hoặc đã chọn trước ngày sinh'
-                    
-                } 
-            });
+            $("#ngay_sinh").datepicker({showOn: 'button', buttonImage: 'images/calendar.gif', buttonImageOnly: true, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+            $("#ngay_cap").datepicker({showOn: 'button', buttonImage: 'images/calendar.gif', buttonImageOnly: true, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+            $('#ui-datepicker-div').wrap('<div class="datepicker ll-skin-siena"></div>')
         });
     </script>
 
@@ -195,7 +178,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td><input type="text" name="ho_ten" value="" size="32" data-validation="length" data-validation-length="min4" data-validation-error-msg="Tên nhân viên phải dài trên 4 ký tự"/></td>
                 <td>Ngày sinh:</td>
                 <td>
-                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25"/>
+                    <input type="text" name="ngay_sinh" id="ngay_sinh" value="" size="25" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>
@@ -230,7 +213,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td><input type="text" name="dt_nha" value="" size="32" /></td>
                 <td>Ngày cấp:</td>
                 <td>
-                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25"/>
+                    <input type="text" name="ngay_cap" id="ngay_cap" value="" size="25" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                     (dd/mm/yyyy)
                 </td>
             </tr>

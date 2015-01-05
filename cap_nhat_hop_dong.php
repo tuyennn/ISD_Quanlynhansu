@@ -79,17 +79,22 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
-    <script type="text/javascript" src="js/jquery.datepick.js"></script>
-    <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/siena.datepicker.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.datepicker-vi.js"></script>
+
+
     <script>
         $(function() {
-            $('#tu_ngay').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
-            $('#den_ngay').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
-
-            
+            $("#tu_ngay").datepicker({showOn: 'button', buttonImage: 'images/calendar.gif', buttonImageOnly: true, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+            $("#den_ngay").datepicker({showOn: 'button', buttonImage: 'images/calendar.gif', buttonImageOnly: true, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+            $('#ui-datepicker-div').wrap('<div class="datepicker ll-skin-siena"></div>')
         });
     </script>
 </head>

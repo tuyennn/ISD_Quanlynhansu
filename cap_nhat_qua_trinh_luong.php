@@ -73,16 +73,21 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.plugin.js"></script> 
-    <script type="text/javascript" src="js/jquery.datepick.js"></script>
-    <script type="text/javascript" src="js/jquery.datepick-vi.js"></script>
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/siena.datepicker.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.datepicker-vi.js"></script>
+
+
     <script>
-    $(function() {
-        $('#ngay_chuyen').datepick({showOnFocus: false, showTrigger: '#calImg', dateFormat: 'dd/mm/yyyy'});
-         
-         
+        $(function() {
+            $("#ngay_chuyen").datepicker({showOn: 'button', buttonImage: 'images/calendar.gif', buttonImageOnly: true, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});
+            $('#ui-datepicker-div').wrap('<div class="datepicker ll-skin-siena"></div>')
         });
     </script>
 </head>

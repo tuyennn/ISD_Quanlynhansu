@@ -70,6 +70,15 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation_for
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.plugin.js"></script> 
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/siena.datepicker.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.datepicker-vi.js"></script>
 </head>
 
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
