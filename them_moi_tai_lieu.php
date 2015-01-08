@@ -111,7 +111,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
     sprintf("location: %s", $insertGoTo);
 }
 
-$mydb->setQuery("SELECT * FROM tlb_tailieu");
+    $mydb->setQuery("SELECT * FROM tlb_tailieu");
     $RCtailieu_DS = $mydb->executeQuery();
     $row_RCtailieu_DS = $mydb->fetch_assoc($RCtailieu_DS);
     $totalRows_RCtailieu_DS = $mydb->num_rows($RCtailieu_DS);

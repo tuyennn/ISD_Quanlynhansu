@@ -1,28 +1,27 @@
 <?php require_once('includes/initialize.php'); ?>
 <?php
-$table = get_param('table');
-$title = get_param('title');
-$ma_nv = get_param('catID');
-$column = get_param('column');
-$ma_column = $column . "id";
-$ten_column = "ten_dang_nhap" . $column;
-$action = get_param('action');
-//Thực hiện lệnh xoá nếu chọn xoá
-if ($action=="del")
-{
-	$ma_nv = $_GET['catID'];
-	$ma_column = $column . "_id";
-	$deleteSQL = "DELETE FROM $table WHERE $ma_column='$ma_nv'";   
-    $mydb->setQuery($deleteSQL);
-    $result = $mydb->executeQuery();
+    $table = get_param('table');
+    $title = get_param('title');
+    $ma_nv = get_param('catID');
+    $column = get_param('column');
+    $ma_column = $column . "id";
+    $ten_column = "ten_dang_nhap" . $column;
+    $action = get_param('action');
 
-    $deleteGoTo = "them_danh_muc.php";
-    if (isset($_SERVER['QUERY_STRING'])) {
-    $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-    $deleteGoTo .= $_SERVER['QUERY_STRING'];
+    $user_name = $_SESSION['user_name'];
+
+    $checkSQL="SELECT quyen_them, quyen_sua, quyen_xoa FROM `tlb_nguoidung` WHERE ten_dang_nhap = '{$user_name}'";
+    $mydb->setQuery($checkSQL);
+    $RCCheckpermission = $mydb->executeQuery();
+    $row_RCCheckpermission = $mydb->fetch_assoc($RCCheckpermission);
+    $totalRows_RCcheckpermission = $mydb->num_rows($RCCheckpermission);
+
+    if($row_RCCheckpermission['quyen_sua'] == 0) {
+        $message = "Truy cập không cho phép!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=them_nguoi_dung.php&title=Người dùng";
+        location($url);
     }
-sprintf("location: %s", $deleteGoTo);
-}
 
 $editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
 if (isset($_SERVER['QUERY_STRING'])) {

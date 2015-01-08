@@ -53,7 +53,7 @@ if ($title == "") $title = 'Danh sách nhân viên';
 	<div class="header">
     <div class="logo"><a href="#"><img src="images/logo.png" alt="" title="" border="0" /></a></div>
     
-    <div class="right_header">Kính Chào Administrator || <a href="dang_xuat.php" class="logout">Đăng xuất</a></div>
+    <div class="right_header">Kính Chào Administrator: <?php echo $_SESSION['user_name'] ;?> || <a href="dang_xuat.php" class="logout">Đăng xuất</a></div>
         <script>
             $(document).on("click", ".logout", (function() {
                 $.growl("<strong>Đăng xuất thành công</strong>", { 
@@ -243,16 +243,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <div class="pagination">
         <span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>…<a href="">10</a><a href="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
         </div>
-      
-    <div class="warning_box">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>
-    <div class="valid_box">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>
-    <div class="error_box">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.
-    </div>  
      
     </div><!-- end of right content-->
             

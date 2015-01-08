@@ -17,9 +17,6 @@ if($submit<>""){
 	{
 		$_SESSION['logged-in'] = true;
 		$_SESSION['user_name'] = $ten_dang_nhap;
-		$_SESSION['quyen_them'] = true;
-		$_SESSION['quyen_sua'] = true;
-		$_SESSION['quyen_xoa'] = true;
 		$msg="Đăng Nhập Thành Công! Chào Administrator";
 		$page='index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên';
 		page_transfer($msg,$page);
