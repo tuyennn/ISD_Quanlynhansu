@@ -1,10 +1,14 @@
-<?php require_once('includes/initialize.php'); ?>
+<?php 
+    require_once('includes/initialize.php'); 
+    require_once('includes/functions.php');
+?>
+
 <?php
     $title = get_param('title');
-    $column = get_param('column');
     $action = get_param('action');
-
     $user_name = $_SESSION['user_name'];
+
+    $chkbox = array('add', 'edit', 'delete');
 
     $checkSQL="SELECT quyen_them, quyen_sua, quyen_xoa FROM `tlb_nguoidung` WHERE ten_dang_nhap = '{$user_name}'";
     $mydb->setQuery($checkSQL);
@@ -15,9 +19,8 @@
     //Thực hiện lệnh xoá nếu chọn xoá
     if ($action=="del" && $row_RCCheckpermission['quyen_xoa'] == 1)
     {
-    	$ma_nv = $_GET['catID'];
-    	$ma_column = $column . "id";
-    	$deleteSQL = "DELETE FROM tlb_nguoidung WHERE $ma_column='$ma_nv'";                     
+    	$user = $_GET['catID'];
+    	$deleteSQL = "DELETE FROM tlb_nguoidung WHERE id='$user'";                     
     	
         $mydb->setQuery($deleteSQL);
         $result_e = $mydb->executeQuery();
@@ -47,12 +50,18 @@
       $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
 
-
-    $them = get_param('3');if($them=="them"){$them=1;}else{$them=0;}
-    $sua = get_param('4');if($sua=="sua"){$sua=1;}else{$sua=0;}
-    $xoa = get_param('5');if($xoa=="them"){$xoa=1;}else{$xoa=0;}
     if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_user_form") && $row_RCCheckpermission['quyen_them'] == 1) {
-        $insertSQL = sprintf("INSERT INTO tlb_nguoidung(id,ten_dang_nhap, mat_khau, quyen_them, quyen_sua, quyen_xoa) VALUES (NULL,'%s','%s','%s','%s','%s')",get_param('1'),md5(get_param('2')),$them,$sua,$xoa);
+        $permit = $_POST['permit'];
+        $values = array();
+        foreach ($chkbox as $selection) {
+            if(in_array($selection, $permit)) {
+                $values[$selection] = 1;
+            }
+            else {
+                $values[$selection] = 0;
+            }
+        }
+        $insertSQL = sprintf("INSERT INTO tlb_nguoidung(ten_dang_nhap, mat_khau, quyen_them, quyen_sua, quyen_xoa) VALUES ('%s', '%s', '{$values['add']}', '{$values['edit']}', '{$values['delete']}')", get_param('1'), md5(get_param('2')));
         $mydb->setQuery($insertSQL);
         $result_c = $mydb->executeQuery();
 
@@ -82,7 +91,11 @@
                     </tr>
                     <tr valign="baseline">
                         <td nowrap="nowrap" align="right">Quyền hạn:</td>
-                        <td>Thêm <input type="checkbox" name="3" value="them" /> Sửa <input type="checkbox" value="sua" name="4" /> Xóa <input type="checkbox" value="xoa" name="5" /></td>
+                        <td>
+                            <input type="checkbox" name="permit[]" value="add"><label>Thêm</label><br/>
+                            <input type="checkbox" name="permit[]" value="edit"><label>Sửa</label><br/>
+                            <input type="checkbox" name="permit[]" value="delete"><label>Xóa</label><br/>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -121,61 +134,56 @@
                 <?php
                     $mydb->setQuery("SELECT id, ten_dang_nhap FROM tlb_nguoidung");
                     $RCDanhmuc_TM = $mydb->executeQuery();
+                    $row_RCDanhmuc_TM = $mydb->fetch_assoc($RCDanhmuc_TM);
                     $totalRows_RCDanhmuc_TM = $mydb->num_rows($RCDanhmuc_TM);
                 ?>
+                
+
                 <?php 
                 $stt = 1;
-                while ($row = mysql_fetch_row($RCDanhmuc_TM)) {?>
-                <tr>
-                    <td align="center"><?php echo $stt;?></td>
-                    <td><?php echo sprintf("%03d", $row[0]); ?></td>
-                    <td><?php echo $row[1]; ?></td>
-                    <td align="center">
-                        <a href="#" onclick="ConfirmEdit()" value="Sửa tài khoản người dùng">
-                            <?php
-                                echo '<img src="images/user_edit.png" alt="Sửa" title="" border="0" />';
-                            ?>
-                        </a>
-                        <script type="text/javascript">
-                            function ConfirmEdit()
-                            {   
-                                var editpermission = <?php echo $row_RCCheckpermission['quyen_sua']; ?>;
-                                if (editpermission == 0) {
-                                    alert('Bạn không có quyền sửa tài khoản người dùng!');
-                                }
-                                if (editpermission == 1) {
-                                    location.href='index.php?require=cap_nhat_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=edit';
-                                }
-                            }
-                        </script>
-                    </td>
+                $quyen_sua = $row_RCCheckpermission['quyen_sua'];
+                $catID = $row_RCDanhmuc_TM['id'];
 
-                    <td align="center">
-                        <a href="#" onclick="ConfirmDelete()" value="Xóa tài khoản người dùng">
-                            <?php
-                                echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
-                            ?>
-                        </a>
+                echo $quyen_sua;
 
-                        <script type="text/javascript">
-                            function ConfirmDelete()
-                            {   
-                                var delpermission = <?php echo $row_RCCheckpermission['quyen_xoa']; ?>;
-                                if (delpermission == 0) {
-                                    alert('Bạn không có quyền xóa tài khoản người dùng!');
-                                }
-                                if (delpermission == 1) {
-                                    if (confirm("Bạn có chắc chắn thao tác xóa!!"))
-                                    {
-                                        location.href='index.php?require=them_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row[0]; ?>&title=<?php echo $title; ?>&column=<?php echo $column; ?>&action=del';
+                do { ?>
+                    <tr>
+                        <td align="center"><?php echo $stt;?></td>
+                        <td><?php echo sprintf("%03d", $row_RCDanhmuc_TM['id']); ?></td>
+                        <td><?php echo $row_RCDanhmuc_TM['ten_dang_nhap']; ?></td>
+                        <td align="center">
+                            <a href="#" value="Sửa tài khoản người dùng">
+                                <img src="images/user_edit.png" class="editbutton" alt="Sửa" title="" border="0" />
+                            </a>
+                        </td>
+
+                        <td align="center">
+                            <a href="#" onclick="ConfirmDelete()" value="Xóa tài khoản người dùng">
+                                <?php
+                                    echo '<img src="images/trash.png" alt="Xóa" title="" border="0" />';
+                                ?>
+                            </a>
+
+                            <script type="text/javascript">
+                                function ConfirmDelete()
+                                {   
+                                    var delpermission = <?php echo $row_RCCheckpermission['quyen_xoa']; ?>;
+                                    if (delpermission == 0) {
+                                        alert('Bạn không có quyền xóa tài khoản người dùng!');
+                                    }
+                                    if (delpermission == 1) {
+                                        if (confirm("Bạn có chắc chắn thao tác xóa!!"))
+                                        {
+                                            location.href='index.php?require=them_nguoi_dung.php&table=tlb_nguoidung&catID=<?php echo $row_RCDanhmuc_TM['id']; ?>&title=<?php echo $title; ?>&action=del';
+                                        }
                                     }
                                 }
-                            }
-                        </script>
-                    </td>
-                </tr>
-                <?php $stt = $stt + 1; ?>
-                <?php }  ?>
+                            </script>
+                        </td>
+                    </tr>
+                <?php 
+                $stt++;
+                    } while ($row_RCDanhmuc_TM = $mydb->fetch_assoc($RCDanhmuc_TM)); ?>
             </table>
         </td>
     </tr>

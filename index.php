@@ -1,12 +1,12 @@
 <?php 
-require_once('includes/functions.php');
-require_once("includes/initialize.php");
-if ( !isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
-	header('location: dang_nhap.php');
-	exit;
-}
-$title = get_param('title');
-if ($title == "") $title = 'Danh sách nhân viên';
+    require_once('includes/functions.php');
+    require_once("includes/initialize.php");
+    if ( !isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
+    	header('location: dang_nhap.php');
+    	exit;
+    }
+    $title = get_param('title');
+    if ($title == "") $title = 'Danh sách nhân viên';
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -87,13 +87,9 @@ if ($title == "") $title = 'Danh sách nhân viên';
                     <li><a href="#">Thống Kê<!--[if IE 7]><!--></a><!--<![endif]-->
                     <!--[if lte IE 6]><table><tr><td><![endif]-->
                         <ul>
-							<li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Thống Kê Phòng ban</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Thống Kê Công việc</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Thống Kê Chức vụ</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Thống Kê Học vấn</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
+							<li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Thống kê Phòng ban&column=phong_ban&action=new">Thống kê Phòng ban</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Công việc&column=cong_viec&action=new">Thống kê Công việc</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Thống kê Chức vụ&column=chuc_vu&action=new">Thống kê Chức vụ</a></li>
                         </ul>
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                     </li>
@@ -144,27 +140,9 @@ if ($title == "") $title = 'Danh sách nhân viên';
                 <a class="menuitem submenuheader" href="" >Thống Kê</a>
                 <div class="submenu">
                     <ul>
-                    <li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Phòng ban&column=phong_ban&action=new">Thống Kê Phòng ban</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Công việc&column=cong_viec&action=new">Thống Kê Công việc</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Chức vụ&column=chuc_vu&action=new">Thống Kê Chức vụ</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_hocvan&title=Học vấn&column=hoc_van&action=new">Thống Kê Học vấn</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_bangcap&title=Bằng cấp&column=bang_cap&action=new">Thống Kê Bằng cấp</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ngoaingu&title=Ngoại ngữ&column=ngoai_ngu&action=new">Thống Kê Ngoại ngữ</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_tinhoc&title=Tin học&column=tin_hoc&action=new">Thống Kê Trình Độ Tin học</a></li>
-                    </ul>
-                </div>
-                <a class="menuitem submenuheader" href="">Tiền Lương & Thưởng</a>
-                <div class="submenu">
-                    <ul>
-                    <li><a href="">Quản Lý Mức Lương</a></li>
-                    <li><a href="">Quản Lý Bậc Lương</a></li>
-                    <li><a href="">Quản Lý Thưởng</a></li>
-                    </ul>
-                </div>
-                <a class="menuitem submenuheader" href="">Bảo Hiểm Xã Hội</a>
-                <div class="submenu">
-                    <ul>
-                    <li><a href="">Thống Kê Bảo Hiểm</a></li>
+                    <li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Thống kê Phòng ban&column=phong_ban&action=new">Thống kê Phòng ban</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Công việc&column=cong_viec&action=new">Thống kê Công việc</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Thống kê Chức vụ&column=chuc_vu&action=new">Thống kê Chức vụ</a></li>
                     </ul>
                 </div>
                 

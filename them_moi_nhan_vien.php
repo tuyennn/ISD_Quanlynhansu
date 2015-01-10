@@ -8,7 +8,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_staff")) {
 $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh, gia_dinh, dt_di_dong, dt_nha, email, ngay_sinh, noi_sinh, cmnd, ngay_cap, noi_cap, que_quan, dia_chi, tam_tru) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-	get_param('ma_nhan_vien'),
+	strtoupper(get_param('ma_nhan_vien')),
 	get_param('ho_ten'),
 	get_param('gioi_tinh'),
 	get_param('gia_dinh'),
@@ -106,7 +106,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     pic1.src = "images/loader.gif";
     $(document).ready(function(){
         $('#ma_nhan_vien').change(function(){ // Keyup function for check the user action in input
-            var ma_nhan_vien = $(this).val(); // Get the ma_nhan_vien textbox using $(this) or you can use directly $('#ma_nhan_vien')
+            var ma_nhan_vien = document.getElementById("ma_nhan_vien").value.toUpperCase(); // Get the ma_nhan_vien textbox using $(this) or you can use directly $('#ma_nhan_vien')
             var code = "PT";
             var ma_nhan_vienAvailResult = $('#ma_nhan_vien_avail_result'); // Get the ID of the result where we gonna display the results
             if(ma_nhan_vien.length == 4) { // check if greater than 4 (minimum 4)
@@ -170,7 +170,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
         <table id="rounded-corner" >
             <tr valign="baseline">
                 <td align="right" nowrap="nowrap">Mã nhân viên(*):</td>
-                <td width="300"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td width="300"><input type="text" id="ma_nhan_vien" name="ma_nhan_vien" value="" size="32" style="text-transform:uppercase" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
                 <td colspan="2"><div class="ma_nhan_vien_avail_result" id="ma_nhan_vien_avail_result"></div></td>
             </tr>
             <tr valign="10px">
