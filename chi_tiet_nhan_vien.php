@@ -40,9 +40,9 @@ $totalRows_RCtlb_nhanvien = $mydb->num_rows($RCtlb_nhanvien);
 
 
 $sql = " SELECT * FROM tlb_congviec
-                    INNER JOIN tlb_phongban ON tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id
-                    INNER JOIN tlb_ctcongviec ON tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id
-                    INNER JOIN tlb_chucvu ON tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id
+                    INNER JOIN tlb_phongban ON tlb_phongban.ma_phong_ban = tlb_congviec.ma_phong_ban
+                    INNER JOIN tlb_ctcongviec ON tlb_ctcongviec.ma_cong_viec = tlb_congviec.ma_cong_viec
+                    INNER JOIN tlb_chucvu ON tlb_chucvu.ma_chuc_vu = tlb_congviec.ma_chuc_vu
                 WHERE
                     tlb_congviec.ma_nhan_vien = '$ma_nv'";
 
@@ -164,24 +164,14 @@ $totalRows_RCQuatrinh_luong = $mydb->num_rows($RCQuatrinh_luong);
             <td colspan="4">Công việc: <b><?php echo $row_RCTTcongviec['ten_cong_viec']; ?></b></td>
         </tr>
         <tr>
-            <td width="152">Mức lương: <b><?php echo $row_RCTTcongviec['muc_luong_cb']; ?><b></td>
+            <td width="152">Mức lương: <b><?php echo number_format($row_RCTTcongviec['muc_luong_cb'],0,',','.'); ?> VND<b></td>
             <td width="134">Hệ số: <b><?php echo $row_RCTTcongviec['he_so']; ?></b></td>
-            <td>Phụ cấp: <b><?php echo $row_RCTTcongviec['phu_cap']; ?></b></td>
-            <td>Tổng lương: </td>
-        </tr>
-        <tr>
-            <td>Sổ LĐ: <b><?php echo $row_RCTTcongviec['so_sld']; ?></b></td>
-            <td colspan="2">Ngày cấp: <b><?php echo $row_RCTTcongviec['ngay_cap']; ?></b></td>
-            <td>Nơi cấp: <b><?php echo $row_RCTTcongviec['noi_cap']; ?><b></td>
+            <td>Phụ cấp: <b><?php echo number_format($row_RCTTcongviec['phu_cap'],0,',','.'); ?> VND</b></td>
+            <td>Tổng lương: <b><?php echo number_format($row_RCTTcongviec['tong_luong'],0,',','.'); ?> VND</b></td>
         </tr>
         <tr>
             <td>Tài khoản NH: <b><?php echo $row_RCTTcongviec['tknh']; ?><b></td>
             <td colspan="3">Ngân hàng: <b><?php echo $row_RCTTcongviec['ngan_hang']; ?></b></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="2"></td>
-            <td></td>
         </tr>
     </table>
 

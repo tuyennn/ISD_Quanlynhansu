@@ -88,7 +88,7 @@
                     <!--[if lte IE 6]><table><tr><td><![endif]-->
                         <ul>
 							<li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Thống kê Phòng ban&column=phong_ban&action=new">Thống kê Phòng ban</a></li>
-                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Công việc&column=cong_viec&action=new">Thống kê Công việc</a></li>
+                            <li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Mảng công việc&column=cong_viec&action=new">Thống kê Mảng công việc</a></li>
                             <li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Thống kê Chức vụ&column=chuc_vu&action=new">Thống kê Chức vụ</a></li>
                         </ul>
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -141,7 +141,7 @@
                 <div class="submenu">
                     <ul>
                     <li><a href="index.php?require=them_danh_muc.php&table=tlb_phongban&title=Thống kê Phòng ban&column=phong_ban&action=new">Thống kê Phòng ban</a></li>
-					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Công việc&column=cong_viec&action=new">Thống kê Công việc</a></li>
+					<li><a href="index.php?require=them_danh_muc.php&table=tlb_ctcongviec&title=Thống kê Mảng công việc&column=cong_viec&action=new">Thống kê Mảng công việc</a></li>
 					<li><a href="index.php?require=them_danh_muc.php&table=tlb_chucvu&title=Thống kê Chức vụ&column=chuc_vu&action=new">Thống kê Chức vụ</a></li>
                     </ul>
                 </div>

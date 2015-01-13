@@ -1,5 +1,5 @@
 <?php
-	require_once('includes/initialize.php');
+	require_once('initialize.php');
 	if (isset($_POST['action'])) {
 	    switch ($_POST['action']) {
 	        case 'ma_nhan_vien_availability':
@@ -15,8 +15,11 @@
 				$run_query	= mysql_query($check_query); // Check the database
 				echo mysql_num_rows($run_query); // echo the num or rows 0 or greater than 0
 	            break;
-	        case 'variable':
-	        	# code...
+	        case 'quyen_sua_availability':
+	        	$ma_nguoi_dung	= $_POST['ma_nguoi_dung'];
+	        	$quyen_sua 		= $_POST['quyen_sua'];
+	        	$check_query	= mysql_query('SELECT quyen_sua FROM tlb_nguoidung WHERE ten_dang_nhap = "' .$ma_nguoi_dung .'" AND quyen_sua = "1"');
+	        	echo mysql_num_rows($check_query);
 	        	break;
 	    }
 	}

@@ -46,10 +46,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_job_form")) {
     $tong_luong = ($muc_luong_cb * $he_so) + $phu_cap;
 
 
-    $insertSQL = sprintf("INSERT INTO tlb_congviec (ma_nhan_vien, ngay_vao_lam, phong_ban_id, cong_viec_id, chuc_vu_id, muc_luong_cb, he_so, phu_cap, tong_luong, tknh, ngan_hang) VALUES ('{$ma_nv}', '{$sDate}', %s, %s, %s, '{$muc_luong_cb}', '{$he_so}', '{$phu_cap}', '{$tong_luong}', %s, %s)",
-        GetSQLValueString(get_param('phong_ban_id'), "text"),
-        GetSQLValueString(get_param('cong_viec_id'), "text"),
-        GetSQLValueString(get_param('chuc_vu_id'), "text"),
+    $insertSQL = sprintf("INSERT INTO tlb_congviec (ma_nhan_vien, ngay_vao_lam, ma_phong_ban, ma_cong_viec, ma_chuc_vu, muc_luong_cb, he_so, phu_cap, tong_luong, tknh, ngan_hang) VALUES ('{$ma_nv}', '{$sDate}', %s, %s, %s, '{$muc_luong_cb}', '{$he_so}', '{$phu_cap}', '{$tong_luong}', %s, %s)",
+        GetSQLValueString(get_param('ma_phong_ban'), "text"),
+        GetSQLValueString(get_param('ma_cong_viec'), "text"),
+        GetSQLValueString(get_param('ma_chuc_vu'), "text"),
         GetSQLValueString(get_param('tknh'), "text"),
         GetSQLValueString(get_param('ngan_hang'), "text"),
         GetSQLValueString(get_param('ghi_chu'), "text"));
@@ -185,11 +185,11 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phòng ban:</td>
                     <td>
-                        <select name="phong_ban_id">
+                        <select name="ma_phong_ban">
                         <?php 
                         do {  
                         ?>
-                            <option value="<?php echo $row_RCPhongban['phong_ban_id']?>"><?php echo $row_RCPhongban['ten_phong_ban']?></option>
+                            <option value="<?php echo $row_RCPhongban['ma_phong_ban']?>"><?php echo $row_RCPhongban['ten_phong_ban']?></option>
                         <?php
                         } while ($row_RCPhongban = $mydb->fetch_assoc($RCPhongban));
                         ?>
@@ -200,11 +200,11 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mảng lĩnh vực:</td>
                     <td>
-                        <select name="cong_viec_id">
+                        <select name="ma_cong_viec">
                         <?php 
                         do {  
                         ?>
-                            <option value="<?php echo $row_RCctcongviec['cong_viec_id']?>"><?php echo $row_RCctcongviec['ten_cong_viec']?></option>
+                            <option value="<?php echo $row_RCctcongviec['ma_cong_viec']?>"><?php echo $row_RCctcongviec['ten_cong_viec']?></option>
                         <?php
                         } while ($row_RCctcongviec = $mydb->fetch_assoc($RCctcongviec));
                         ?>
@@ -215,11 +215,11 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Chức vụ:</td>
                     <td>
-                        <select name="chuc_vu_id">
+                        <select name="ma_chuc_vu">
                         <?php 
                         do {  
                         ?>
-                            <option value="<?php echo $row_RCChucvu['chuc_vu_id']?>"><?php echo $row_RCChucvu['ten_chuc_vu']?></option>
+                            <option value="<?php echo $row_RCChucvu['ma_chuc_vu']?>"><?php echo $row_RCChucvu['ten_chuc_vu']?></option>
                         <?php
                         } while ($row_RCChucvu = $mydb->fetch_assoc($RCChucvu));
                         ?>
@@ -262,7 +262,9 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                     <td colspan="3"><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr valign="baseline">
-                    <td colspan="4" align="center" nowrap="nowrap"><input type="submit" value="Insert record" /></td>
+                    <td colspan="4" align="center" nowrap="nowrap">
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addjob" value="Thêm mới công việc" />
+                    </td>
                 </tr>
             </table>
             <input type="hidden" name="MM_insert" value="new_job_form" />

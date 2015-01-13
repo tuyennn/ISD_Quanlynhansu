@@ -51,15 +51,4 @@
 		echo '<script type="text/javascript">window.location = "'. $url . '";</script>';
 	}
 	
-	function ConfirmEdit($quyen_sua, $catID, $title)
-    {
-        if ($quyen_sua == 0) {
-            $message = "Bạn không có quyền sửa tài khoản người dùng!";
-            echo "<script type='text/javascript'>alert('$message');</script>";
-        }
-        if ($quyen_sua == 1) {
-            $url = "index.php?require=cap_nhat_nguoi_dung.php&table=tlb_nguoidung&catID=".$catID ."&title=" .$title ."&action=edit";
-            location($url);
-        }
-    }	
 ?>

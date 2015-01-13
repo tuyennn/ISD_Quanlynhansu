@@ -44,10 +44,10 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_job_form")) 
     $phu_cap = $_POST['phu_cap'];
     $tong_luong = ($muc_luong_cb * $he_so) + $phu_cap;
     echo $tong_luong;
-    $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam='{$sDate}', phong_ban_id=%s, cong_viec_id=%s, chuc_vu_id=%s, muc_luong_cb='{$muc_luong_cb}', he_so='{$he_so}', phu_cap='{$phu_cap}', tong_luong='{$tong_luong}', tknh=%s, ngan_hang=%s WHERE ma_nhan_vien='{$ma_nv}'",
-        GetSQLValueString($_POST['phong_ban_id'], "text"),
-        GetSQLValueString($_POST['cong_viec_id'], "text"),
-        GetSQLValueString($_POST['chuc_vu_id'], "text"),
+    $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam='{$sDate}', ma_phong_ban=%s, ma_cong_viec=%s, ma_chuc_vu=%s, muc_luong_cb='{$muc_luong_cb}', he_so='{$he_so}', phu_cap='{$phu_cap}', tong_luong='{$tong_luong}', tknh=%s, ngan_hang=%s WHERE ma_nhan_vien='{$ma_nv}'",
+        GetSQLValueString($_POST['ma_phong_ban'], "text"),
+        GetSQLValueString($_POST['ma_cong_viec'], "text"),
+        GetSQLValueString($_POST['ma_chuc_vu'], "text"),
         GetSQLValueString($_POST['tknh'], "text"),
         GetSQLValueString($_POST['ngan_hang'], "text"));
 
@@ -70,7 +70,7 @@ if ($totalRows_RCcapnhat_congviec==0)
     $url = "index.php?require=them_moi_cong_viec.php&catID=$ma_nv&title=Thêm mới công việc";
     location($url);
 }
-$mydb->setQuery("SELECT * FROM tlb_phongban inner join tlb_congviec on tlb_phongban.phong_ban_id = tlb_congviec.phong_ban_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$mydb->setQuery("SELECT * FROM tlb_phongban inner join tlb_congviec on tlb_phongban.ma_phong_ban = tlb_congviec.ma_phong_ban where tlb_congviec.ma_nhan_vien = '$ma_nv'");
 $RCphongban1 = $mydb->executeQuery();
 $row_RCphongban1 = $mydb->fetch_assoc($RCphongban1);
 $totalRows_RCphongban1 = $mydb->num_rows($RCphongban1);
@@ -82,7 +82,7 @@ $row_RCphongban = $mydb->fetch_assoc($RCphongban);
 $totalRows_RCphongban = $mydb->num_rows($RCphongban);
 
 // Lấy công việc hiện tại
-$mydb->setQuery("SELECT * FROM tlb_ctcongviec inner join tlb_congviec on tlb_ctcongviec.cong_viec_id = tlb_congviec.cong_viec_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$mydb->setQuery("SELECT * FROM tlb_ctcongviec inner join tlb_congviec on tlb_ctcongviec.ma_cong_viec = tlb_congviec.ma_cong_viec where tlb_congviec.ma_nhan_vien = '$ma_nv'");
 $RCctcongviec1 = $mydb->executeQuery();
 $row_RCctcongviec1 = $mydb->fetch_assoc($RCctcongviec1);
 $totalRows_RCctcongviec1 = $mydb->num_rows($RCctcongviec1);
@@ -94,7 +94,7 @@ $row_RCctcongviec = $mydb->fetch_assoc($RCctcongviec);
 $totalRows_RCctcongviec = $mydb->num_rows($RCctcongviec);
 
 // Lấy danh sách chức vụ hiện tại
-$mydb->setQuery("SELECT * FROM tlb_chucvu inner join tlb_congviec on tlb_chucvu.chuc_vu_id = tlb_congviec.chuc_vu_id where tlb_congviec.ma_nhan_vien = '$ma_nv'");
+$mydb->setQuery("SELECT * FROM tlb_chucvu inner join tlb_congviec on tlb_chucvu.ma_chuc_vu = tlb_congviec.ma_chuc_vu where tlb_congviec.ma_nhan_vien = '$ma_nv'");
 $RCChucvu1 = $mydb->executeQuery();
 $row_RCChucvu1 = $mydb->fetch_assoc($RCChucvu1);
 $totalRows_RCChucvu1 = $mydb->num_rows($RCChucvu1);
@@ -219,12 +219,12 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phòng ban:</td>
                     <td>
-                        <select name="phong_ban_id">
-                            <option selected="selected" value="<?php echo $row_RCphongban1['phong_ban_id']?>"><?php echo $row_RCphongban1['ten_phong_ban']?></option>
+                        <select name="ma_phong_ban">
+                            <option selected="selected" value="<?php echo $row_RCphongban1['ma_phong_ban']?>"><?php echo $row_RCphongban1['ten_phong_ban']?></option>
                         <?php 
                             do {  
                         ?>
-                            <option value="<?php echo $row_RCphongban['phong_ban_id']?>"><?php echo $row_RCphongban['ten_phong_ban']?></option>
+                            <option value="<?php echo $row_RCphongban['ma_phong_ban']?>"><?php echo $row_RCphongban['ten_phong_ban']?></option>
                         <?php
                             } while ($row_RCphongban = $mydb->fetch_assoc($RCphongban));
                         ?>
@@ -236,12 +236,12 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Công việc:</td>
                     <td>
-                        <select name="cong_viec_id">
-                            <option selected="selected" value="<?php echo $row_RCctcongviec1['cong_viec_id']?>"><?php echo $row_RCctcongviec1['ten_cong_viec']?></option>
+                        <select name="ma_cong_viec">
+                            <option selected="selected" value="<?php echo $row_RCctcongviec1['ma_cong_viec']?>"><?php echo $row_RCctcongviec1['ten_cong_viec']?></option>
                         <?php 
                             do {  
                         ?>
-                            <option value="<?php echo $row_RCctcongviec['cong_viec_id']?>"><?php echo $row_RCctcongviec['ten_cong_viec']?></option>
+                            <option value="<?php echo $row_RCctcongviec['ma_cong_viec']?>"><?php echo $row_RCctcongviec['ten_cong_viec']?></option>
                         <?php
                             } while ($row_RCctcongviec = $mydb->fetch_assoc($RCctcongviec));
                         ?>
@@ -253,12 +253,12 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Chức vụ:</td>
                     <td>
-                        <select name="chuc_vu_id">
-                            <option selected="selected" value="<?php echo $row_RCChucvu1['chuc_vu_id']?>"><?php echo $row_RCChucvu1['ten_chuc_vu']?></option>
+                        <select name="ma_chuc_vu">
+                            <option selected="selected" value="<?php echo $row_RCChucvu1['ma_chuc_vu']?>"><?php echo $row_RCChucvu1['ten_chuc_vu']?></option>
                         <?php 
                             do {  
                         ?>
-                            <option value="<?php echo $row_RCChucvu['chuc_vu_id']?>"><?php echo $row_RCChucvu['ten_chuc_vu']?></option>
+                            <option value="<?php echo $row_RCChucvu['ma_chuc_vu']?>"><?php echo $row_RCChucvu['ten_chuc_vu']?></option>
                         <?php
                             } while ($row_RCChucvu = $mydb->fetch_assoc($RCChucvu));
                         ?>

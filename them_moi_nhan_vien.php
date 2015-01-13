@@ -113,26 +113,29 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
 
                 ma_nhan_vienAvailResult.html('<img src="images/loader.gif" align="absmiddle">&nbsp;Đang kiểm tra khả dụng...'); // Preloader, use can use loading animation here
                 var UrlToPass = 'action=ma_nhan_vien_availability&ma_nhan_vien='+ma_nhan_vien;
-                $.ajax({ // Send the ma_nhan_vien val to another checker.php using Ajax in POST menthod
+                $.ajax({ // Send the ma_nhan_vien val to another includes/checker.php using Ajax in POST menthod
                     type : 'POST',
                     data : UrlToPass,
-                    url  : 'checker.php',
+                    url  : 'includes/checker.php',
                     success: function(responseText){ // Get the result and asign to each cases
                         if(ma_nhan_vien.slice(0, 2) != code) {
                             ma_nhan_vienAvailResult.html('<span class="error">Mã nhân viên bao gồm PTxx(PT: Mã Công ty; xx: Số gồm 2 chữ số)</span>');
                             $("#ma_nhan_vien").removeClass('object_ok'); // if necessary
                             $("#ma_nhan_vien").addClass("object_error");
+                            $('#addstaff').attr('disabled','disabled');
                         }
                         else{
                             if(responseText == 0){
                                 $("#ma_nhan_vien").removeClass('object_error'); // if necessary
                                 $("#ma_nhan_vien").addClass("object_ok");
                                 ma_nhan_vienAvailResult.html('<span class="success">&nbsp;<img src="images/tick.gif" align="absmiddle"></span>');
+                                $('#addstaff').removeAttr('disabled');
                             }
                             else if(responseText > 0){
                                 $("#ma_nhan_vien").removeClass('object_ok'); // if necessary
                                 $("#ma_nhan_vien").addClass("object_error");
                                 ma_nhan_vienAvailResult.html('<span class="error">Mã nhân viên này đã sử dụng</span>');
+                                $('#addstaff').attr('disabled','disabled');
                             }
 
                             else{
@@ -254,7 +257,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                 <td colspan="3"></td>
                 <td align="right">
                     <button class="btn btn-default" onclick="new_staff.reset();">Làm lại</button>
-                    <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="submit" value="Thêm mới nhân viên" />
+                    <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addstaff" value="Thêm mới nhân viên" />
                     <script>
                         function ConfirmCreate(){
                             if (confirm("Bạn có chắc chắn thao tác thêm mới!"))

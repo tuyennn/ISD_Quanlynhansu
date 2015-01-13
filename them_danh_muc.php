@@ -1,80 +1,81 @@
 <?php require_once('includes/initialize.php'); ?>
 <?php
-$table = get_param('table');
-$fulltitle = get_param('title');
-$title = mb_substr($fulltitle, 9, 20, 'utf-8');
-$column = get_param('column');
-$check_column = $column . "_id";
-$action = get_param('action');
+    $table = get_param('table');
+    $fulltitle = get_param('title');
+    $title = mb_substr($fulltitle, 9, 20, 'utf-8');
+    $column = get_param('column');
+    $check_column = 'ma_' .$column;
+    $name_column = 'ten_' .$column;
+    $action = get_param('action');
 
 
-//Thực hiện lệnh xoá nếu chọn xoá
-if ($action=="del")
-{
-	$check_ID = get_param('catID');
-	$deleteSQL = "DELETE FROM $table WHERE $check_column ='$check_ID'";                     
-	
-    $mydb->setQuery($deleteSQL);
-    $result_d = $mydb->executeQuery();
-
-    $deleteGoTo = "them_danh_muc.php";
-    if (isset($_SERVER['QUERY_STRING'])) {
-        $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
-        $deleteGoTo .= $_SERVER['QUERY_STRING'];
-    }
-    sprintf("location: %s", $deleteGoTo);
-}
-
-if (!function_exists("GetSQLValueString")) {
-    function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+    //Thực hiện lệnh xoá nếu chọn xoá
+    if ($action=="del")
     {
-      if (PHP_VERSION < 6) {
-        $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+    	$check_ID = get_param('catID');
+    	$deleteSQL = "DELETE FROM $table WHERE $check_column ='$check_ID'";                     
+    	
+        $mydb->setQuery($deleteSQL);
+        $result_d = $mydb->executeQuery();
+
+        $deleteGoTo = "them_danh_muc.php";
+        if (isset($_SERVER['QUERY_STRING'])) {
+            $deleteGoTo .= (strpos($deleteGoTo, '?')) ? "&" : "?";
+            $deleteGoTo .= $_SERVER['QUERY_STRING'];
+        }
+        sprintf("location: %s", $deleteGoTo);
     }
 
-    $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+    if (!function_exists("GetSQLValueString")) {
+        function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+        {
+          if (PHP_VERSION < 6) {
+            $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+        }
 
-    switch ($theType) {
-        case "text":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;    
-        case "long":
-        case "int":
-        $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-        break;
-        case "double":
-        $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-        break;
-        case "date":
-        $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-        break;
-        case "defined":
-        $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-        break;
+        $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+        switch ($theType) {
+            case "text":
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;    
+            case "long":
+            case "int":
+            $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+            break;
+            case "double":
+            $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+            break;
+            case "date":
+            $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+            break;
+            case "defined":
+            $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+            break;
+        }
+        return $theValue;
     }
-    return $theValue;
-}
-}
-$editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
-if (isset($_SERVER['QUERY_STRING'])) {
-  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
-    $insertSQL = sprintf("INSERT INTO $table VALUES (%s, %s)",
-        GetSQLValueString(strtoupper($_POST['check_ID']), "text"),
-        GetSQLValueString($_POST['2'], "text"));
-
-    $mydb->setQuery($insertSQL);
-    $result_i = $mydb->executeQuery();
-
-    $insertGoTo = "them_danh_muc.php";
+    }
+    $editFormAction = htmlspecialchars($_SERVER["PHP_SELF"]);
     if (isset($_SERVER['QUERY_STRING'])) {
-        $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
-        $insertGoTo .= $_SERVER['QUERY_STRING'];
+      $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
-    sprintf("location: %s", $insertGoTo);
-}
+
+    if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
+        $insertSQL = sprintf("INSERT INTO $table ($check_column, $name_column) VALUES (%s, %s)",
+            GetSQLValueString(strtoupper($_POST['check_ID']), "text"),
+            GetSQLValueString($_POST['check_Name'], "text"));
+
+        $mydb->setQuery($insertSQL);
+        $result_i = $mydb->executeQuery();
+
+        $insertGoTo = "them_danh_muc.php";
+        if (isset($_SERVER['QUERY_STRING'])) {
+            $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
+            $insertGoTo .= $_SERVER['QUERY_STRING'];
+        }
+        sprintf("location: %s", $insertGoTo);
+    }
 ?>
     <script type="text/javascript" src="js/form-validator/jquery.form-validator.min.js"></script>
     <script type="text/javascript">
@@ -86,24 +87,26 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
             var check_TB = document.getElementById("check_TB").value; // Get the check_table value
             var check_CL = document.getElementById("check_CL").value; // Get the check_column value 
             var check_IDAvailResult = $('#check_ID_avail_result'); // Get the ID of the result where we gonna display the results
-            if(check_ID.length >= 3) { // check if greater than 3 (minimum 3)
+            if(check_ID.length >= 2) { // check if greater than 3 (minimum 3)
 
                 check_IDAvailResult.html('<img src="images/loader.gif" align="absmiddle">&nbsp;Đang kiểm tra khả dụng...'); // Preloader, use can use loading animation here
                 var UrlToPass = 'action=check_ID_availability&check_ID='+check_ID+'&check_TB='+check_TB+'&check_CL='+check_CL;
-                $.ajax({ // Send the all val to another checker.php using Ajax in POST method
+                $.ajax({ // Send the all val to another includes/checker.php using Ajax in POST method
                     type : 'POST',
                     data : UrlToPass,
-                    url  : 'checker.php',
+                    url  : 'includes/checker.php',
                     success: function(responseText){ // Get the result and asign to each cases
                         if(responseText == 0){
                             $("#check_ID").removeClass('object_error'); // if necessary
                             $("#check_ID").addClass("object_ok");
                             check_IDAvailResult.html('<span class="success">&nbsp;<img src="images/tick.gif" align="absmiddle"></span>');
+                            $('#addcat').removeAttr('disabled');
                         }
                         else if(responseText > 0){
                             $("#check_ID").removeClass('object_ok'); // if necessary
                             $("#check_ID").addClass("object_error");
                             check_IDAvailResult.html('<span class="error">Mã này này đã sử dụng</span>');
+                            $('#addcat').attr('disabled','disabled');
                         }
 
                         else{
@@ -151,10 +154,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
     ?>
         <tr>
             <td align="center"><?php echo sprintf("%03d", $stt); ?></td>
-            <td><?php echo $row[0]; ?></td>
             <td><?php echo $row[1]; ?></td>
-            <td align="center"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
-            <td align="center"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
+            <td><?php echo $row[2]; ?></td>
+            <td align="center"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
+            <td align="center"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
         </tr>
     <?php 
             $stt = $stt + 1; 
@@ -174,13 +177,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Tên <?php echo $title?>: </td>
-                    <td><input type="text" name="2" value="" size="54" /></td>
+                    <td><input type="text" name="check_Name" value="" size="54" /></td>
                     <td width="360"></td>
                 </tr>
                 <tr valign="baseline">
                     <td align="right" colspan="3">
                         <button class="btn btn-default" onclick="new_cat_form.reset();">Làm lại</button>
-                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="submit" value="Thêm mới <?php echo $title ?>" />
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addcat" value="Thêm mới <?php echo $title ?>" />
                         <script>
                             function ConfirmCreate(){
                                 if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
