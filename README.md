@@ -7,6 +7,7 @@ Publish Repository
   - Clone(Fork) Repository này về máy
   - Cài xampp
   - Tạo thư mục tên ISD_Quanlynhansu(*) bên trong htdocs
+  - Tạo database tên: phuthanh_quanlynhansu
   - Import database
   - Run
   

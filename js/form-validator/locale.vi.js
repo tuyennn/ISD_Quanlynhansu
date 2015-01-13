@@ -1,6 +1,6 @@
 var enErrorDialogs = {
     errorTitle : 'Đã có lỗi xảy ra!',
-    requiredFields : 'Bạn đã không điền đầy đủ các mục yêu cầu',
+    requiredFields : 'Mục bắt buộc',
     badTime : 'Bạn đã không điền đúng định dạng giờ',
     badEmail : 'Bạn đã không điền đúng định dạng email',
     badTelephone : 'Bạn đã không điền đúng định dạng số điện thoại',

@@ -86,7 +86,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
 
         $currentDate = date("Y-m-d");
         
-        $insertSQL="INSERT INTO `tlb_tailieu` (`title`, `filename`, `type`, `size`, `ngay_tao`) VALUES ('{$_POST['ten_tailieu']}', '{$target_file}', '{$filetype}', '{$filesize}'), '{$currentDate}'";
+        $insertSQL="INSERT INTO `tlb_tailieu` (`title`, `filename`, `type`, `size`, `ngay_tao`) VALUES ('{$_POST['ten_tailieu']}', '{$target_file}', '{$filetype}', '{$filesize}', '{$currentDate}')";
         $mydb->setQuery($insertSQL);
         $result_c = $mydb->executeQuery();
         if($result_c) {
@@ -96,11 +96,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
         else {
             $message = "Thao tác thêm mới thất bại!";
             echo "<script type='text/javascript'>alert('$message');</script>";
+            echo $insertSQL;
         }
     }
     else {
         mysql_error();
-        echo "There was an error uploading the file, please try again!";
+        echo $insertSQL;
+        //echo "There was an error uploading the file, please try again!";
     }
 
     $insertGoTo = "them_moi_tai_lieu.php";
@@ -165,7 +167,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
                     $sql="SELECT * FROM tlb_tailieu ORDER BY id LIMIT 4";
                     $rs=mysql_query($sql) or die('Cannot select document');
                     while($row=mysql_fetch_array($rs)){
-                        echo '<a href="../'.$upload_dir.$row['filename'].'">';
+                        echo '<a href="../'.FOLDER.'/'.$upload_dir.$row['filename'].'">';
                     }
                     ?>
                         <img src="images/download.png" alt="Tải về tài liệu" title="Tải về tài liệu" border="0" />

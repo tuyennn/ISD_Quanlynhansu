@@ -62,7 +62,6 @@
             }); 
         </script> 
     </div>
-    
     <div class="main_content">
     
                     <div class="menu">
@@ -180,7 +179,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                     $sql="SELECT * FROM tlb_tailieu ORDER BY id LIMIT 4";
                     $rs=mysql_query($sql) or die('Cannot select document');
                     while($row=mysql_fetch_array($rs)){
-                        echo '<li><a href="../'.$upload_dir.$row['filename'].'">'.$row['title'].'</a></li>';
+                        echo '<li><a href="../'.FOLDER.'/'.$upload_dir.$row['filename'].'">'.$row['title'].'</a></li>';
                     }
                 ?>
                 </ul>              

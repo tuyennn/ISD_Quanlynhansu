@@ -906,7 +906,7 @@ color: #333333;
 .talign_right{
 	text-align:right;
 }
-.ma_nhan_vien_avail_result, .check_ID_avail_result{
+.ma_nhan_vien_avail_result, .check_ID_avail_result, .admin_avail_result{
 	display:block;
 	width:auto;
 }

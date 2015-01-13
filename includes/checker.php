@@ -3,7 +3,7 @@
 	if (isset($_POST['action'])) {
 	    switch ($_POST['action']) {
 	        case 'ma_nhan_vien_availability':
-	            $ma_nhan_vien 		= htmlentities($_POST['ma_nhan_vien']); // Get the ma_nhan_vien values
+	            $ma_nhan_vien 	= htmlentities($_POST['ma_nhan_vien']); // Get the ma_nhan_vien values
 				$check_query	= mysql_query('SELECT ma_nhan_vien FROM tlb_nhanvien WHERE ma_nhan_vien = "'.$ma_nhan_vien.'" '); // Check the database
 				echo mysql_num_rows($check_query); // echo the num or rows 0 or greater than 0
 	            break;
@@ -12,7 +12,7 @@
 				$check_tlb		= htmlentities($_POST['check_TB']);
 				$check_column	= htmlentities($_POST['check_CL']);
 				$check_query	= 'SELECT ' . $check_column .' FROM ' .$check_tlb .' WHERE ' .$check_column .' = "' .$check_ID .'"';  
-				$run_query	= mysql_query($check_query); // Check the database
+				$run_query		= mysql_query($check_query); // Check the database
 				echo mysql_num_rows($run_query); // echo the num or rows 0 or greater than 0
 	            break;
 	        case 'quyen_sua_availability':
@@ -26,6 +26,22 @@
 	        	$quyen_xoa 		= $_POST['quyen_xoa'];
 	        	$check_query	= mysql_query('SELECT quyen_xoa FROM tlb_nguoidung WHERE ten_dang_nhap = "' .$ma_nguoi_dung .'" AND quyen_xoa = "1"');
 	        	echo mysql_num_rows($check_query);
+	        	break;
+	        case 'quyen_them_availability':
+	        	$ma_nguoi_dung	= $_POST['ma_nguoi_dung'];
+	        	$quyen_them 	= $_POST['quyen_them'];
+	        	$check_query	= mysql_query('SELECT quyen_them FROM tlb_nguoidung WHERE ten_dang_nhap = "' .$ma_nguoi_dung .'" AND quyen_them = "1"');
+	        	echo mysql_num_rows($check_query);
+	        	break;
+	        case 'admin_availability':
+	            $username 		= htmlentities($_POST['username']); // Get the ma_nhan_vien values
+				$check_query	= mysql_query('SELECT ten_dang_nhap FROM tlb_nguoidung WHERE ten_dang_nhap = "'.$username.'" '); // Check the database
+				echo mysql_num_rows($check_query); // echo the num or rows 0 or greater than 0
+	            break;
+	        case 'old_pass_check':
+	        	$user			= $_POST['user'];
+	        	$old_pass 		= md5($_POST['old_pass']);
+	        	$check_query	= mysql_query('SELECT mat_khau FROM tlb_nguoidung WHERE mat_khau = "'.$old_pass.'" '); // Check the database
 	        	break;
 	    }
 	}
