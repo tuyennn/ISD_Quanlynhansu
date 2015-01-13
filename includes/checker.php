@@ -39,9 +39,10 @@
 				echo mysql_num_rows($check_query); // echo the num or rows 0 or greater than 0
 	            break;
 	        case 'old_pass_check':
-	        	$user			= $_POST['user'];
-	        	$old_pass 		= md5($_POST['old_pass']);
-	        	$check_query	= mysql_query('SELECT mat_khau FROM tlb_nguoidung WHERE mat_khau = "'.$old_pass.'" '); // Check the database
+	        	$userID			= $_POST['userID'];
+	        	$oldPass 		= md5($_POST['oldPass']);
+	        	$check_query	= mysql_query('SELECT mat_khau FROM tlb_nguoidung WHERE id = ' .$userID .'  AND mat_khau = "' .$oldPass .'"'); // Check the database
+	        	echo mysql_num_rows($check_query); // echo the num or rows 0 or greater than 0
 	        	break;
 	    }
 	}

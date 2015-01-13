@@ -23,8 +23,8 @@
     	$deleteSQL = "DELETE FROM tlb_nguoidung WHERE id='$user'";                     
     	
         $mydb->setQuery($deleteSQL);
-        $result_e = $mydb->executeQuery();
-        if($result_e) {
+        $result_d = $mydb->executeQuery();
+        if($result_d) {
             $message = "Thao tác xóa thành công!";
             echo "<script type='text/javascript'>alert('$message');</script>";
             $url = "index.php?require=them_nguoi_dung.php&title=Người dùng";

@@ -3,9 +3,10 @@
     $table = get_param('table');
     $fulltitle = get_param('title');
     $title = mb_substr($fulltitle, 9, 20, 'utf-8');
-    $check_ID = get_param('catID');
+    $ID = get_param('catID');
     $column = get_param('column');
-    $check_column = 'ma_' .$column;
+    $id_column = $column.'_id';
+    $code_column = 'ma_' .$column;
     $name_column = 'ten_' .$column;
     $action = get_param('action');
 
@@ -46,12 +47,23 @@
     }
 
     if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_cat_form")) {
-        $updateSQL = sprintf("UPDATE $table SET $ten_column=%s WHERE $ma_column=%s",
+        $updateSQL = sprintf("UPDATE $table SET $name_column=%s, $code_column=%s WHERE $id_column='$ID'",
             GetSQLValueString($_POST['check_Name'], "text"),
             GetSQLValueString($_POST['check_ID'], "text"));
-        echo $updateSQL;
         $mydb->setQuery($updateSQL);
-        $result_u = $mydb->executeQuery();
+        $result_e = $mydb->executeQuery();
+        if($result_e) {
+            $message = "Thao tác cập nhật thành công!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = 'index.php?require=them_danh_muc.php&table='.$table.'&title='.$title.'&column='.$column;
+            location($url);
+        }
+        else {
+            $message = "Thao tác cập nhật thất bại!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = 'index.php?require=them_danh_muc.php&table='.$table.'&title='.$title.'&column='.$column;
+            location($url);
+        }
 
         $updateGoTo = "them_danh_muc.php";
         if (isset($_SERVER['QUERY_STRING'])) {
@@ -66,7 +78,7 @@
     $row_RCDanhmuc_DS = $mydb->fetch_assoc($RCDanhmuc_DS);
     $totalRows_RCDanhmuc_TM = $mydb->num_rows($RCDanhmuc_DS);
 
-    $mydb->setQuery("SELECT * FROM $table where $check_column = '$check_ID'");
+    $mydb->setQuery("SELECT * FROM $table where $id_column = '$ID'");
     $RCDanhmuc_CN = $mydb->executeQuery();
     $row_RCDanhmuc_CN = $mydb->fetch_assoc($RCDanhmuc_CN);
     $totalRows_RCDanhmuc_CN = $mydb->num_rows($RCDanhmuc_CN);
@@ -127,6 +139,16 @@
                 return false;
             }
         });
+
+        // Go Back Function
+        $('#goBack').click(function(e) {
+            e.preventDefault();
+            var table = '<?php echo $table; ?>';
+            var title = '<?php echo $fulltitle; ?>';
+            var column = '<?php echo $column; ?>';
+            var url = 'index.php?require=them_danh_muc.php&table='+table+'&title='+title+'&column='+column;
+            location.href=url;
+        });
     });
     </script>
     <!--MAIN UP CONTENT -->
@@ -141,7 +163,7 @@
                 </tr>
             </thead>
     <?php 
-        $mydb->setQuery("SELECT * FROM $table");
+        $mydb->setQuery("SELECT * FROM $table ORDER BY `ngay_tao` ASC");
         $RCDanhmuc_TM = $mydb->executeQuery();
         $totalRows_RCDanhmuc_TM = $mydb->num_rows($RCDanhmuc_TM);
     ?>
@@ -169,7 +191,7 @@
             <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mã <?php echo $title?>: </td>
-                    <td><input type="text" name="check_ID" id="check_ID" value="<?php echo $row_RCDanhmuc_CN[$check_column]; ?>" size="54" style="text-transform:uppercase" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                    <td><input type="text" name="check_ID" id="check_ID" value="<?php echo $row_RCDanhmuc_CN[$code_column]; ?>" size="54" style="text-transform:uppercase" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
                     <td width="360"><div class="check_ID_avail_result" id="check_ID_avail_result"></div></td>
                 </tr>
                 <tr valign="baseline">
@@ -179,14 +201,14 @@
                 </tr>
                 <tr valign="baseline">
                     <td align="right" colspan="3">
-                        <button class="btn btn-default" onclick="update_cat_form.reset();">Quay lại</button>
-                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addcat" value="Cập nhật <?php echo $title ?>" />
+                        <input id="goBack" class="btn btn-default" value="Quay lại" />
+                        <input type="submit" onClick="ConfirmUpdate()" class="btn btn-default" name="submit" id="addcat" value="Cập nhật <?php echo $title ?>" />
                         <script>
                             function ConfirmCreate(){
-                                if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
+                                if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
                                 {
                                     update_cat_form.submit();
-                                    return true;
+                                    return false;
                                 }  
                             }
                             
@@ -196,7 +218,7 @@
             </table>
             <input type="hidden" name="MM_update" value="update_cat_form" />
             <input type="hidden" name="check_TB" id="check_TB" value="<?php echo $table ?>" />
-            <input type="hidden" name="check_CL" id="check_CL" value="<?php echo $ma_column ?>" />
+            <input type="hidden" name="check_CL" id="check_CL" value="<?php echo $code_column ?>" />
         </form>
         <script src="js/form-validator/jquery.form-validator.min.js"></script>
         <script>
@@ -206,57 +228,3 @@
             });
         </script>
     </div>
-
-<table width="800" border="0" cellspacing="1" cellpadding="0" align="center">
-  <tr>
-    <td class="row2" width="500" valign="top"><table width="500" border="0" cellspacing="1" cellpadding="1">
-      <tr>
-        <th width="25">Stt</th>
-        <th width="100">Mã <?php echo $title?></th>
-        <th width="210">Tên <?php echo $title?></th>
-        <th width="35">&nbsp;</th>
-        <th width="35">&nbsp;</th>
-        <th width="35">&nbsp;</th>
-    </tr>
-    <?php 
-    $stt = 1;
-    do { ?>
-    <tr>
-      <td><?php echo $stt; ?></td>
-      <td><?php echo $row_RCDanhmuc_DS[$ma_column]; ?></td>
-      <td><?php echo $row_RCDanhmuc_DS[$ten_column]; ?></td>
-  </tr>
-  <?php $stt = $stt + 1; ?>
-  <?php } while ($row_RCDanhmuc_DS = mysql_fetch_assoc($RCDanhmuc_DS)); ?>
-</table></td>
-<td class="row2" width="260" align="center" valign="top">
-    <?php
-        $mydb->setQuery("SELECT * FROM $table where $ma_column = '$ma_nv'");
-        $RCDanhmuc_CN = $mydb->executeQuery();
-        $row_RCDanhmuc_CN = $mydb->fetch_assoc($RCDanhmuc_CN);
-        $totalRows_RCDanhmuc_CN = $mydb->num_rows($RCDanhmuc_CN);
-    ?>
-    <form action="<?php echo $editFormAction; ?>" method="post" name="update_cat_form" id="update_cat_form">
-        <table width="260" align="center">
-          <tr valign="baseline">
-            <td nowrap="nowrap" align="right">Mã <?php echo $title?> :</td>
-            <td><input type="text" name="1" value="<?php echo $row_RCDanhmuc_CN[$ma_column]; ?>" readonly="readonly" size="24" /></td>
-        </tr>
-        <tr valign="baseline">
-            <td nowrap="nowrap" align="right">Tên <?php echo $title?> :</td>
-            <td><input type="text" name="2" value="<?php echo $row_RCDanhmuc_CN[$ten_column]; ?>" size="24" /></td>
-        </tr>
-        <tr valign="baseline">
-            <td nowrap="nowrap" align="right">&nbsp;</td>
-            <td><input type="submit" value=":|: Cập nhật :|:" /></td>
-        </tr>
-    </table>
-    <input type="hidden" name="MM_update" value="update_cat_form" />
-</form>
-</td>
-</tr>
-</table>
-<?php
-mysql_free_result($RCDanhmuc_CN);
-mysql_free_result($RCDanhmuc_DS);
-?>

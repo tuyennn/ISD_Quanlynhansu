@@ -4,7 +4,8 @@
     $fulltitle = get_param('title');
     $title = mb_substr($fulltitle, 9, 20, 'utf-8');
     $column = get_param('column');
-    $check_column = 'ma_' .$column;
+    $id_column = $column.'_id';
+    $code_column = 'ma_' .$column;
     $name_column = 'ten_' .$column;
     $action = get_param('action');
 
@@ -13,10 +14,22 @@
     if ($action=="del")
     {
     	$check_ID = get_param('catID');
-    	$deleteSQL = "DELETE FROM $table WHERE $check_column ='$check_ID'";                     
+    	$deleteSQL = "DELETE FROM $table WHERE $id_column ='$check_ID'";                     
     	
         $mydb->setQuery($deleteSQL);
         $result_d = $mydb->executeQuery();
+        if($result_d) {
+            $message = "Thao tác xóa thành công!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = 'index.php?require=them_danh_muc.php&table='.$table.'&title='.$title.'&column='.$column;
+            location($url);
+        }
+        else {
+            $message = "Thao tác xóa thất bại!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = 'index.php?require=them_danh_muc.php&table='.$table.'&title='.$title.'&column='.$column;
+            location($url);
+        }
 
         $deleteGoTo = "them_danh_muc.php";
         if (isset($_SERVER['QUERY_STRING'])) {
@@ -62,7 +75,8 @@
     }
 
     if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_cat_form")) {
-        $insertSQL = sprintf("INSERT INTO $table ($check_column, $name_column) VALUES (%s, %s)",
+        $currentDate = date("Y-m-d");
+        $insertSQL = sprintf("INSERT INTO $table ($code_column, $name_column, ngay_tao) VALUES (%s, %s, '{$currentDate}')",
             GetSQLValueString(strtoupper($_POST['check_ID']), "text"),
             GetSQLValueString($_POST['check_Name'], "text"));
 
@@ -144,7 +158,7 @@
                 </tr>
             </thead>
     <?php 
-        $mydb->setQuery("SELECT * FROM $table");
+        $mydb->setQuery("SELECT * FROM $table ORDER BY `ngay_tao` ASC" );
         $RCDanhmuc_TM = $mydb->executeQuery();
         $totalRows_RCDanhmuc_TM = $mydb->num_rows($RCDanhmuc_TM);
     ?>
@@ -156,8 +170,8 @@
             <td align="center"><?php echo sprintf("%03d", $stt); ?></td>
             <td><?php echo $row[1]; ?></td>
             <td><?php echo $row[2]; ?></td>
-            <td align="center"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
-            <td align="center"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
+            <td align="center"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
+            <td align="center"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[0]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
         </tr>
     <?php 
             $stt = $stt + 1; 
@@ -199,7 +213,7 @@
             </table>
             <input type="hidden" name="MM_insert" value="new_cat_form" />
             <input type="hidden" name="check_TB" id="check_TB" value="<?php echo $table ?>" />
-            <input type="hidden" name="check_CL" id="check_CL" value="<?php echo $check_column ?>" />
+            <input type="hidden" name="check_CL" id="check_CL" value="<?php echo $code_column ?>" />
         </form>
         <script src="js/form-validator/jquery.form-validator.min.js"></script>
         <script>

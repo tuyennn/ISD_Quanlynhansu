@@ -44,21 +44,18 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
     $mydb->setQuery($insertSQL);
     $result_c = $mydb->executeQuery();
     if($result_c) {
-        $message = "$.growl('<strong>Thao tác thêm mới thành công!</strong> ', { 
-                        type: 'success'
-                    });";
+        $message = "Thao tác thêm mới thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
     else {
-        $message = "$.growl('<strong>Thao tác thêm mới thất bại!</strong> ', { 
-                        type: 'danger'
-                    });";
+        $message = "Thao tác thêm mới thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
+
 
     $insertGoTo = "danh_sach_nhan_vien.php";
     if (isset($_SERVER['QUERY_STRING'])) {
