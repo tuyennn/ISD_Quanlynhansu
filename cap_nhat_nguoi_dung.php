@@ -3,11 +3,12 @@
     $table = get_param('table');
     $title = get_param('title');
     $user_id = $_GET['catID'];
-    $user_name = $_SESSION['user_name'];
+
+    $current_user = $_SESSION['user_name'];
 
     $chkbox = array('add', 'edit', 'delete');
 
-    $checkSQL="SELECT quyen_them, quyen_sua, quyen_xoa FROM `tlb_nguoidung` WHERE ten_dang_nhap = '{$user_name}'";
+    $checkSQL="SELECT quyen_them, quyen_sua, quyen_xoa FROM `tlb_nguoidung` WHERE ten_dang_nhap = '{$current_user}'";
     $mydb->setQuery($checkSQL);
     $RCCheckpermission = $mydb->executeQuery();
     $row_RCCheckpermission = $mydb->fetch_assoc($RCCheckpermission);
@@ -48,7 +49,7 @@
     <form action="<?php echo $editFormAction; ?>" method="post" name="update_user_form" id="update_user_form">
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Tên tài khoản:</td>
-                <td><input type="text" name="1" value="<?php echo $row_RCDanhmuc_CN['ten_dang_nhap']; ?>" size="24" /></td>
+                <td style="color:red"><b><?php echo $row_RCDanhmuc_CN['ten_dang_nhap']; ?></b></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Mật khẩu cũ:</td>
@@ -65,46 +66,32 @@
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Quyền hạn:</td>
                 <?php
-                    /*
-                    function isChecked($user_id) {
+                    function isChecked() {
                         # perform SQL query
+                        $user_id = $_GET['catID'];
+                        $chkboxstr = array('Thêm', 'Sửa', 'Xóa');
                         $chkbox = array('add', 'edit', 'delete');
-                        $sql = mysql_query("SELECT quyen_them, quyen_sua, quyen_xoa FROM tlb_nguoidung where id = '$user_id'");
+                        $sql = mysql_query("SELECT quyen_them, quyen_sua, quyen_xoa FROM tlb_nguoidung WHERE id = '$user_id'");
                         $row_RCChecked = mysql_fetch_row($sql);
+                        //var_dump($row_RCChecked);
                         # if value exists, set $exists to true
-                        $values = array();
-                        foreach ($chkbox as $selection) {
-                            $checked = (in_array($selection, $row_RCChecked))?' checked="checked"':'';
-                            echo $checked;
+                        $values = array(1, 1, 1);
+                        $i = 0;
+                        foreach ($row_RCChecked as $selection) {
+                            $checked = (in_array($selection, $values))?' checked="checked"':'';
+                            echo '<input type="checkbox" name="permit[]" value="' .$chkbox[$i] .'"' .$checked .'><label>' .$chkboxstr[$i] .'</label><br/>';
+                            $i++;
                         }
                     }
-                    */ 
                 ?>
                 <td>
-                    <input type="checkbox" <?php //echo isChecked($user_id) ?> name="permit[]" value="add"><label><?php //echo isChecked($user_id) ?>Thêm</label><br/>
-                    <input type="checkbox" <?php //echo isChecked($user_id) ?> name="permit[]" value="edit"><label><?php //echo isChecked($user_id) ?>Sửa</label><br/>
-                    <input type="checkbox" name="permit[]" value="delete"><label><?php //echo isChecked($user_id) ?>Xóa</label><br/>
+                    <?php echo isChecked(); ?>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <a href="#" onclick="ConfirmUpdate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới</strong><span class="bt_green_r"></span></a>
-                    <script type="text/javascript">
-                    function ConfirmUpdate()
-                    {   
-                        var addpermission = <?php echo $row_RCCheckpermission['quyen_them']; ?>;
-                        if (addpermission == 0) {
-                            alert('Bạn không có quyền thêm tài khoản người dùng!');
-                        }
-                        if (addpermission == 1) {
-                            if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
-                            {
-                                update_user_form.submit();
-                                return false;
-                            }
-                        }
-                    }
-                    </script>
+                    <button class="btn btn-default" onclick="update_user_form.reset();">Quay lại</button>
+                    <input type="submit" onClick="#" class="btn btn-default" name="submit" id="editUser" value="Cập nhật người dùng" />
                 </td>
             </tr>
         <input type="hidden" name="MM_update" value="update_user_form" />

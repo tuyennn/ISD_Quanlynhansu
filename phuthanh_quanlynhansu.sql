@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `tlb_baohiem` (
 
 INSERT INTO `tlb_baohiem` (`id`, `ma_nhan_vien`, `so_bhxh`, `ngay_cap_bhxh`, `noi_cap_bhxh`, `so_bhyt`, `ngay_cap_bhyt`, `noi_cap_bhyt`) VALUES
 (0, 'PT01', '112021342014', '2014-06-10', 'Nam Phong, Phú Xuyên, Hà Nội', '112031342014', '2014-05-17', 'Bệnh Viện Bạch Mai, Q. Hai Bà Trưng, Hà Nội'),
-(0, 'PT01', '112021342014', '2014-06-10', 'Nam Phong, Phú Xuyên, Hà Nội', '112031342014', '2014-05-17', 'Bệnh Viện Bạch Mai, Q. Hai Bà Trưng, Hà Nội');
+(1, 'PT01', '112021342014', '2014-06-10', 'Nam Phong, Phú Xuyên, Hà Nội', '112031342014', '2014-05-17', 'Bệnh Viện Bạch Mai, Q. Hai Bà Trưng, Hà Nội');
 
 -- --------------------------------------------------------
 
@@ -147,28 +147,6 @@ INSERT INTO `tlb_hinhanh` (`id`, `filename`, `type`, `size`, `caption`, `ma_nhan
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `tlb_hocvan`
---
-
-CREATE TABLE IF NOT EXISTS `tlb_hocvan` (
-  `hoc_van_id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ten_hoc_van` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tlb_hocvan`
---
-
-INSERT INTO `tlb_hocvan` (`hoc_van_id`, `ten_hoc_van`) VALUES
-('HV001', 'THPT'),
-('HV002', 'Cử nhân'),
-('HV004', 'Kỹ sư'),
-('HV005', 'Thạc sỹ'),
-('HV006', 'Tiến sỹ'),
-('HV007', 'Giáo sư');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tlb_hopdong`
@@ -193,28 +171,6 @@ INSERT INTO `tlb_hopdong` (`id`, `ma_nhan_vien`, `so_quyet_dinh`, `tu_ngay`, `de
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `tlb_ngoaingu`
---
-
-CREATE TABLE IF NOT EXISTS `tlb_ngoaingu` (
-  `ngoai_ngu_id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ten_ngoai_ngu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tlb_ngoaingu`
---
-
-INSERT INTO `tlb_ngoaingu` (`ngoai_ngu_id`, `ten_ngoai_ngu`) VALUES
-('AV000', 'Không'),
-('AV001', 'Bằng A anh văn'),
-('AV002', 'Bằng B anh văn'),
-('AV003', 'Bằng C anh văn'),
-('FRE', 'Tiếng Pháp'),
-('RUS', 'Tiếng Nga');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tlb_nguoidung`
@@ -398,24 +354,128 @@ INSERT INTO `tlb_tailieu` (`id`, `title`, `filename`, `type`, `size`, `ngay_tao`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tlb_tinhoc`
+-- Indexes for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS `tlb_tinhoc` (
-  `tin_hoc_id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ten_tin_hoc` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+-- Indexes for table `tlb_baohiem`
+--
+ALTER TABLE `tlb_baohiem`
+ ADD PRIMARY KEY (`id`);
 
 --
--- Dumping data for table `tlb_tinhoc`
+-- Indexes for table `tlb_chucvu`
+--
+ALTER TABLE `tlb_chucvu`
+ ADD PRIMARY KEY (`chuc_vu_id`);
+
+--
+-- Indexes for table `tlb_congviec`
+--
+ALTER TABLE `tlb_congviec`
+ ADD PRIMARY KEY (`ma_nhan_vien`,`ma_phong_ban`);
+
+--
+-- Indexes for table `tlb_ctcongviec`
+--
+ALTER TABLE `tlb_ctcongviec`
+ ADD PRIMARY KEY (`cong_viec_id`);
+
+--
+-- Indexes for table `tlb_hinhanh`
+--
+ALTER TABLE `tlb_hinhanh`
+ ADD PRIMARY KEY (`id`);
+
+
+--
+-- Indexes for table `tlb_hopdong`
+--
+ALTER TABLE `tlb_hopdong`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tlb_nguoidung`
+--
+ALTER TABLE `tlb_nguoidung`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tlb_nhanvien`
+--
+ALTER TABLE `tlb_nhanvien`
+ ADD PRIMARY KEY (`ma_nhan_vien`);
+
+--
+-- Indexes for table `tlb_phongban`
+--
+ALTER TABLE `tlb_phongban`
+ ADD PRIMARY KEY (`phong_ban_id`);
+
+--
+-- Indexes for table `tlb_quanhegiadinh`
+--
+ALTER TABLE `tlb_quanhegiadinh`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tlb_quatrinhcongtac`
+--
+ALTER TABLE `tlb_quatrinhcongtac`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tlb_quatrinhluong`
+--
+ALTER TABLE `tlb_quatrinhluong`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tlb_tailieu`
+--
+ALTER TABLE `tlb_tailieu`
+ ADD PRIMARY KEY (`id`);
+
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
-INSERT INTO `tlb_tinhoc` (`tin_hoc_id`, `ten_tin_hoc`) VALUES
-('TH000', 'Không'),
-('TH001', 'Tin học A'),
-('TH002', 'Tin học B'),
-('TH003', 'Trung cấp');
-
+--
+-- AUTO_INCREMENT for table `tlb_hinhanh`
+--
+ALTER TABLE `tlb_hinhanh`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tlb_hopdong`
+--
+ALTER TABLE `tlb_hopdong`
+MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `tlb_nguoidung`
+--
+ALTER TABLE `tlb_nguoidung`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `tlb_quanhegiadinh`
+--
+ALTER TABLE `tlb_quanhegiadinh`
+MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `tlb_quatrinhcongtac`
+--
+ALTER TABLE `tlb_quatrinhcongtac`
+MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `tlb_quatrinhluong`
+--
+ALTER TABLE `tlb_quatrinhluong`
+MODIFY `id` mediumint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `tlb_tailieu`
+--
+ALTER TABLE `tlb_tailieu`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -21,6 +21,12 @@
 	        	$check_query	= mysql_query('SELECT quyen_sua FROM tlb_nguoidung WHERE ten_dang_nhap = "' .$ma_nguoi_dung .'" AND quyen_sua = "1"');
 	        	echo mysql_num_rows($check_query);
 	        	break;
+	        case 'quyen_xoa_availability':
+	        	$ma_nguoi_dung	= $_POST['ma_nguoi_dung'];
+	        	$quyen_xoa 		= $_POST['quyen_xoa'];
+	        	$check_query	= mysql_query('SELECT quyen_xoa FROM tlb_nguoidung WHERE ten_dang_nhap = "' .$ma_nguoi_dung .'" AND quyen_xoa = "1"');
+	        	echo mysql_num_rows($check_query);
+	        	break;
 	    }
 	}
 
