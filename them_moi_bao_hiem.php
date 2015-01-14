@@ -268,7 +268,7 @@ if ($totalRows_RCBaohiem_TM <>0)
                 </tr>
 
                 <tr>
-                    <td colspan="3" align="right">
+                    <td colspan="2" align="right">
                         <button class="btn btn-default" onclick="new_insurance_form.reset();">Làm lại</button>
                         <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addinsurance" value="Thêm mới bảo hiểm" />
                         <script type="text/javascript">
@@ -283,6 +283,18 @@ if ($totalRows_RCBaohiem_TM <>0)
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục thêm vào là bắt buộc
+                                <br>&nbsp;+ Để xóa tất cả mẫu đang thao tác nhấn nút Làm lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Thêm mới
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_insurance_form" />
         </form>

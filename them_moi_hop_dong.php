@@ -274,7 +274,7 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr>
-                    <td colspan="3" align="right">
+                    <td colspan="2" align="right">
                         <button class="btn btn-default" onclick="new_contract_form.reset();">Làm lại</button>
                         <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addcontract" value="Thêm mới hợp đồng" />
                         <script type="text/javascript">
@@ -289,6 +289,18 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục thêm vào là bắt buộc
+                                <br>&nbsp;+ Để xóa tất cả mẫu đang thao tác nhấn nút Làm lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Thêm mới
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_contract_form" />
         </form>

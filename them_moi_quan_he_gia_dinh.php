@@ -254,6 +254,18 @@ $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'")
                     </script> 
                 </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục thêm vào là bắt buộc
+                                <br>&nbsp;+ Để xóa tất cả mẫu đang thao tác nhấn nút Làm lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Thêm mới
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_relationship_form" />
         </form>

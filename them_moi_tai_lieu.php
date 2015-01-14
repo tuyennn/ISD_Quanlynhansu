@@ -192,12 +192,12 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
         <form enctype="multipart/form-data" action="<?php echo $editFormAction; ?>" method="post" name="new_document_form" id="new_document_form">
             <table id="rounded-corner">
                 <tr valign="baseline">
-                    <td width="200">Tên tài liệu:</td>
-                    <td colspan="2"><input type="text" name="ten_tailieu" value="" size="100" data-validation="required"/></td>
+                    <td width="50">Tên tài liệu:</td>
+                    <td colspan="2"><input type="text" name="ten_tailieu" value="" size="96" data-validation="required"/></td>
                 </tr>
 
                 <tr>
-                    <td colspan="2">
+                    <td colspan="2" height="100">
                         <span>
                             <input id="upload_file" type="file" name="upload_file" data-validation="mime size" data-validation-allowing="doc, docx, xls, xlsx, ppt, pptx, pdf" data-validation-max-size="10240kb" data-validation-help="Định dạng MS Office hoặc Adobe PDF & không quá 10MB"/>
                         </span>
@@ -218,6 +218,19 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Đặt tên cho tài liệu mục Tên tài liệu
+                                <br>&nbsp;+ Thao tác Thêm mới tài liệu khi đã hoàn tất chọn file và đặt tên
+                                <br>&nbsp;+ Nhấn vào nút Sửa trên thanh Thao tác để sửa tài liệu
+                                <br>&nbsp;+ Nhấn vào nút Xóa trên thanh Thao tác để xóa tài liệu
+                                <br>&nbsp;+ Nhấn vào nút Tải về trên thanh Thao tác để tải về dữ liệu</p>
+                            </em>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_document_form" />
         </form>

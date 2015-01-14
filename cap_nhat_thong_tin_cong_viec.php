@@ -309,6 +309,18 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                         <input type="submit" class="btn btn-default" name="submit" id="editjob" value="Cập nhật thông tin công việc" />
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left" colspan="3">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục cập nhật vào là bắt buộc
+                                <br>&nbsp;+ Để quay lại trang thống kê nhấn nút Quay lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Cập nhật
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_update" value="update_job_form" />
             <input type="hidden" name="ma_nhan_vien" value="<?php echo $row_RCcapnhat_congviec['ma_nhan_vien']; ?>" />

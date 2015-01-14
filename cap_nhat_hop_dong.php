@@ -245,6 +245,18 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục cập nhật vào là bắt buộc
+                                <br>&nbsp;+ Để quay lại trang thống kê nhấn nút Quay lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Cập nhật
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_update" value="update_contract_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCHopdong_CN['id']; ?>" />

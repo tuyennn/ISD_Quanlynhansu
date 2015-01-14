@@ -157,9 +157,8 @@
             <thead>
                 <tr>
                     <th width="25" class="rounded-content">STT</th>
-                    <th width="180">Mã <?php echo $title?></th>
-                    <th width="360">Tên <?php echo $title?></th>
-                    <th width="120" colspan="2" align="center" class="rounded-q4">Thao tác</th>
+                    <th width="220">Mã <?php echo $title?></th>
+                    <th width="460" class="rounded-q4">Tên <?php echo $title?></th>
                 </tr>
             </thead>
     <?php 
@@ -175,8 +174,6 @@
             <td align="center"><?php echo sprintf("%03d", $stt); ?></td>
             <td><?php echo $row[1]; ?></td>
             <td><?php echo $row[2]; ?></td>
-            <td align="center"><a href="index.php?require=cap_nhat_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=edit">Sửa</a></td>
-            <td align="center"><a href="index.php?require=them_danh_muc.php&table=<?php echo $table; ?>&catID=<?php echo $row[1]; ?>&title=<?php echo $fulltitle; ?>&column=<?php echo $column; ?>&action=del">Xoá</a></td>
         </tr>
     <?php 
             $stt = $stt + 1; 
@@ -215,6 +212,19 @@
                         </script> 
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Sửa mã cho <?php echo $title ?> mục Mã <?php echo $title ?>
+                                <br>&nbsp;+ Sửa tên cho <?php echo $title ?> mục Tên <?php echo $title ?>
+                                <br>&nbsp;+ Để quay lại trang thống kê nhấn Quay lại
+                                <br>&nbsp;+ Để xác nhận đồng ý nhấn Cập nhật
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_update" value="update_cat_form" />
             <input type="hidden" name="check_TB" id="check_TB" value="<?php echo $table ?>" />

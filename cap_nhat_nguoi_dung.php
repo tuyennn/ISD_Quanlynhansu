@@ -154,6 +154,18 @@
             </td>
         </tr>
         <input type="hidden" name="MM_update" value="update_user_form" />
+        <tfoot>
+            <tr>
+                <td class="rounded-foot-left">
+                    <em><p><b><u>Hướng Dẫn:</u></b> 
+                        <br>&nbsp;+ Các mục cập nhật vào là bắt buộc
+                        <br>&nbsp;+ Để quay lại trang thống kê nhấn nút Quay lại
+                        <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Cập nhật
+                    </em></td>
+                <td class="rounded-foot-right">&nbsp;</td>
+
+            </tr>
+        </tfoot>
     </table>
 </form>
 

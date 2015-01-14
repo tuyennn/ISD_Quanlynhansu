@@ -201,6 +201,18 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_relation_for
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục cập nhật vào là bắt buộc
+                                <br>&nbsp;+ Để quay lại trang thống kê nhấn nút Quay lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Cập nhật
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_update" value="update_relation_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCQuanhe_CN['id']; ?>" />

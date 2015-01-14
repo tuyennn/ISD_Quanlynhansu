@@ -210,6 +210,19 @@
                         </script> 
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Đặt mã cho <?php echo $title ?> mục Mã <?php echo $title ?>
+                                <br>&nbsp;+ Đặt tên cho <?php echo $title ?> mục Tên <?php echo $title ?>
+                                <br>&nbsp;+ Nhấn vào nút Sửa trên thanh Thao tác để sửa <?php echo $title ?>
+                                <br>&nbsp;+ Nhấn vào nút Xóa trên thanh Thao tác để xóa <?php echo $title ?>
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_cat_form" />
             <input type="hidden" name="check_TB" id="check_TB" value="<?php echo $table ?>" />

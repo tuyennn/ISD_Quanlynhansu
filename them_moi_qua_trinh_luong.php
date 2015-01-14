@@ -238,7 +238,7 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>
                 <tr>
-                    <td colspan="3" align="right">
+                    <td colspan="2" align="right">
                         <button class="btn btn-default" onclick="new_salary_form.reset();">Làm lại</button>
                         <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addsalary" value="Thêm mới quá trình nhân viên" />
                         <script type="text/javascript">
@@ -253,6 +253,18 @@ $totalRows_RCQTluong_TM = $mydb->num_rows($RCQTluong_TM);
                         </script>
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục thêm vào là bắt buộc
+                                <br>&nbsp;+ Để xóa tất cả mẫu đang thao tác nhấn nút Làm lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Thêm mới
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_salary_form" />
         </form>

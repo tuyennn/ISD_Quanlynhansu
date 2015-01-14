@@ -259,6 +259,18 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                         <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addjob" value="Thêm mới công việc" />
                     </td>
                 </tr>
+                <tfoot>
+                    <tr>
+                        <td class="rounded-foot-left" colspan="3">
+                            <em><p><b><u>Hướng Dẫn:</u></b> 
+                                <br>&nbsp;+ Các mục thêm vào là bắt buộc
+                                <br>&nbsp;+ Để xóa tất cả mẫu đang thao tác nhấn nút Làm lại
+                                <br>&nbsp;+ Hoàn thành bằng việc xác nhận nút Thêm mới
+                            </em></td>
+                        <td class="rounded-foot-right">&nbsp;</td>
+
+                    </tr>
+                </tfoot>
             </table>
             <input type="hidden" name="MM_insert" value="new_job_form" />
         </form>

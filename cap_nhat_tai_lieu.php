@@ -154,7 +154,7 @@
                 <tr valign="baseline">
                     <td width="150">Mã tài liệu: <b><?php echo $id; ?></b></td>
                     <td nowrap="nowrap" align="right">Tên tài liệu:</td>
-                    <td><input type="text" name="ten_tai_lieu" value="<?php echo htmlentities($row_RCTailieu_CN['title'], ENT_COMPAT, 'utf-8'); ?>" size="100" /></td>
+                    <td><input type="text" name="ten_tai_lieu" value="<?php echo htmlentities($row_RCTailieu_CN['title'], ENT_COMPAT, 'utf-8'); ?>" size="96" /></td>
                 </tr>
 
                 <tr>
