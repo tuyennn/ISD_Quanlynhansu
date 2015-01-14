@@ -87,10 +87,14 @@
         if($result_e) {
             $message = "Thao tác cập nhật thành công!";
             echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = "index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=" .$ma_nv ."&title=Thông tin nhân viên";
+            location($url);
         }
         else {
             $message = "Thao tác cập nhật thất bại!";
             echo "<script type='text/javascript'>alert('$message');</script>";
+            $url = "index.php?require=cap_nhat_thong_tin_nhan_vien.php&catID=" .$ma_nv ."&title=Thông tin nhân viên";
+            location($url);
         }
 
 

@@ -55,10 +55,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_job_form")) 
     if($result_e) {
         $message = "Thao tác cập nhật thành công!";
         echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=".$ma_nv."&title=Thông tin công việc";
+        location($url);
     }
     else {
         $message = "Thao tác cập nhật thất bại!";
         echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=".$ma_nv."&title=Thông tin công việc";
+        location($url);
     }
 
     $updateGoTo = "danh_sach_nhan_vien.php";
@@ -191,13 +195,13 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 </tr>
                 <tr>
                     <td>Mức lương:
-                    <td><b><?php echo number_format($row_RCcapnhat_congviec['muc_luong_cb'],0,',','.'); ?><b></td>
+                    <td><b><?php echo number_format($row_RCcapnhat_congviec['muc_luong_cb'],0,',','.'); ?> VND<b></td>
                     <td>Hệ số: <b><?php echo $row_RCcapnhat_congviec['he_so']; ?></b></td>
-                    <td>Phụ cấp: <b><?php echo number_format($row_RCcapnhat_congviec['phu_cap'],0,',','.'); ?></b></td>
+                    <td>Phụ cấp: <b><?php echo number_format($row_RCcapnhat_congviec['phu_cap'],0,',','.'); ?> VND</b></td>
                 </tr>
                 <tr>
                     <td>Tổng lương: </td>
-                    <td><b><?php echo number_format($row_RCcapnhat_congviec['tong_luong'],0,',','.'); ?></b></td>
+                    <td><b><?php echo number_format($row_RCcapnhat_congviec['tong_luong'],0,',','.'); ?> VND</b></td>
                 </tr>
                 <tr>
                     <td>Tài khoản NH: <b><?php echo $row_RCcapnhat_congviec['tknh']; ?><b></td>

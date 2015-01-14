@@ -57,20 +57,16 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_job_form")) {
     $mydb->setQuery($insertSQL);
     $result_c = $mydb->executeQuery();
     if($result_c) {
-        $message = "$.growl('<strong>Thao tác thêm mới thành công!</strong> ', { 
-                        type: 'success'
-                    });";
+        $message = "Thao tác thêm mới thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
         $url = "index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=".$ma_nv."&title=Thông tin công việc";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
     else {
-        $message = "$.growl('<strong>Thao tác thêm mới thất bại!</strong> ', { 
-                        type: 'danger'
-                    });";
-        $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
+        $message = "Thao tác thêm mới thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        $url = "index.php?require=cap_nhat_thong_tin_cong_viec.php&catID=".$ma_nv."&title=Thông tin công việc";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
 
     $insertGoTo = "danh_sach_nhan_vien.php";

@@ -78,7 +78,6 @@
 									<li><a href="index.php?require=danh_sach_nhan_vien_nghi.php&title=Danh sách nghỉ việc">Danh sách nghỉ việc</a></li>
 								</ul>
 							</li>
-							<li><a href="#">Báo cáo</a></li>
 						</ul>
                     <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                     </li>
@@ -217,7 +216,7 @@
 
      
         <div class="pagination">
-        <span class="disabled"><< prev</span><span class="current">1</span><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>…<a href="">10</a><a href="">11</a><a href="">12</a>...<a href="">100</a><a href="">101</a><a href="">next >></a>
+        <span class="disabled"><< prev</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a>…<a href="#">10</a><a href="#">11</a><a href="#">12</a>...<a href="#">100</a><a href="#">101</a><a href="#">next >></a>
         </div>
      
     </div><!-- end of right content-->
