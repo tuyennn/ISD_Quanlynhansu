@@ -43,7 +43,6 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_job_form")) 
     $he_so = $_POST['he_so'];
     $phu_cap = $_POST['phu_cap'];
     $tong_luong = ($muc_luong_cb * $he_so) + $phu_cap;
-    echo $tong_luong;
     $updateSQL = sprintf("UPDATE tlb_congviec SET ngay_vao_lam='{$sDate}', ma_phong_ban=%s, ma_cong_viec=%s, ma_chuc_vu=%s, muc_luong_cb='{$muc_luong_cb}', he_so='{$he_so}', phu_cap='{$phu_cap}', tong_luong='{$tong_luong}', tknh=%s, ngan_hang=%s WHERE ma_nhan_vien='{$ma_nv}'",
         GetSQLValueString($_POST['ma_phong_ban'], "text"),
         GetSQLValueString($_POST['ma_cong_viec'], "text"),
@@ -52,7 +51,16 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_job_form")) 
         GetSQLValueString($_POST['ngan_hang'], "text"));
 
     $mydb->setQuery($updateSQL);
-    $result = $mydb->executeQuery();
+    $result_e = $mydb->executeQuery();
+    if($result_e) {
+        $message = "Thao tác cập nhật thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+    else {
+        $message = "Thao tác cập nhật thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+
     $updateGoTo = "danh_sach_nhan_vien.php";
     if (isset($_SERVER['QUERY_STRING'])) {
         $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
@@ -130,7 +138,11 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
     </script>
 </head>
 <body text="#000000" link="#CC0000" vlink="#0000CC" alink="#000099">
-<!--MAIN UP CONTENT -->
+    <div style="display: none;">
+        <img id="calImg" src="images/calendar.gif" alt="Popup" class="trigger">
+    </div>
+
+    <!--MAIN UP CONTENT -->
     <div class="detail_up">
         <table id="rounded-corner" border="0" width="750">
             <thead>
@@ -203,18 +215,21 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
     <div class="detail_bottom">
     
         <form action="<?php echo $editFormAction; ?>" method="post" name="update_job_form" id="update_job_form">
-            <table class="row2" width="800" align="center" cellpadding="1" cellspacing="1" bgcolor="#66CCFF">
+            <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
-                    <td width="102" align="right" nowrap="nowrap">Mã nhân viên:</td>
-                    <td width="219"><?php echo $row_RCcapnhat_congviec['ma_nhan_vien']; ?></td>
-                    <td width="110">Tài khoản NH:</td>
-                    <td width="291"><input type="text" name="tknh" value="<?php echo htmlentities($row_RCcapnhat_congviec['tknh'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                    <td width="100" align="right" nowrap="nowrap">Mã nhân viên:</td>
+                    <td width="300"><?php echo $row_RCcapnhat_congviec['ma_nhan_vien']; ?></td>
+                    <td width="100">Tài khoản NH:</td>
+                    <td width="200"><input type="text" name="tknh" value="<?php echo htmlentities($row_RCcapnhat_congviec['tknh'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="number"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày vào làm *:</td>
-                    <td><input type="text" name="ngay_vao_lam" value="<?php echo htmlentities($row_RCcapnhat_congviec['ngay_vao_lam'], ENT_COMPAT, 'utf-8'); ?>" size="25" /></td>
+                    <td>
+                        <input type="text" name="ngay_vao_lam" id="ngay_vao_lam" value="<?php echo date("d/m/Y", strtotime($row_RCcapnhat_congviec['ngay_vao_lam'])); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
+                        (dd/mm/yyyy)
+                    </td>
                     <td>Ngân hàng:</td>
-                    <td><input type="text" name="ngan_hang" value="<?php echo htmlentities($row_RCcapnhat_congviec['ngan_hang'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                    <td><input type="text" name="ngan_hang" value="<?php echo htmlentities($row_RCcapnhat_congviec['ngan_hang'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="required"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phòng ban:</td>
@@ -269,29 +284,40 @@ $totalRows_RCChucvu = $mydb->num_rows($RCChucvu);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mức lương:</td>
-                    <td><input type="text" name="muc_luong_cb" value="<?php echo htmlentities($row_RCcapnhat_congviec['muc_luong_cb'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                    <td><input type="text" name="muc_luong_cb" readonly="readonly" value="<?php echo htmlentities($row_RCcapnhat_congviec['muc_luong_cb'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="number"/></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hệ số:</td>
-                    <td><input type="text" name="he_so" value="<?php echo htmlentities($row_RCcapnhat_congviec['he_so'], ENT_COMPAT, 'utf-8'); ?>" size="32" /></td>
+                    <td><input type="text" name="he_so" value="<?php echo htmlentities($row_RCcapnhat_congviec['he_so'], ENT_COMPAT, 'utf-8'); ?>" size="32" data-validation="required"/></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phụ cấp:</td>
-                    <td><input type="text" name="phu_cap" value="<?php echo $row_RCcapnhat_congviec['phu_cap']; ?>" size="32" /></td>
+                    <td><input type="text" name="phu_cap" value="<?php echo $row_RCcapnhat_congviec['phu_cap']; ?>" size="32" data-validation="number"/></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr valign="baseline">
-                    <td colspan="4" align="center" nowrap="nowrap"><input type="submit" value=":|: Cập nhật :|:" /></td>
+                    <td colspan="4" align="center" nowrap="nowrap">
+                        <input type="submit" class="btn btn-default" name="submit" id="editjob" value="Cập nhật thông tin công việc" />
+                    </td>
                 </tr>
             </table>
             <input type="hidden" name="MM_update" value="update_job_form" />
             <input type="hidden" name="ma_nhan_vien" value="<?php echo $row_RCcapnhat_congviec['ma_nhan_vien']; ?>" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security, file',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

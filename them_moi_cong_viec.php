@@ -151,9 +151,6 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
 
         <form action="<?php echo $editFormAction; ?>" method="post" name="new_job_form" id="new_job_form">
             <table id="rounded-corner" width="750" align="center">
-
-
-            
                 <tr valign="baseline">
                     <td width="96" align="right" nowrap="nowrap">Mã nhân viên:</td>
                     <td style="color:red"><b><?php echo $ma_nv; ?></b></td>
@@ -177,7 +174,7 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày vào làm (*):</td>
                     <td>
-                        <input type="text" name="ngay_vao_lam" id="ngay_vao_lam" value="" size="27" data-validation="birthdate" data-validation-format="dd/mm/yyyy" data-validation-error-msg="Định dạng ngày tháng không chính xác" />
+                        <input type="text" name="ngay_vao_lam" id="ngay_vao_lam" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                     <td colspan="2"></td> 
@@ -241,21 +238,21 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hệ số:</td>
-                    <td><input type="text" name="he_so" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc" /></td>
+                    <td><input type="text" name="he_so" value="" size="32" data-validation="required"/></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Phụ cấp:</td>
-                    <td><input type="text" name="phu_cap" value="" size="32" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                    <td><input type="text" name="phu_cap" value="" size="32" data-validation="number"/></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Tài khoản NH:</td>
-                    <td><input type="text" name="tknh" value="" size="32" /></td>
+                    <td><input type="text" name="tknh" value="" size="32" data-validation="number"/></td>
                     <td>Ngân hàng:</td>
-                    <td><input type="text" name="ngan_hang" value="" size="32" /></td>
+                    <td><input type="text" name="ngan_hang" value="" size="32" data-validation="required"/></td>
                 </tr>
                 <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
@@ -270,12 +267,14 @@ $totalRows_RCCheck = $mydb->num_rows($RCCheck);
             <input type="hidden" name="MM_insert" value="new_job_form" />
         </form>
         <script src="js/form-validator/jquery.form-validator.min.js"></script>
-        <script>
-        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
-            $.validate({
-                modules : 'date, security'
-            });
-        </script>
+    <script src="js/form-validator/locale.vi.js"></script>
+    <script>
+    /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+        $.validate({
+            modules : 'date, security, file',
+            language : enErrorDialogs
+        });
+    </script>
     </div>
 </body>
 </html>

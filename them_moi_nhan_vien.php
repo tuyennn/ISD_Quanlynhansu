@@ -229,7 +229,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Địa chỉ:</td>
-                <td colspan="3"><input type="text" name="dia_chi" value="" size="90" /></td>
+                <td colspan="3"><input type="text" name="dia_chi" value="" size="90" data-validation="required"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Tạm trú:</td>
