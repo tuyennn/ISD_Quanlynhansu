@@ -171,57 +171,49 @@ $totalRows_RCBaohiem_DS = $mydb->num_rows($RCBaohiem_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số BHXH:</td>
                     <td>
-                        <input type="text" name="so_bhxh" value="<?php echo htmlentities($row_RCBaohiem_CN['so_bhxh'], ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="so_bhxh" value="<?php echo htmlentities($row_RCBaohiem_CN['so_bhxh'], ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày Cấp BHXH:</td>
                     <td>
-                        <input type="text" name="ngay_cap_bhxh" id="ngay_cap_bhxh" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCBaohiem_CN['ngay_cap_bhxh'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_cap_bhxh" id="ngay_cap_bhxh" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCBaohiem_CN['ngay_cap_bhxh'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHXH:</td>
                     <td>
-                        <input type="text" name="noi_cap_bhxh" value="<?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhxh'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="noi_cap_bhxh" value="<?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhxh'], ENT_COMPAT, 'utf-8'); ?>" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số BHYT:</td>
                     <td>
-                        <input type="text" name="so_bhyt" value="<?php echo htmlentities($row_RCBaohiem_CN['so_bhyt'], ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="so_bhyt" value="<?php echo htmlentities($row_RCBaohiem_CN['so_bhyt'], ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày Cấp BHYT:</td>
                     <td>
-                        <input type="text" name="ngay_cap_bhyt" id="ngay_cap_bhyt" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCBaohiem_CN['ngay_cap_bhyt'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_cap_bhyt" id="ngay_cap_bhyt" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCBaohiem_CN['ngay_cap_bhyt'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHYT:</td>
-                    <td><textarea name="noi_cap_bhyt" rows="5" cols="60"><?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhyt'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
+                    <td><textarea name="noi_cap_bhyt" rows="5" cols="60" data-validation="required"><?php echo htmlentities($row_RCBaohiem_CN['noi_cap_bhyt'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
 
                 <tr valign="baseline">
-                    <td colspan="2">
-                        <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>
-                        <a href="#" onclick="go_back()" class="bt_blue"><span class="bt_blue_lft"></span><strong>Quay lại</strong><span class="bt_blue_r"></span></a>
+                    <td colspan="2" align="right">
+                        <input onClick="go_back()" class="btn btn-default" value="Quay lại" />
+                        <input type="submit" class="btn btn-default" name="submit" id="editinsurance" value="Cập nhật bảo hiểm" />
                         <script type="text/javascript">
                             function go_back()
                                 {
                                     location.href='index.php?require=them_moi_bao_hiem.php&catID=<?php echo $ma_nv; ?>&title=Bảo Hiểm&action=new';
                                 }
-                            function ConfirmEdit()
-                            {
-                                if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
-                                {
-                                    update_insurance_form.submit();
-                                    return false;
-                                }  
-                            }
                         </script>
                     </td>
                 </tr>
@@ -229,6 +221,15 @@ $totalRows_RCBaohiem_DS = $mydb->num_rows($RCBaohiem_DS);
             <input type="hidden" name="MM_update" value="update_insurance_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCBaohiem_CN['id']; ?>" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

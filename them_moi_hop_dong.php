@@ -240,21 +240,21 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hiệu lực từ:</td>
                     <td>
-                        <input type="text" name="tu_ngay" id="tu_ngay" value="" size="27" />
+                        <input type="text" name="tu_ngay" id="tu_ngay" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Đến hết:</td>
                     <td>
-                        <input type="text" name="den_ngay" id="den_ngay" value="" size="27" />
+                        <input type="text" name="den_ngay" id="den_ngay" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số quyết định HĐ:</td>
                     <td>
-                        <input type="text" name="so_quyet_dinh" value="" size="54" />
+                        <input type="text" name="so_quyet_dinh" value="" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
@@ -274,8 +274,9 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>
                 </tr>
                 <tr>
-                    <td colspan="3">
-                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới hợp đồng</strong><span class="bt_green_r"></span></a>
+                    <td colspan="3" align="right">
+                        <button class="btn btn-default" onclick="new_contract_form.reset();">Làm lại</button>
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addcontract" value="Thêm mới hợp đồng" />
                         <script type="text/javascript">
                         function ConfirmCreate()
                         {
@@ -291,6 +292,15 @@ $totalRows_RCHopdong_TM = $mydb->num_rows($RCHopdong_TM);
             </table>
             <input type="hidden" name="MM_insert" value="new_contract_form" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

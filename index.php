@@ -149,7 +149,6 @@
                 <div class="submenu">
                     <ul>
                     <li><a href="index.php?require=them_moi_tai_lieu.php&title=Quản lý tài liệu">Quản Lý Mẫu Biểu Công Ty</a></li>
-                    <li><a href="">Xuất Dữ Liệu Ra Excel</a></li>
                     </ul>
                 </div>
                 <a class="menuitem_red" href="">Sao Lưu</a>
@@ -162,7 +161,7 @@
                 <h4>Ghi Chú</h4>
                 <img src="images/notice.png" alt="" title="" class="sidebar_icon_right" />
                 <p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Thông báo họp giao ban công ty vào....
                 </p>                
                 </div>
                 <div class="sidebar_box_bottom"></div>

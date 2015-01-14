@@ -235,41 +235,42 @@ if ($totalRows_RCBaohiem_TM <>0)
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số BHXH:</td>
                     <td>
-                        <input type="text" name="so_bhxh" value="" size="27" />
+                        <input type="text" name="so_bhxh" value="" size="27" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày Cấp BHXH:</td>
                     <td>
-                        <input type="text" name="ngay_cap_bhxh" id="ngay_cap_bhxh" value="" size="27" />
+                        <input type="text" name="ngay_cap_bhxh" id="ngay_cap_bhxh" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHXH:</td>
-                    <td><textarea name="noi_cap_bhxh" value="" rows="5" cols="60"></textarea></td>
+                    <td><textarea name="noi_cap_bhxh" value="" rows="5" cols="60" data-validation="required"></textarea></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số BHYT:</td>
                     <td>
-                        <input type="text" name="so_bhyt" value="" size="27" />
+                        <input type="text" name="so_bhyt" value="" size="27" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày Cấp BHYT:</td>
                     <td>
-                        <input type="text" name="ngay_cap_bhyt" id="ngay_cap_bhyt" value="" size="27" />
+                        <input type="text" name="ngay_cap_bhyt" id="ngay_cap_bhyt" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nơi Cấp BHYT:</td>
-                    <td><textarea name="noi_cap_bhyt" value="" rows="5" cols="60"></textarea></td>
+                    <td><textarea name="noi_cap_bhyt" value="" rows="5" cols="60" data-validation="required"></textarea></td>
                 </tr>
 
                 <tr>
-                    <td colspan="3">
-                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới bảo hiểm</strong><span class="bt_green_r"></span></a>
+                    <td colspan="3" align="right">
+                        <button class="btn btn-default" onclick="new_insurance_form.reset();">Làm lại</button>
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addinsurance" value="Thêm mới bảo hiểm" />
                         <script type="text/javascript">
                         function ConfirmCreate()
                         {
@@ -285,6 +286,15 @@ if ($totalRows_RCBaohiem_TM <>0)
             </table>
             <input type="hidden" name="MM_insert" value="new_insurance_form" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 // Function Tìm Kiếm Nhân Viên
 
 $keyword = get_param('keyword');
-$mydb->setQuery("SELECT * FROM tlb_nhanvien");
+$mydb->setQuery("SELECT * FROM tlb_nhanvien ORDER BY `tlb_nhanvien`.`ma_nhan_vien` ASC");
 
 if($keyword!=''){
     $mydb->setQuery("SELECT * FROM tlb_nhanvien WHERE ho_ten LIKE '%".$keyword."%'");
@@ -62,20 +62,16 @@ if ($action=="del")
     $result_d = $mydb->executeQuery();
 
     if($result_d) {
-        $message = "$.growl('<strong>Thao tác xóa thành công!</strong> ', { 
-                        type: 'success'
-                    });";
+        $message = "Thao tác xóa thành công!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
     else {
-        $message = "$.growl('<strong>Thao tác xóa thất bại!</strong> ', { 
-                        type: 'danger'
-                    });";
+        $message = "Thao tác xóa thất bại!";
+        echo "<script type='text/javascript'>alert('$message');</script>";
         $url = "index.php?require=danh_sach_nhan_vien.php&title=Danh sách nhân viên";
         location($url);
-        echo "<script type='text/javascript'>$(function() {" . $message . "});</script>";
     }
 }
 ?>

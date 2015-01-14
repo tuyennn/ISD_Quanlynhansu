@@ -6,7 +6,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_staff")) {
+if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_staff_form")) {
 $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh, gia_dinh, dt_di_dong, dt_nha, email, ngay_sinh, noi_sinh, cmnd, ngay_cap, noi_cap, que_quan, dia_chi, tam_tru) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
 	strtoupper(get_param('ma_nhan_vien')),
 	get_param('ho_ten'),
@@ -166,7 +166,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
         <img id="calImg" src="images/calendar.gif" alt="Popup" class="trigger">
     </div>
 
-    <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="new_staff" id="new_staff" runat="server">
+    <form action="<?php echo $editFormAction; ?>" method="post" enctype="multipart/form-data" name="new_staff_form" id="new_staff_form" runat="server">
         <table id="rounded-corner" >
             <tr valign="baseline">
                 <td align="right" nowrap="nowrap">Mã nhân viên(*):</td>
@@ -190,7 +190,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
                     </select>
                 </td>
                 <td>Nơi sinh:</td>
-                <td><input type="text" name="noi_sinh" value="" size="32" /></td>
+                <td><input type="text" name="noi_sinh" value="" size="32" data-validation="required"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Hôn nhân:</td>
@@ -204,9 +204,9 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐTDĐ:</td>
-                <td><input type="text" name="dt_di_dong" value="" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td><input type="text" name="dt_di_dong" value="" size="32" data-validation="number"/></td>
                 <td>CMND:</td>
-                <td><input type="text" name="cmnd" value="" size="32" data-validation="number" data-validation-error-msg="Thông tin bắt buộc" /></td>
+                <td><input type="text" name="cmnd" value="" size="32" data-validation="number" /></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">ĐT:</td>
@@ -219,13 +219,13 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Email:</td>
-                <td><input type="text" name="email" value="" size="32" data-validation="email" data-validation-error-msg="Định dạng email không chính xác"/></td>
+                <td><input type="text" name="email" value="" size="32" data-validation="email" /></td>
                 <td>Nơi cấp:</td>
                 <td><input type="text" name="noi_cap" value="" size="32" /></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Quê quán:</td>
-                <td colspan="3"><input type="text" name="que_quan" value="" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td colspan="3"><input type="text" name="que_quan" value="" size="90" data-validation="required"/></td>
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Địa chỉ:</td>
@@ -233,7 +233,7 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tr>
             <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Tạm trú:</td>
-                <td colspan="3"><input type="text" name="tam_tru" value="" size="90" data-validation="required" data-validation-error-msg="Thông tin bắt buộc"/></td>
+                <td colspan="3"><input type="text" name="tam_tru" value="" size="90" data-validation="required"/></td>
             </tr>
             <tr style="height: 200px" valign="middle">
                 <td nowrap="nowrap" align="right">Hình ảnh:</td>
@@ -253,13 +253,13 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             <tr valign="baseline">
                 <td colspan="3"></td>
                 <td align="right">
-                    <button class="btn btn-default" onclick="new_staff.reset();">Làm lại</button>
+                    <button class="btn btn-default" onclick="new_staff_form.reset();">Làm lại</button>
                     <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addstaff" value="Thêm mới nhân viên" />
                     <script>
                         function ConfirmCreate(){
                             if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
                             {
-                                new_staff.submit();
+                                new_staff_form.submit();
                                 return true;
                             }  
                         }
@@ -280,13 +280,15 @@ $insertSQL = sprintf("INSERT INTO tlb_nhanvien (ma_nhan_vien, ho_ten, gioi_tinh,
             </tfoot>
 
         </table>
-        <input type="hidden" name="MM_insert" value="new_staff" />
+        <input type="hidden" name="MM_insert" value="new_staff_form" />
     </form>
     <script src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script src="js/form-validator/locale.vi.js"></script>
     <script>
     /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
         $.validate({
             modules : 'date, security, file',
+            language : enErrorDialogs
         });
     </script>
 </body>

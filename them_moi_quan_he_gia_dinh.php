@@ -212,51 +212,60 @@ $mydb->setQuery("SELECT * FROM tlb_quanhegiadinh where ma_nhan_vien = '$ma_nv'")
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Tên người thân:</td>
-                    <td><input type="text" name="ten_nguoi_than" value="" size="54" /></td>
+                    <td><input type="text" name="ten_nguoi_than" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="baseline">
                 <td nowrap="nowrap" align="right">Năm sinh:</td>
-                    <td><input type="text" name="nam_sinh" value="" size="54" /></td>
+                    <td><input type="text" name="nam_sinh" value="" size="54" data-validation="date" data-validation-format="yyyy" data-validation-error-msg="Không đúng định dạng năm"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mối quan hệ:</td>
-                    <td><input type="text" name="moi_quan_he" value="" size="54" /></td>
+                    <td><input type="text" name="moi_quan_he" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Nghề nghiệp:</td>
-                    <td><input type="text" name="nghe_nghiep" value="" size="54" /></td>
+                    <td><input type="text" name="nghe_nghiep" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Địa chỉ:</td>
-                    <td><input type="text" name="dia_chi" value="" size="54" /></td>
+                    <td><input type="text" name="dia_chi" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">ĐT liên lạc:</td>
-                    <td><input type="text" name="dtll" value="" size="54" /></td>
+                    <td><input type="text" name="dtll" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>
                 <tr>
-                    <td colspan="3">
-                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quan hệ</strong><span class="bt_green_r"></span></a>
-                        <script type="text/javascript">
-                        function ConfirmCreate()
-                        {
+                    <td colspan="2" align="right">
+                    <button class="btn btn-default" onclick="new_relationship_form.reset();">Làm lại</button>
+                    <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addrelationship" value="Thêm mới nhân viên" />
+                    <script>
+                        function ConfirmCreate(){
                             if (confirm("Bạn có chắc chắn thao tác thêm mới!"))
                             {
                                 new_relationship_form.submit();
-                                return false;
+                                return true;
                             }  
                         }
-                        </script>
-                    </td>
+                        
+                    </script> 
+                </td>
                 </tr>
             </table>
             <input type="hidden" name="MM_insert" value="new_relationship_form" />
         </form>
-        
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

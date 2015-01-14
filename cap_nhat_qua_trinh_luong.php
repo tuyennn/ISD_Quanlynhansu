@@ -164,13 +164,13 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số quyết định:</td>
                     <td>
-                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCQTluong_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCQTluong_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày chuyển mức:</td>
                     <td>
-                        <input type="text" name="ngay_chuyen" id="ngay_chuyen" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQTluong_CN['ngay_chuyen'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_chuyen" id="ngay_chuyen" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQTluong_CN['ngay_chuyen'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
@@ -178,7 +178,7 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Mức lương:</td>
                     <td>
-                        <input type="text" name="muc_luong" value="<?php echo $row_RCQTluong_CN['muc_luong']; ?>" size="54" />
+                        <input type="text" name="muc_luong" value="<?php echo $row_RCQTluong_CN['muc_luong']; ?>" size="54" data-validation="number"/>
                     </td>
                 </tr>
                 <tr valign="middle">
@@ -186,21 +186,13 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
                     <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCQTluong_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>                 
                 </tr>
                 <tr valign="baseline">
-                    <td colspan="2">
-                        <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>
-                        <a href="#" onclick="go_back()" class="bt_blue"><span class="bt_blue_lft"></span><strong>Quay lại</strong><span class="bt_blue_r"></span></a>
+                    <td colspan="2" align="right">
+                        <input onClick="go_back()" class="btn btn-default" value="Quay lại" />
+                        <input type="submit" class="btn btn-default" name="submit" id="editsalary" value="Cập nhật quá trình lương" />
                         <script type="text/javascript">
                             function go_back()
                             {
                                 location.href='index.php?require=them_moi_qua_trinh_luong.php&catID=<?php echo $ma_nv; ?>&title=Cập nhật quá trình lương&action=new';
-                            }
-                            function ConfirmEdit()
-                            {
-                                if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
-                                {
-                                    update_salary_form.submit();
-                                    return false;
-                                }  
                             }
                         </script>
                     </td>
@@ -209,5 +201,14 @@ $totalRows_RCQTluong_DS = $mydb->num_rows($RCQTluong_DS);
             <input type="hidden" name="MM_update" value="update_salary_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCQTluong_CN['id']; ?>" />
     </form>
+    <script src="js/form-validator/jquery.form-validator.min.js"></script>
+    <script src="js/form-validator/locale.vi.js"></script>
+    <script>
+    /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+        $.validate({
+            modules : 'date, security',
+            language : enErrorDialogs
+        });
+    </script>
 </body>
 </html>

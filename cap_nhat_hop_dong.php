@@ -38,7 +38,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_salary_form_form")) {
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "update_contract_form")) {
     $sDate = str_replace('/', '-', $_POST['tu_ngay']);
     $tDate = str_replace('/', '-', $_POST['den_ngay']);
     $sDate = date('Y-m-d', strtotime($sDate));
@@ -159,7 +159,7 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
         $row_RCHopdong_CN = $mydb->fetch_assoc($RCHopdong_CN);
         $totalRows_RCHopdong_CN = $mydb->num_rows($RCHopdong_CN);
     ?>
-    <form action="<?php echo $editFormAction; ?>" method="post" name="update_salary_form_form" id="update_salary_form_form">
+    <form action="<?php echo $editFormAction; ?>" method="post" name="update_contract_form" id="update_contract_form">
         <table id="rounded-corner" width="750" align="center">
                 <tr valign="baseline">
                     <tr valign="baseline">
@@ -186,21 +186,21 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Hiệu lực từ:</td>
                     <td>
-                        <input type="text" name="tu_ngay" id="tu_ngay" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCHopdong_CN['tu_ngay'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="tu_ngay" id="tu_ngay" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCHopdong_CN['tu_ngay'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Đến hết:</td>
                     <td>
-                        <input type="text" name="den_ngay" id="den_ngay" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCHopdong_CN['den_ngay'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="den_ngay" id="den_ngay" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCHopdong_CN['den_ngay'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số quyết định HĐ:</td>
                     <td>
-                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCHopdong_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCHopdong_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
@@ -233,29 +233,31 @@ $totalRows_RCHopdong_DS = $mydb->num_rows($RCHopdong_DS);
                     <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCHopdong_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
                 <tr valign="baseline">
-                    <td colspan="2">
-                        <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>
-                        <a href="#" onclick="go_back()" class="bt_blue"><span class="bt_blue_lft"></span><strong>Quay lại</strong><span class="bt_blue_r"></span></a>
+                    <td colspan="2" align="right">
+                        <input onClick="go_back()" class="btn btn-default" value="Quay lại" />
+                        <input type="submit" class="btn btn-default" name="submit" id="editcontract" value="Cập nhật hợp đồng" />
+
                         <script type="text/javascript">
                             function go_back()
                                 {
                                     location.href='index.php?require=them_moi_hop_dong.php&catID=<?php echo $ma_nv; ?>&title=Ký Hợp Đồng&action=new';
                                 }
-                            function ConfirmEdit()
-                            {
-                                if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
-                                {
-                                    update_salary_form_form.submit();
-                                    return false;
-                                }  
-                            }
                         </script>
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="MM_update" value="update_salary_form_form" />
+            <input type="hidden" name="MM_update" value="update_contract_form" />
             <input type="hidden" name="id" value="<?php echo $row_RCHopdong_CN['id']; ?>" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

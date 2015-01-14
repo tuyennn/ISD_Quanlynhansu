@@ -169,48 +169,40 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày ký:</td>
                     <td>
-                        <input type="text" name="ngay_ky" id="ngay_ky" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_ky'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_ky" id="ngay_ky" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_ky'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số quyết định công tác:</td>
                     <td>
-                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCQuatrinh_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" />
+                        <input type="text" name="so_quyet_dinh" value="<?php echo htmlentities($row_RCQuatrinh_CN['so_quyet_dinh'], ENT_COMPAT, 'utf-8'); ?>" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr>
                     <td nowrap="nowrap" align="right">Ngày hiệu lực:</td>
                     <td>
-                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_hieu_luc'])), ENT_COMPAT, 'utf-8'); ?>" size="27" />
+                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="<?php echo htmlentities(date("d/m/Y", strtotime($row_RCQuatrinh_CN['ngay_hieu_luc'])), ENT_COMPAT, 'utf-8'); ?>" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Công việc:</td>
-                    <td colspan="3"><input type="text" name="cong_viec" value="<?php echo htmlentities($row_RCQuatrinh_CN['cong_viec'], ENT_COMPAT, 'utf-8'); ?>" size="54" /></td>
+                    <td colspan="3"><input type="text" name="cong_viec" value="<?php echo htmlentities($row_RCQuatrinh_CN['cong_viec'], ENT_COMPAT, 'utf-8'); ?>" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" rows="5" cols="60"><?php echo htmlentities($row_RCQuatrinh_CN['ghi_chu'], ENT_COMPAT, 'utf-8'); ?></textarea></td>
                 </tr>
-                <tr valign="baseline">
+                <tr valign="baseline" align="right">
                     <td colspan="3">
-                        <a href="#" onclick="ConfirmEdit()" class="bt_green"><span class="bt_green_lft"></span><strong>Cập nhật</strong><span class="bt_green_r"></span></a>
-                        <a href="#" onclick="go_back()" class="bt_blue"><span class="bt_blue_lft"></span><strong>Quay lại</strong><span class="bt_blue_r"></span></a>
+                        <input onClick="go_back()" class="btn btn-default" value="Quay lại" />
+                        <input type="submit" class="btn btn-default" name="submit" id="editworkingprocess" value="Cập nhật quá trình công tác" />
                         <script type="text/javascript">
                         function go_back()
                             {
                                 location.href='index.php?require=them_moi_qua_trinh_cong_tac.php&catID=<?php echo $ma_nv; ?>&title=Quá trình công tác&action=new';
                             }
-                        function ConfirmEdit()
-                        {
-                            if (confirm("Bạn có chắc chắn thao tác cập nhật!"))
-                            {
-                                update_workingprocess.submit();
-                                return false;
-                            }  
-                        }
                         </script>
                     </td>
                 </tr>
@@ -218,6 +210,15 @@ $totalRows_RCQuatrinh_DS = $mydb->num_rows($RCQuatrinh_DS);
             <input type="hidden" name="MM_update" value="update_workingprocess" />
             <input type="hidden" name="id" value="<?php echo $row_RCQuatrinh_CN['id']; ?>" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security, file',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

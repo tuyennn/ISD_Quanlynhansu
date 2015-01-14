@@ -227,34 +227,36 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày ký:</td>
                     <td>
-                        <input type="text" name="ngay_ky" id="ngay_ky" value="" size="27" />
+                        <input type="text" name="ngay_ky" id="ngay_ky" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Số quyết định công tác:</td>
                     <td>
-                        <input type="text" name="so_quyet_dinh" value="" size="54" />
+                        <input type="text" name="so_quyet_dinh" value="" size="54" data-validation="required"/>
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Ngày hiệu lực:</td>
                     <td>
-                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="" size="27" />
+                        <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc" value="" size="27" data-validation="date" data-validation-format="dd/mm/yyyy"/>
                         (dd/mm/yyyy)
                     </td>
                 </tr>
                 <tr valign="baseline">
                     <td nowrap="nowrap" align="right">Công việc:</td>
-                    <td colspan="3"><input type="text" name="cong_viec" value="" size="54" /></td>
+                    <td colspan="3"><input type="text" name="cong_viec" value="" size="54" data-validation="required"/></td>
                 </tr>
                 <tr valign="middle">
                     <td nowrap="nowrap" align="right">Ghi chú:</td>
                     <td><textarea name="ghi_chu" value="" rows="5" cols="60"></textarea></td>                 
                 </tr>
                 <tr>
-                    <td colspan="3">
-                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Thêm mới quá trình</strong><span class="bt_green_r"></span></a>
+                    <td colspan="3" align="right">
+                        <button class="btn btn-default" onclick="new_workingprocess_form.reset();">Làm lại</button>
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="addworkingprocess" value="Thêm mới quá trình công tác" />
+
                         <script type="text/javascript">
                         function ConfirmCreate()
                         {
@@ -270,6 +272,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_workingprocess_
             </table>
             <input type="hidden" name="MM_insert" value="new_workingprocess_form" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'date, security',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
 </body>
 </html>

@@ -96,12 +96,10 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
         else {
             $message = "Thao tác thêm mới thất bại!";
             echo "<script type='text/javascript'>alert('$message');</script>";
-            echo $insertSQL;
         }
     }
     else {
         mysql_error();
-        echo $insertSQL;
         //echo "There was an error uploading the file, please try again!";
     }
 
@@ -134,7 +132,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
             <thead>
                 <tr>
                     <th width="30" rowspan="2" align="center" class="rounded-company">MÃ</th>
-                    <th width="340" rowspan="2" align="left">TÊN TÀI LIỆU</th>
+                    <th width="360" rowspan="2" align="left">TÊN TÀI LIỆU</th>
                     <th width="100" rowspan="2" align="left">KÍCH CỠ</th>
                     <th width="80" rowspan="2" align="left">NGÀY TẠO</th>
                     <th colspan="3" align="center" class="rounded-q4">THAO TÁC</th>
@@ -192,19 +190,22 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
 
     <div class="detail_bottom">
         <form enctype="multipart/form-data" action="<?php echo $editFormAction; ?>" method="post" name="new_document_form" id="new_document_form">
-            <table id="rounded-corner" width="750" align="center">
+            <table id="rounded-corner">
                 <tr valign="baseline">
-                    <td nowrap="nowrap" align="left" colspan="3">Tên tài liệu:</td>
-                    <td><input type="text" name="ten_tailieu" value="" size="120" /></td>
-                    <td width="20"></td>
+                    <td width="200">Tên tài liệu:</td>
+                    <td colspan="2"><input type="text" name="ten_tailieu" value="" size="100" data-validation="required"/></td>
                 </tr>
 
                 <tr>
-                    <td colspan="5">
-                        <a href="#" onclick="ConfirmCreate()" class="bt_green"><span class="bt_green_lft"></span><strong>Tải lên</strong><span class="bt_green_r"></span></a>
-                            <span>
-                                <input id="upload_file" type="file" name="upload_file" />
-                            </span>
+                    <td colspan="2">
+                        <span>
+                            <input id="upload_file" type="file" name="upload_file" data-validation="mime size" data-validation-allowing="doc, docx, xls, xlsx, ppt, pptx, pdf" data-validation-max-size="10240kb" data-validation-help="Định dạng MS Office hoặc Adobe PDF & không quá 10MB"/>
+                        </span>
+                    </td>
+                    <td align="right">
+                        <button class="btn btn-default" onclick="new_document_form.reset();">Làm lại</button>
+                        <input type="submit" onClick="ConfirmCreate()" class="btn btn-default" name="submit" id="adddocument" value="Thêm mới tài liệu" />
+                        
                         <script type="text/javascript">
                         function ConfirmCreate()
                         {
@@ -220,4 +221,13 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "new_document_form")
             </table>
             <input type="hidden" name="MM_insert" value="new_document_form" />
         </form>
+        <script src="js/form-validator/jquery.form-validator.min.js"></script>
+        <script src="js/form-validator/locale.vi.js"></script>
+        <script>
+        /* important to locate this script AFTER the closing form element, so form object is loaded in DOM before setup is called */
+            $.validate({
+                modules : 'security, file',
+                language : enErrorDialogs
+            });
+        </script>
     </div>
